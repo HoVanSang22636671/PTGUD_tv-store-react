@@ -8,7 +8,9 @@ function App() {
 
   return (
     <>
+     <div className="App font-title">
       <Header/>
+    </div>
     </>
   )
 }
