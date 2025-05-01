@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../css/DangNhap.css';
+import '../css/DangNhap.module.css';
 // Đảm bảo đường dẫn đúng
 import '@fortawesome/fontawesome-free/css/all.min.css';
 function Login() {
