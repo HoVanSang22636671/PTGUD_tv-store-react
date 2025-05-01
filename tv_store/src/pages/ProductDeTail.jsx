@@ -5,7 +5,7 @@ import { FaStar } from "react-icons/fa";
 import { GoInfo } from "react-icons/go";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-
+import ThongTinVanChuyen from "../components/ProductDeTails/ThongTinVanChuyen";
 const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const [imgDevice, setImgDevice] = useState(0);
@@ -148,7 +148,7 @@ const ProductDetail = () => {
                   </div>
                 </div>
                 {/* Vận chuyển */}
-
+                <ThongTinVanChuyen />
                 {/* Bảo hành */}
 
                 {/* Cam kết */}
