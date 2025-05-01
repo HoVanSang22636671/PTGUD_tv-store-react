@@ -2,17 +2,24 @@ import { useState, useRef } from "react";
 import { IoIosSearch, IoMdClose } from "react-icons/io";
 import { HiMenu, HiX } from "react-icons/hi";
 import { VscAccount } from "react-icons/vsc";
+import { Link, useNavigate } from "react-router-dom"; // Import Link và useNavigate
 import Notification from "./Notifications";
 
 function Header() {
   const [search, setSearch] = useState("");
+  const [isSuggestionsVisible, setIsSuggestionsVisible] = useState(false); // Quản lý trạng thái hiển thị gợi ý
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const inputRef = useRef(null);
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  // Lấy thông tin tài khoản từ localStorage (giả lập đăng nhập)
+  const account = JSON.parse(localStorage.getItem("isAccount")) || null;
 
   const handleSearch = () => {
     const trimmedSearch = search.trim();
     if (trimmedSearch) {
-      console.log(`Searching for: ${trimmedSearch}`);
+      // Chuyển hướng đến trang tìm kiếm
+      navigate(`/search?q=${encodeURIComponent(trimmedSearch)}`);
     }
   };
 
@@ -35,7 +42,11 @@ function Header() {
         </div>
 
         {/* Thanh tìm kiếm */}
-        <div className="flex-col mt-3 flex">
+        <div
+          className="flex-col mt-3 flex relative"
+          onMouseEnter={() => setIsSuggestionsVisible(true)} // Hiển thị gợi ý khi đưa chuột vào
+          onMouseLeave={() => setIsSuggestionsVisible(false)} // Ẩn gợi ý khi rời chuột khỏi thanh tìm kiếm
+        >
           <div className="relative flex group ml-2">
             <IoIosSearch
               size={25}
@@ -71,6 +82,22 @@ function Header() {
               Tìm kiếm
             </span>
           </div>
+          {/* Hiển thị gợi ý tìm kiếm */}
+          {isSuggestionsVisible && (
+            <div className="absolute z-10 top-full left-0 w-full bg-white border border-gray-300 rounded-md shadow-md">
+              <ul>
+                <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
+                  Samsung Galaxy S25
+                </li>
+                <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
+                  iPhone 16
+                </li>
+                <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
+                  Xiaomi Redmi Note 12
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
 
         {/* Giỏ hàng, thông báo và tài khoản */}
@@ -84,16 +111,40 @@ function Header() {
           {/* Thông báo */}
           <Notification />
           <span className="border border-gray-400 h-[30px] hidden md:block"></span>
+
           {/* Tài khoản */}
-          <a href="#" className="flex items-center gap-1 cursor-pointer group">
-            <VscAccount className="text-[32px] text-secondary group-hover:text-primary transition-colors" />
-            <h4 className="text-secondary text-lg group-hover:text-primary transition-colors">
-              Đăng nhập
-            </h4>
-          </a>
+          {account ? (
+            <Link
+              to="/account"
+              className="items-center gap-1 cursor-pointer group hidden md:flex"
+            >
+              {account.avatar ? (
+                <img
+                  src={account.avatar}
+                  alt="Avatar"
+                  className="w-[32px] h-[32px] rounded-full"
+                />
+              ) : (
+                <VscAccount className="text-[32px] text-secondary group-hover:text-primary" />
+              )}
+              <h4 className="text-secondary text-lg group-hover:text-primary">
+                {account.username}
+              </h4>
+            </Link>
+          ) : (
+            <Link
+              to="/login"
+              className="hidden md:flex items-center gap-1 cursor-pointer group"
+            >
+              <VscAccount className="text-[32px] text-secondary group-hover:text-primary" />
+              <h4 className="text-secondary text-lg group-hover:text-primary">
+                Đăng nhập
+              </h4>
+            </Link>
+          )}
         </div>
       </div>
-            
+
       {/* Menu mobile */}
       <div className="flex items-center space-x-4">
         <button
