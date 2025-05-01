@@ -1,0 +1,1272 @@
+{
+    "product": [
+      {
+        "id": "1",
+        "name": "Tivi TCL Full HD 43 inch S5400A - HDR10, Dolby Audio - Hàng Chính Hãng",
+        "price": 5290000,
+        "thuongHieu": "TCL",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/b9/b6/be/a93cd562748c4a96b9b6aac57bea2ab7.png.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/4a/b5/f1/855f33cd7397a4b8f252d4f9a0cad77e.jpg.webp"
+          },
+          {
+            "id": 2,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/55/5e/f7/6e8fc86a9cecd39e674d4f811c6390f1.jpg.webp"
+          }
+          ,  {
+            "id": 3,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/76/c6/27/0e47e2b323821f36dc3b1460197c37eb.jpg.webp"
+          }
+        ],
+        "star": 4.5,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "20W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "Dolby Audio"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Trung Quốc"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "Android TV 11"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "HDR10"
+          },
+          {
+            "name": "Model",
+            "value": "S5400A"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "2 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "2 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 5,
+        "sold": 5,
+        "inventory": 20
+      },
+      {
+        "id": "2",
+        "name": "Tivi Sony 4K UHD 50 inch P635 - HDR10+, Dolby Atmos - Hàng Chính Hãng",
+        "price": 6490000,
+        "thuongHieu": "Sony",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/16/13/b5/60cd04a9242e9300fc2c3d94a1e41f0e.jpg.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+          }
+        ],
+        "star": 4.6,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "25W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "Dolby Atmos"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Nhật Bản"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "Google TV"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "HDR10+"
+          },
+          {
+            "name": "Model",
+            "value": "P635"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "3 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "3 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 6,
+        "sold": 10,
+        "inventory": 23
+      },
+      {
+        "id": "3",
+        "name": "Tivi LG QLED 4K 55 inch C645 - Dolby Vision, DTS - Hàng Chính Hãng",
+        "price": 7590000,
+        "thuongHieu": "LG",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+          }
+        ],
+        "star": 4.7,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "30W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "DTS"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Nhật Bản"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "WebOS"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "Dolby Vision"
+          },
+          {
+            "name": "Model",
+            "value": "C645"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "4 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "2 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 7,
+        "sold": 15,
+        "inventory": 26
+      },
+      {
+        "id": "4",
+        "name": "Tivi Samsung Full HD 65 inch UQ8000 - UHD AI PQ, Dolby Audio - Hàng Chính Hãng",
+        "price": 8990000,
+        "thuongHieu": "Samsung",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a1/4b/e7/7a49dbb875b6b11777ee11b47bc9c3c4.jpg.webp"
+          }
+        ],
+        "star": 4.8,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "20W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "Dolby Audio"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Hàn Quốc"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "Tizen"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "UHD AI PQ"
+          },
+          {
+            "name": "Model",
+            "value": "UQ8000"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "2 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "3 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 8,
+        "sold": 20,
+        "inventory": 29
+      },
+      {
+        "id": "5",
+        "name": "Tivi Panasonic 4K UHD 75 inch X80J - HDR10, Dolby Atmos - Hàng Chính Hãng",
+        "price": 9990000,
+        "thuongHieu": "Panasonic",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a1/4b/e7/7a49dbb875b6b11777ee11b47bc9c3c4.jpg.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/16/13/b5/60cd04a9242e9300fc2c3d94a1e41f0e.jpg.webp"
+          }
+        ],
+        "star": 4.9,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "25W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "Dolby Atmos"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Nhật Bản"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "My Home Screen"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "HDR10"
+          },
+          {
+            "name": "Model",
+            "value": "X80J"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "3 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "2 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 9,
+        "sold": 25,
+        "inventory": 32
+      },
+      {
+        "id": "6",
+        "name": "Tivi TCL QLED 4K 43 inch C735 - HDR10+, DTS - Hàng Chính Hãng",
+        "price": 11590000,
+        "thuongHieu": "TCL",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/16/13/b5/60cd04a9242e9300fc2c3d94a1e41f0e.jpg.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+          }
+        ],
+        "star": 4.5,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "30W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "DTS"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Trung Quốc"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "Android TV 11"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "HDR10+"
+          },
+          {
+            "name": "Model",
+            "value": "C735"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "4 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "3 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 10,
+        "sold": 30,
+        "inventory": 35
+      },
+      {
+        "id": "7",
+        "name": "Tivi Sony Full HD 50 inch CU7000 - Dolby Vision, Dolby Audio - Hàng Chính Hãng",
+        "price": 12990000,
+        "thuongHieu": "Sony",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+          }
+        ],
+        "star": 4.6,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "20W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "Dolby Audio"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Nhật Bản"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "Google TV"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "Dolby Vision"
+          },
+          {
+            "name": "Model",
+            "value": "CU7000"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "2 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "2 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 11,
+        "sold": 35,
+        "inventory": 38
+      },
+      {
+        "id": "8",
+        "name": "Tivi LG 4K UHD 55 inch X85K - UHD AI PQ, Dolby Atmos - Hàng Chính Hãng",
+        "price": 5290000,
+        "thuongHieu": "LG",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a1/4b/e7/7a49dbb875b6b11777ee11b47bc9c3c4.jpg.webp"
+          }
+        ],
+        "star": 4.7,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "25W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "Dolby Atmos"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Nhật Bản"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "WebOS"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "UHD AI PQ"
+          },
+          {
+            "name": "Model",
+            "value": "X85K"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "3 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "3 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 12,
+        "sold": 40,
+        "inventory": 41
+      },
+      {
+        "id": "9",
+        "name": "Tivi Samsung QLED 4K 65 inch U7K - HDR10, DTS - Hàng Chính Hãng",
+        "price": 6490000,
+        "thuongHieu": "Samsung",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a1/4b/e7/7a49dbb875b6b11777ee11b47bc9c3c4.jpg.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/16/13/b5/60cd04a9242e9300fc2c3d94a1e41f0e.jpg.webp"
+          }
+        ],
+        "star": 4.8,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "30W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "DTS"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Hàn Quốc"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "Tizen"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "HDR10"
+          },
+          {
+            "name": "Model",
+            "value": "U7K"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "4 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "2 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 13,
+        "sold": 45,
+        "inventory": 44
+      },
+      {
+        "id": "10",
+        "name": "Tivi Panasonic Full HD 75 inch A8H - HDR10+, Dolby Audio - Hàng Chính Hãng",
+        "price": 7590000,
+        "thuongHieu": "Panasonic",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/16/13/b5/60cd04a9242e9300fc2c3d94a1e41f0e.jpg.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+          }
+        ],
+        "star": 4.9,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "20W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "Dolby Audio"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Nhật Bản"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "My Home Screen"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "HDR10+"
+          },
+          {
+            "name": "Model",
+            "value": "A8H"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "2 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "3 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 14,
+        "sold": 50,
+        "inventory": 47
+      },
+      {
+        "id": "11",
+        "name": "Tivi TCL 4K UHD 43 inch S5400A - Dolby Vision, Dolby Atmos - Hàng Chính Hãng",
+        "price": 8990000,
+        "thuongHieu": "TCL",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+          }
+        ],
+        "star": 4.5,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "25W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "Dolby Atmos"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Trung Quốc"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "Android TV 11"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "Dolby Vision"
+          },
+          {
+            "name": "Model",
+            "value": "S5400A"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "3 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "2 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 5,
+        "sold": 55,
+        "inventory": 20
+      },
+      {
+        "id": "12",
+        "name": "Tivi Sony QLED 4K 50 inch P635 - UHD AI PQ, DTS - Hàng Chính Hãng",
+        "price": 9990000,
+        "thuongHieu": "Sony",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a1/4b/e7/7a49dbb875b6b11777ee11b47bc9c3c4.jpg.webp"
+          }
+        ],
+        "star": 4.6,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "30W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "DTS"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Nhật Bản"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "Google TV"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "UHD AI PQ"
+          },
+          {
+            "name": "Model",
+            "value": "P635"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "4 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "3 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 6,
+        "sold": 60,
+        "inventory": 23
+      },
+      {
+        "id": "13",
+        "name": "Tivi LG Full HD 55 inch C645 - HDR10, Dolby Audio - Hàng Chính Hãng",
+        "price": 11590000,
+        "thuongHieu": "LG",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a1/4b/e7/7a49dbb875b6b11777ee11b47bc9c3c4.jpg.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/16/13/b5/60cd04a9242e9300fc2c3d94a1e41f0e.jpg.webp"
+          }
+        ],
+        "star": 4.7,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "20W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "Dolby Audio"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Nhật Bản"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "WebOS"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "HDR10"
+          },
+          {
+            "name": "Model",
+            "value": "C645"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "2 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "2 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 7,
+        "sold": 65,
+        "inventory": 26
+      },
+      {
+        "id": "14",
+        "name": "Tivi Samsung 4K UHD 65 inch UQ8000 - HDR10+, Dolby Atmos - Hàng Chính Hãng",
+        "price": 12990000,
+        "thuongHieu": "Samsung",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/16/13/b5/60cd04a9242e9300fc2c3d94a1e41f0e.jpg.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+          }
+        ],
+        "star": 4.8,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "25W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "Dolby Atmos"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Hàn Quốc"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "Tizen"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "HDR10+"
+          },
+          {
+            "name": "Model",
+            "value": "UQ8000"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "3 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "3 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 8,
+        "sold": 70,
+        "inventory": 29
+      },
+      {
+        "id": "15",
+        "name": "Tivi Panasonic QLED 4K 75 inch X80J - Dolby Vision, DTS - Hàng Chính Hãng",
+        "price": 5290000,
+        "thuongHieu": "Panasonic",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+          }
+        ],
+        "star": 4.9,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "30W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "DTS"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Nhật Bản"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "My Home Screen"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "Dolby Vision"
+          },
+          {
+            "name": "Model",
+            "value": "X80J"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "4 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "2 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 9,
+        "sold": 75,
+        "inventory": 32
+      },
+      {
+        "id": "16",
+        "name": "Tivi TCL Full HD 43 inch C735 - UHD AI PQ, Dolby Audio - Hàng Chính Hãng",
+        "price": 6490000,
+        "thuongHieu": "TCL",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a1/4b/e7/7a49dbb875b6b11777ee11b47bc9c3c4.jpg.webp"
+          }
+        ],
+        "star": 4.5,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "20W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "Dolby Audio"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Trung Quốc"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "Android TV 11"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "UHD AI PQ"
+          },
+          {
+            "name": "Model",
+            "value": "C735"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "2 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "3 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 10,
+        "sold": 80,
+        "inventory": 35
+      },
+      {
+        "id": "17",
+        "name": "Tivi Sony 4K UHD 50 inch CU7000 - HDR10, Dolby Atmos - Hàng Chính Hãng",
+        "price": 7590000,
+        "thuongHieu": "Sony",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a1/4b/e7/7a49dbb875b6b11777ee11b47bc9c3c4.jpg.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/16/13/b5/60cd04a9242e9300fc2c3d94a1e41f0e.jpg.webp"
+          }
+        ],
+        "star": 4.6,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "25W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "Dolby Atmos"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Nhật Bản"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "Google TV"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "HDR10"
+          },
+          {
+            "name": "Model",
+            "value": "CU7000"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "3 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "2 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 11,
+        "sold": 85,
+        "inventory": 38
+      },
+      {
+        "id": "18",
+        "name": "Tivi LG QLED 4K 55 inch X85K - HDR10+, DTS - Hàng Chính Hãng",
+        "price": 8990000,
+        "thuongHieu": "LG",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/16/13/b5/60cd04a9242e9300fc2c3d94a1e41f0e.jpg.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+          }
+        ],
+        "star": 4.7,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "30W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "DTS"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Nhật Bản"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "WebOS"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "HDR10+"
+          },
+          {
+            "name": "Model",
+            "value": "X85K"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "4 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "3 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 12,
+        "sold": 90,
+        "inventory": 41
+      },
+      {
+        "id": "19",
+        "name": "Tivi Samsung Full HD 65 inch U7K - Dolby Vision, Dolby Audio - Hàng Chính Hãng",
+        "price": 9990000,
+        "thuongHieu": "Samsung",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+          }
+        ],
+        "star": 4.8,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "20W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "Dolby Audio"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Hàn Quốc"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "Tizen"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "Dolby Vision"
+          },
+          {
+            "name": "Model",
+            "value": "U7K"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "2 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "2 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 13,
+        "sold": 95,
+        "inventory": 44
+      },
+      {
+        "id": "20",
+        "name": "Tivi Panasonic 4K UHD 75 inch A8H - UHD AI PQ, Dolby Atmos - Hàng Chính Hãng",
+        "price": 11590000,
+        "thuongHieu": "Panasonic",
+        "img": [
+          {
+            "id": 0,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+          },
+          {
+            "id": 1,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a1/4b/e7/7a49dbb875b6b11777ee11b47bc9c3c4.jpg.webp"
+          }
+        ],
+        "star": 4.9,
+        "info": [
+          {
+            "name": "Tổng công suất loa",
+            "value": "25W"
+          },
+          {
+            "name": "Số lượng loa",
+            "value": "2"
+          },
+          {
+            "name": "Công nghệ âm thanh",
+            "value": "Dolby Atmos"
+          },
+          {
+            "name": "Xuất xứ thương hiệu",
+            "value": "Nhật Bản"
+          },
+          {
+            "name": "Hệ điều hành",
+            "value": "My Home Screen"
+          },
+          {
+            "name": "Công nghệ hình ảnh",
+            "value": "UHD AI PQ"
+          },
+          {
+            "name": "Model",
+            "value": "A8H"
+          },
+          {
+            "name": "Kết nối không dây",
+            "value": "Bluetooth, Wi-Fi"
+          },
+          {
+            "name": "Cổng HDMI",
+            "value": "3 cổng"
+          }
+        ],
+        "baohanh": {
+          "thoigian": "3 năm",
+          "hinhthuc": "Điện tử",
+          "noibaohanh": "Bảo hành chính hãng"
+        },
+        "sale": 14,
+        "sold": 100,
+        "inventory": 47
+      }
+    ]
+  }

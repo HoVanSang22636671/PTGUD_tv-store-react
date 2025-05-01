@@ -10,11 +10,12 @@ function App() {
     <>
 
     {/*  */}
-    {/* <Header/>
-    <Footer/> */}
-    <Login/>
+    <Header/>
+    <Footer/>
+    {/* <Login/> */}
     </>
   )
 }
+
 
 export default App
