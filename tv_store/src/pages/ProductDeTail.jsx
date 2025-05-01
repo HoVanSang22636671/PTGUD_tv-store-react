@@ -12,11 +12,15 @@ const ProductDetail = () => {
   const [num, setNum] = useState(1);
   const [error, setError] = useState('');
   useEffect(() => {
-    fetch("http://localhost:3000/product")
+    const apiUrl =
+    window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? 'http://localhost:3000/api/db.json' // local
+      : 'https://your-project-name.vercel.app/api/db.json';
+    fetch(apiUrl)
       .then((res) => res.json())
       .then((data) => {
-        if (data && data.length > 0) {
-          setProduct(data[0]); // lấy sản phẩm đầu tiên
+        if (data && data.length > 0 && Array.isArray(data[0].product)) {
+          setProduct(data[0].product[0]); // ✅ Lấy 1 sản phẩm đầu tiên
         }
       })
       .catch((err) => console.error("Lỗi khi load dữ liệu:", err));
