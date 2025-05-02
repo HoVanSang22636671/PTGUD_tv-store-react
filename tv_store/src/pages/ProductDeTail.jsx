@@ -7,26 +7,22 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ThongTinVanChuyen from "../components/ProductDeTails/ThongTinVanChuyen";
 import CamKet from "../components/ProductDeTails/CamKet";
+import { useProduct } from "../API/UseProvider";
+import { useParams } from 'react-router-dom';
 const ProductDetail = () => {
-  const [product, setProduct] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [imgDevice, setImgDevice] = useState(0);
   const [num, setNum] = useState(1);
   const [error, setError] = useState('');
   const [filter, setFilter] = useState([1, 2]);
+  const { product } = useProduct();
+  const { id } = useParams();
   useEffect(() => {
-    const apiUrl =
-      window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://localhost:3000/api/db.json' // local
-        : 'https://your-project-name.vercel.app/api/db.json';
-    fetch(apiUrl)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data && data.length > 0 && Array.isArray(data[0].product)) {
-          setProduct(data[0].product[0]); // ✅ Lấy 1 sản phẩm đầu tiên
-        }
-      })
-      .catch((err) => console.error("Lỗi khi load dữ liệu:", err));
-  }, []);
+    if (product && Array.isArray(product)) {
+      const found = product.find((p) => String(p.id) === String(id));
+      setSelectedProduct(found);
+    }
+  }, [product, id]);
 
   // Hàm formatCurrency để định dạng giá tiền
   const formatCurrency = (value) => {
@@ -37,7 +33,7 @@ const ProductDetail = () => {
   };
 
   // Nếu product là null, hiển thị loading hoặc thông báo lỗi
-  if (!product) {
+  if (!selectedProduct) {
     return <div>Loading...</div>;
   }
   const filterStar = [
@@ -73,10 +69,10 @@ const ProductDetail = () => {
             <div className="w-full order-1 md:w-1/2   ">
               <div className="sticky top-[12px] ">
                 <div className="flex flex-col md:flex-row items-center justify-center rounded-md bg-white overflow-hidden">
-                  <img src={product.img[imgDevice].img} alt="" />
+                  <img src={selectedProduct.img[imgDevice].img} alt="" />
                 </div>
                 <div className="flex justify-center gap-1 mt-3">
-                  {product.img.map((img) =>
+                  {selectedProduct.img.map((img) =>
                     img.id === imgDevice ? (
                       <div
                         key={img.id}
@@ -113,26 +109,26 @@ const ProductDetail = () => {
                 <div className="flex flex-col gap-3 bg-white rounded-md p-4">
                   <div className="flex items-center gap-3">
                     <img
-                      src="./img/doitra30ngay.png"
+                      src="/img/doitra30ngay.png"
                       alt=""
                       className="w-[114px] h-[20px]"
                     />
                     <img
-                      src="./img/sanphamchinhhang.png"
+                      src="/img/sanphamchinhhang.png"
                       alt=""
                       className="w-[89px] h-[20px]"
                     />
                     <span className="text-[14px]">
-                      Thương hiệu: {product.thuongHieu}
+                      Thương hiệu: {selectedProduct.thuongHieu}
                     </span>
                   </div>
                   {/* Tên sản phẩm */}
                   <h1 className="text-[24px] font-medium">
-                    {product.name}
+                    {selectedProduct.name}
                   </h1>
                   <div className="flex items-center gap-4">
                     <div className="flex">
-                      {Array.from({ length: product.star }, (_, index) => (
+                      {Array.from({ length: selectedProduct.star }, (_, index) => (
                         <FaStar
                           key={index}
                           className="text-yellow-400 text-sm"
@@ -140,23 +136,23 @@ const ProductDetail = () => {
                       ))}
                     </div>
                     <div className="border border-gray-200 h-[19px]"></div>
-                    <div>Đã bán: {product.sold}</div>
+                    <div>Đã bán: {selectedProduct.sold}</div>
                   </div>
                   <div>
-                    {product.sale ? (
+                    {selectedProduct.sale ? (
                       <div className="flex items-center gap-4">
                         <h1 className="text-red-500 text-[25px] font-semibold">
                           {formatCurrency(
-                            product.price -
-                            product.price * (product.sale / 100)
+                            selectedProduct.price -
+                            selectedProduct.price * (selectedProduct.sale / 100)
                           )}
                         </h1>
                         <div className="space-x-2">
                           <span className="p-1 bg-gray-200 rounded-lg">
-                            {"-" + product.sale + "%"}
+                            {"-" + selectedProduct.sale + "%"}
                           </span>
                           <del className="text-secondary text-[12px]">
-                            {formatCurrency(product.price)}
+                            {formatCurrency(selectedProduct.price)}
                           </del>
                         </div>
                         <GoInfo />
@@ -164,7 +160,7 @@ const ProductDetail = () => {
                     ) : (
                       <div className="flex items-center gap-4">
                         <h1 className="text-red-500 text-[25px] font-semibold">
-                          {formatCurrency(product.price)}
+                          {formatCurrency(selectedProduct.price)}
                         </h1>
                       </div>
                     )}
@@ -183,7 +179,7 @@ const ProductDetail = () => {
                         Thời gian bảo hành:
                       </span>
                       <span className="text-[18px] font-semibold">
-                        {product.baohanh.thoigian}
+                        {selectedProduct.baohanh.thoigian}
                       </span>
                     </div>
                     <div className="border-b border-gray-200 p-3 flex gap-2">
@@ -191,13 +187,13 @@ const ProductDetail = () => {
                         Hình thức bảo hành::
                       </span>
                       <span className="text-[18px] font-semibold">
-                        {product.baohanh.hinhthuc}
+                        {selectedProduct.baohanh.hinhthuc}
                       </span>
                     </div>
                     <div className="border-b border-gray-200 p-3 flex gap-2">
                       <span className="text-[18px]">Nơi bảo hành:</span>
                       <span className="text-[18px] font-semibold">
-                        {product.baohanh.noibaohanh}
+                        {selectedProduct.baohanh.noibaohanh}
                       </span>
                     </div>
                   </div>
@@ -210,7 +206,7 @@ const ProductDetail = () => {
                     Thông tin chi tiết
                   </h1>
                   <div>
-                    {product.info.map((item, index) => (
+                    {selectedProduct.info.map((item, index) => (
                       <div
                         key={index}
                         className="border-b border-gray-200 p-3 flex gap-2"
@@ -365,12 +361,12 @@ const ProductDetail = () => {
             <div className=" flex flex-col gap-4 bg-white rounded-md p-4">
               <div className="flex gap-3 items-center">
                 <img
-                  src={product.img[imgDevice].img}
+                  src={selectedProduct.img[imgDevice].img}
                   alt=""
                   className="w-[50px] h-[50px]"
                 />
                 <h1 className="line-clamp-1 text-[17px] font-medium">
-                  {product.name}
+                  {selectedProduct.name}
                 </h1>
               </div>
 
@@ -396,7 +392,7 @@ const ProductDetail = () => {
                   <div
                     className="flex items-center cursor-pointer justify-center text-[28px] w-[39px] h-[39px] border border-gray-200 rounded-md text-secondary"
                     onClick={() => {
-                      if (num < product.inventory) {
+                      if (num < selectedProduct.inventory) {
                         setNum(num + 1);
                         setError('');
                       } else {
@@ -412,25 +408,25 @@ const ProductDetail = () => {
                   )}
                 </div>
 
-                <h1 className="text-[18px] text-gray-600 pt-2">Tồn kho: {product.inventory}</h1>
+                <h1 className="text-[18px] text-gray-600 pt-2">Tồn kho: {selectedProduct.inventory}</h1>
               </div>
 
               <div>
                 <h1 className="text-[20px] font-semibold mb-2">Tạm tính</h1>
                 <div className="text-[30px] text-red-500">
-                  {product.sale ? (
+                  {selectedProduct.sale ? (
                     <div className="flex items-center gap-4">
                       <h1 className="text-red-500 text-[30px] font-semibold">
                         {formatCurrency(
-                          (product.price -
-                            product.price * (product.sale / 100)) * num
+                          (selectedProduct.price -
+                            selectedProduct.price * (selectedProduct.sale / 100)) * num
                         )}
                       </h1>
                     </div>
                   ) : (
                     <div className="flex items-center gap-4">
                       <h1 className="text-red-500 text-[30px] font-semibold">
-                        {formatCurrency(product.price)}
+                        {formatCurrency(selectedProduct.price)}
                       </h1>
                     </div>
                   )}

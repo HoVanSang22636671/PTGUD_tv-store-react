@@ -13,7 +13,7 @@ function ThongTinVanChuyen() {
         Thông tin vận chuyển
       </h1>
       <div className="flex items-center gap-1 mx-auto -mb-[30px]">
-        <img src="./img/giaohang.png"alt="" className="w-[28px]" />
+        <img src="/img/giaohang.png"alt="" className="w-[28px]" />
         <span className="text-secondary text-[20px] ">
           {"Giao hàng ngày " + getDateAfterFourDays()}
         </span>
@@ -23,7 +23,7 @@ function ThongTinVanChuyen() {
         className="flex items-center justify-center gap-3
               border-t border-gray-200 py-2"
       >
-        <img src="./img/freeshipGreen.png" alt="" className="w-[18px] h-[18px]" />
+        <img src="/img/freeshipGreen.png" alt="" className="w-[18px] h-[18px]" />
         <h1 className="text-[18px]">
           Freeship 10k đơn từ 45k, Freeship 25k đơn từ 100k
         </h1>

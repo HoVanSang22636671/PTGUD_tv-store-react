@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useContext } from "react";
-import axios from "axios";
+
 
 const UserContext = createContext();
 
@@ -10,16 +10,18 @@ export const UserProvider = ({ children }) => {
   const [account, setAccount] = useState({});
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/product")
-      .then((response) => {
-        setProduct(response.data);
-        setLoading(false);
+    const apiUrl =
+      window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:3000/api/db.json' // local
+        : 'https://your-project-name.vercel.app/api/db.json';
+    fetch(apiUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.length > 0 && Array.isArray(data[0].product)) {
+          setProduct(data[0].product); 
+        }
       })
-      .catch((error) => {
-        console.error("Lỗi khi lấy dữ liệu:", error);
-        setLoading(false);
-      });
+      .catch((err) => console.error("Lỗi khi load dữ liệu:", err));
   }, []);
 
   useEffect(() => {

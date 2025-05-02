@@ -192,13 +192,11 @@ function HomePage() {
     return (
         <div className="bg-[#f5f5fa] transform transition-all duration-500 overflow-x-hidden">
             {/* Header */}
-            <div className="w-full">
-                <Header />
-            </div>
+           
 
             {/* Nội dung chính */}
-            <div className="container mx-auto px-4">
-                <div className="mt-3 max-w-screen-lg mx-auto min-h-[900px]">
+            <div className="container mx-auto px-4 max-[100%]:">
+                <div className="mt-3 max-w-screen-2lg mx-auto min-h-[900px]">
                     {/* Banner */}
                     <Banner />
 
@@ -262,9 +260,7 @@ function HomePage() {
             </div>
 
             {/* Footer */}
-            <div className="w-full">
-                <Footer />
-            </div>
+            
         </div>
     );
 }

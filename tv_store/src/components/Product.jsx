@@ -9,10 +9,7 @@ function Product({ product }) {
         <div
             className="mx-auto w-[95%] h-[325px] border border-gray-200 rounded-lg
     cursor-pointer hover:shadow-md transition duration-300 ease-in-out"
-            onClick={() => {
-                localStorage.setItem("detailProduct", JSON.stringify(product));
-                navigate("/productDetail", { state: { fromData: true } });
-            }}
+            onClick={() => navigate(`/productDetail/${product.id}`)}
         >
             <div className="p-2">
                 {/* IMG */}
@@ -55,7 +52,10 @@ function Product({ product }) {
                         )}
                     </div>
                 </div>
-                <div className="p-1 border-t border-gray-200 ">
+                <div className="p-1 border-t border-gray-200 flex justify-between items-center">
+                    {product.inventory <= 0 && (
+                        <span className="text-red-500">Hết hàng</span>
+                    )}
                     <span className="text-secondary float-right">Đã bán {sold}</span>
                 </div>
             </div>

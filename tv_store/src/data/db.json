@@ -73,17 +73,25 @@
       },
       {
         "id": "2",
-        "name": "Tivi Sony 4K UHD 50 inch P635 - HDR10+, Dolby Atmos - Hàng Chính Hãng",
-        "price": 6490000,
+        "name": "Android Tivi Sony 4K 50 inch KD-50X75",
+        "price": 11939000,
         "thuongHieu": "Sony",
         "img": [
           {
             "id": 0,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/16/13/b5/60cd04a9242e9300fc2c3d94a1e41f0e.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/2b/e4/5f/fedd9ba448dfd59fa366e68e61c5938d.jpg.webp"
           },
           {
             "id": 1,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a0/0b/43/b41fc9c995d308b74ddb81649f94e949.png.webp"
+          },
+          {
+            "id": 2,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/df/ac/e9/9741234473312278acdb0668a61e1017.png.webp"
+          },
+          {
+            "id": 3,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/ba/21/ec/33d6414db41bbc76d8eff2017f7a1e3a.jpg.webp"
           }
         ],
         "star": 4.6,
@@ -136,17 +144,21 @@
       },
       {
         "id": "3",
-        "name": "Tivi LG QLED 4K 55 inch C645 - Dolby Vision, DTS - Hàng Chính Hãng",
+        "name": "Smart Tivi LG 4K 50 Inch 50UQ7050PSA - Hàng chính hãng",
         "price": 7590000,
         "thuongHieu": "LG",
         "img": [
           {
             "id": 0,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/20/30/75/3757068c0abe28431b0bca04eeacb204.jpg.webp"
           },
           {
             "id": 1,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a0/e9/dc/306f900d51d54cfee8b720bb22fffbed.png.webp"
+          },
+          {
+            "id": 2,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/0f/ca/65/09848ce04b98637209a5d3da9c72545c.png.webp"
           }
         ],
         "star": 4.7,
@@ -199,17 +211,25 @@
       },
       {
         "id": "4",
-        "name": "Tivi Samsung Full HD 65 inch UQ8000 - UHD AI PQ, Dolby Audio - Hàng Chính Hãng",
+        "name": "Smart Tivi Samsung 4K 50 Inch UA50DU7700 50DU7700 - Hàng chính hãng - Chỉ giao HCM",
         "price": 8990000,
         "thuongHieu": "Samsung",
         "img": [
           {
             "id": 0,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/17/fd/70/ebc1770efa3c67e6a64f1ebe6b5fcc98.jpg.webp"
           },
           {
             "id": 1,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a1/4b/e7/7a49dbb875b6b11777ee11b47bc9c3c4.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/f2/7e/29/e47cf689a46bf98bcba89443f4fa2812.jpg.webp"
+          },
+          {
+            "id": 2,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/0a/2b/18/24dba2f7d7b8b8a47bdcbe00292b5f4e.jpg.webp"
+          },
+          {
+            "id": 3,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/fb/92/a2/28bdcc9813362eb478527bb9305296f6.jpg.webp"
           }
         ],
         "star": 4.8,
@@ -262,17 +282,25 @@
       },
       {
         "id": "5",
-        "name": "Tivi Panasonic 4K UHD 75 inch X80J - HDR10, Dolby Atmos - Hàng Chính Hãng",
+        "name": "Google Tivi Coocaa 4K 55 Inch - Model 55Y73 - Hàng Chính Hãng",
         "price": 9990000,
-        "thuongHieu": "Panasonic",
+        "thuongHieu": "coocaa",
         "img": [
           {
             "id": 0,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a1/4b/e7/7a49dbb875b6b11777ee11b47bc9c3c4.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/23/88/e8/be364383af3fd1ee3dcdd87271644163.jpg.webp"
           },
           {
             "id": 1,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/16/13/b5/60cd04a9242e9300fc2c3d94a1e41f0e.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/81/d5/3f/fba28feb75285a32cb340ea8c0cba7c6.jpg.webp"
+          },
+          {
+            "id": 2,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/ce/95/8a/b76c4f41ce98e200ec2d2a4182d5d1c6.jpg.webp"
+          },
+          {
+            "id": 3,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a3/af/5a/c067707ff88f8f84435e82874fc717a7.jpg.webp"
           }
         ],
         "star": 4.9,
@@ -325,17 +353,25 @@
       },
       {
         "id": "6",
-        "name": "Tivi TCL QLED 4K 43 inch C735 - HDR10+, DTS - Hàng Chính Hãng",
+        "name": "Smart Tivi LG 4K 43 Inch 43UQ7050PSA - Model 2023",
         "price": 11590000,
-        "thuongHieu": "TCL",
+        "thuongHieu": "LG",
         "img": [
           {
             "id": 0,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/16/13/b5/60cd04a9242e9300fc2c3d94a1e41f0e.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/d0/f2/05/ed935c2b132d8dea5eeee06613937668.jpg.webp"
           },
           {
             "id": 1,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/72/79/60/dd9f60097b9b1ac2db543847f655c0f1.jpg.webp"
+          },
+          {
+            "id": 2,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/b5/7e/82/5de1627d32258e85b39cee9c78f3f2be.jpg.webp"
+          }
+          , {
+            "id": 3,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/3e/3f/70/4cc6de73b94e23864fcd6ad2b94a598b.jpg.webp"
           }
         ],
         "star": 4.5,
@@ -388,17 +424,21 @@
       },
       {
         "id": "7",
-        "name": "Tivi Sony Full HD 50 inch CU7000 - Dolby Vision, Dolby Audio - Hàng Chính Hãng",
+        "name": "Google Tivi Sony 4K 50 inch K-50S30 Mới 2024 - Hàng chính hãng - Giao HCM và 1 số tỉnh thành",
         "price": 12990000,
         "thuongHieu": "Sony",
         "img": [
           {
             "id": 0,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/22/3e/b5/d97a89a04f677889c01674698fbf84b7.jpg.webp"
           },
           {
             "id": 1,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/27/76/da/ae8ae974037f4fa26ee6b7accab599ba.jpg.webp"
+          },
+          {
+            "id": 2,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/f0/4c/3b/1f0102f0c3e16f6f2a762ba221b6dae6.jpg.webp"
           }
         ],
         "star": 4.6,
@@ -451,17 +491,24 @@
       },
       {
         "id": "8",
-        "name": "Tivi LG 4K UHD 55 inch X85K - UHD AI PQ, Dolby Atmos - Hàng Chính Hãng",
+        "name": "BRAVIA 3 Tivi LED Sony 4K 55 inch K-55S30- Hàng chính hãng",
         "price": 5290000,
-        "thuongHieu": "LG",
+        "thuongHieu": "Sony",
         "img": [
           {
             "id": 0,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/05/a4/8e/e936ae02696619b9660364803a933724.jpg.webp"
           },
           {
             "id": 1,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a1/4b/e7/7a49dbb875b6b11777ee11b47bc9c3c4.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e8/2c/e9/b10fcab6a387cad7dd77a2d1aa0fd83c.jpg.webp"
+          },  {
+            "id": 2,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/15/b7/f7/e8f9f48c5ca68e88fb7edfc98043441e.jpg.webp"
+          },
+          {
+            "id": 3,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/8c/5e/e5/452d89832fb40fd44507192a61629c1d.jpg.webp"
           }
         ],
         "star": 4.7,
@@ -514,17 +561,23 @@
       },
       {
         "id": "9",
-        "name": "Tivi Samsung QLED 4K 65 inch U7K - HDR10, DTS - Hàng Chính Hãng",
+        "name": "Google Tivi LED Hisense 4K 43 inch 43A6500K Google Assistant có tiếng việt, bảo hành 2 năm - HÀNG CHÍNH HÃNG",
         "price": 6490000,
-        "thuongHieu": "Samsung",
+        "thuongHieu": "Hisense",
         "img": [
           {
             "id": 0,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a1/4b/e7/7a49dbb875b6b11777ee11b47bc9c3c4.jpg.webp"
-          },
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/ba/78/cc/7cce9c1b2a13d8af62b0731ddf9d9ad6.png.webp"},
           {
             "id": 1,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/16/13/b5/60cd04a9242e9300fc2c3d94a1e41f0e.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/35/44/b6/d7b2ae795bbda8177aaec49abfe954b5.jpg.webp"
+          },
+          {
+            "id": 2,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/7a/95/ea/635ca75162ee3d10ead7742bdada6fbd.jpg.webp"},
+          {
+            "id": 3,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/92/a4/bf/fe23405480eea0537d405febc60e9d03.jpg.webp"
           }
         ],
         "star": 4.8,
@@ -583,11 +636,19 @@
         "img": [
           {
             "id": 0,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/16/13/b5/60cd04a9242e9300fc2c3d94a1e41f0e.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/b9/b6/be/a93cd562748c4a96b9b6aac57bea2ab7.png.webp"
           },
           {
             "id": 1,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/4a/b5/f1/855f33cd7397a4b8f252d4f9a0cad77e.jpg.webp"
+          },
+          {
+            "id": 2,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/55/5e/f7/6e8fc86a9cecd39e674d4f811c6390f1.jpg.webp"
+          }
+          ,  {
+            "id": 3,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/76/c6/27/0e47e2b323821f36dc3b1460197c37eb.jpg.webp"
           }
         ],
         "star": 4.9,
@@ -646,11 +707,19 @@
         "img": [
           {
             "id": 0,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/2b/e4/5f/fedd9ba448dfd59fa366e68e61c5938d.jpg.webp"
           },
           {
             "id": 1,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a0/0b/43/b41fc9c995d308b74ddb81649f94e949.png.webp"
+          },
+          {
+            "id": 2,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/df/ac/e9/9741234473312278acdb0668a61e1017.png.webp"
+          },
+          {
+            "id": 3,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/ba/21/ec/33d6414db41bbc76d8eff2017f7a1e3a.jpg.webp"
           }
         ],
         "star": 4.5,
@@ -709,11 +778,15 @@
         "img": [
           {
             "id": 0,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/20/30/75/3757068c0abe28431b0bca04eeacb204.jpg.webp"
           },
           {
             "id": 1,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a1/4b/e7/7a49dbb875b6b11777ee11b47bc9c3c4.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a0/e9/dc/306f900d51d54cfee8b720bb22fffbed.png.webp"
+          },
+          {
+            "id": 2,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/0f/ca/65/09848ce04b98637209a5d3da9c72545c.png.webp"
           }
         ],
         "star": 4.6,
@@ -772,11 +845,19 @@
         "img": [
           {
             "id": 0,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a1/4b/e7/7a49dbb875b6b11777ee11b47bc9c3c4.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/17/fd/70/ebc1770efa3c67e6a64f1ebe6b5fcc98.jpg.webp"
           },
           {
             "id": 1,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/16/13/b5/60cd04a9242e9300fc2c3d94a1e41f0e.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/f2/7e/29/e47cf689a46bf98bcba89443f4fa2812.jpg.webp"
+          },
+          {
+            "id": 2,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/0a/2b/18/24dba2f7d7b8b8a47bdcbe00292b5f4e.jpg.webp"
+          },
+          {
+            "id": 3,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/fb/92/a2/28bdcc9813362eb478527bb9305296f6.jpg.webp"
           }
         ],
         "star": 4.7,
@@ -835,11 +916,19 @@
         "img": [
           {
             "id": 0,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/16/13/b5/60cd04a9242e9300fc2c3d94a1e41f0e.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/23/88/e8/be364383af3fd1ee3dcdd87271644163.jpg.webp"
           },
           {
             "id": 1,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/81/d5/3f/fba28feb75285a32cb340ea8c0cba7c6.jpg.webp"
+          },
+          {
+            "id": 2,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/ce/95/8a/b76c4f41ce98e200ec2d2a4182d5d1c6.jpg.webp"
+          },
+          {
+            "id": 3,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a3/af/5a/c067707ff88f8f84435e82874fc717a7.jpg.webp"
           }
         ],
         "star": 4.8,
@@ -898,11 +987,19 @@
         "img": [
           {
             "id": 0,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/d0/f2/05/ed935c2b132d8dea5eeee06613937668.jpg.webp"
           },
           {
             "id": 1,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/72/79/60/dd9f60097b9b1ac2db543847f655c0f1.jpg.webp"
+          },
+          {
+            "id": 2,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/b5/7e/82/5de1627d32258e85b39cee9c78f3f2be.jpg.webp"
+          }
+          , {
+            "id": 3,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/3e/3f/70/4cc6de73b94e23864fcd6ad2b94a598b.jpg.webp"
           }
         ],
         "star": 4.9,
@@ -955,17 +1052,21 @@
       },
       {
         "id": "16",
-        "name": "Tivi TCL Full HD 43 inch C735 - UHD AI PQ, Dolby Audio - Hàng Chính Hãng",
+        "name": "65X75K - Google Tivi Sony 4K 65 inch KD-65X75K - Hàng chính hãng - Chỉ giao HCM",
         "price": 6490000,
-        "thuongHieu": "TCL",
+        "thuongHieu": "Sony",
         "img": [
           {
             "id": 0,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a4/c9/ca/a95867642fbf3561ec489f572d5a8252.jpg.webp"
           },
           {
             "id": 1,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a1/4b/e7/7a49dbb875b6b11777ee11b47bc9c3c4.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/b6/f6/01/c53f2ce77b22847a58ca8fab0d03d4bc.jpg.webp"
+          },
+          {
+            "id": 2,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/fa/5b/50/57a8a1c4fa49c923cff1b8064144de4d.jpg.webp"
           }
         ],
         "star": 4.5,
@@ -1018,17 +1119,24 @@
       },
       {
         "id": "17",
-        "name": "Tivi Sony 4K UHD 50 inch CU7000 - HDR10, Dolby Atmos - Hàng Chính Hãng",
+        "name": "Google Tivi Coocaa 4K 65 Inch 65Y73 - Hàng Chính Hãng - Chỉ Giao HCM",
         "price": 7590000,
-        "thuongHieu": "Sony",
+        "thuongHieu": "coocaa",
         "img": [
           {
             "id": 0,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a1/4b/e7/7a49dbb875b6b11777ee11b47bc9c3c4.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/56/61/15/4e3161ec96968711a7a2a53d715ef23c.png.webp"
           },
           {
             "id": 1,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/16/13/b5/60cd04a9242e9300fc2c3d94a1e41f0e.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/29/28/59/098a2cca0a74b96c860a769c1f46e874.png.webp"
+          }, {
+            "id": 2,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/33/cd/47/e29a6a51b70c83aea124812b1847b3ce.png.webp"
+          },
+          {
+            "id": 3,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/8f/4e/3c/057e972fe4c962fe574ae2a4eafa08e8.png.webp"
           }
         ],
         "star": 4.6,
@@ -1081,17 +1189,24 @@
       },
       {
         "id": "18",
-        "name": "Tivi LG QLED 4K 55 inch X85K - HDR10+, DTS - Hàng Chính Hãng",
+        "name": "Google Tivi TCL 4K 55 inch 55P638-Hàng chính hãng",
         "price": 8990000,
         "thuongHieu": "LG",
         "img": [
           {
             "id": 0,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/16/13/b5/60cd04a9242e9300fc2c3d94a1e41f0e.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/77/b3/0d/f1b88eb4fa8f028bf0afcfae71fd5911.jpg.webp"
           },
           {
             "id": 1,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/05/ce/66/6555905dbee3cd2b0daeb6d3a0a48dc7.jpg.webp"
+          },  {
+            "id": 2,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/ce/43/04/bcfd12f030602f428342ea288850d627.jpg.webp"
+          },
+          {
+            "id": 3,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/8b/f2/a7/dde201276929b7b9b04bbc163afadc89.jpg.webp"
           }
         ],
         "star": 4.7,
@@ -1144,17 +1259,24 @@
       },
       {
         "id": "19",
-        "name": "Tivi Samsung Full HD 65 inch U7K - Dolby Vision, Dolby Audio - Hàng Chính Hãng",
+        "name": "Android Tivi Aqua 4K 55 Inch LE55AQTS6UG - Hàng chính hãng (chỉ giao HCM)",
         "price": 9990000,
-        "thuongHieu": "Samsung",
+        "thuongHieu": "Aqua",
         "img": [
           {
             "id": 0,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/61/f3/e0/9dc924c4bc36d0b2a7fbd35d1b6e3b67.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/53/e2/54/c3696b513c951625a3999f6af1cc2fdc.png.webp"
           },
           {
             "id": 1,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/90/54/60/0edd0592cd94cd10d2b0a86ed132c80d.png.webp"
+          },  {
+            "id": 2,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/88/22/e4/e7fdf6d72c213aa98b871666be27e788.jpg.webp"
+          },
+          {
+            "id": 3,
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/b2/1f/98/d0ea6387b96ddd05437b61dd4307aa57.jpg.webp"
           }
         ],
         "star": 4.8,
@@ -1207,17 +1329,17 @@
       },
       {
         "id": "20",
-        "name": "Tivi Panasonic 4K UHD 75 inch A8H - UHD AI PQ, Dolby Atmos - Hàng Chính Hãng",
+        "name": "Smart Tivi LED LG 4K 55 inch 55UT8050PSB - Hàng chính hãng",
         "price": 11590000,
         "thuongHieu": "Panasonic",
         "img": [
           {
             "id": 0,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/e6/5e/b7/cf70ffb367abdf1709473c4c40733f20.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/cf/68/cc/c9d356a96c677eb1f8d90fdb384b7b4e.jpg.webp"
           },
           {
             "id": 1,
-            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/a1/4b/e7/7a49dbb875b6b11777ee11b47bc9c3c4.jpg.webp"
+            "img": "https://salt.tikicdn.com/cache/750x750/ts/product/ff/e8/91/2cb74d0d7ff692faa5324b97dcd752c0.jpg.webp"
           }
         ],
         "star": 4.9,

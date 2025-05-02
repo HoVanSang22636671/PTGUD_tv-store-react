@@ -34,11 +34,13 @@ function Header() {
       <div className="container flex justify-between items-center max-w-[1200px] w-full">
         {/* Logo */}
         <div>
-          <img
-            src="./img/logo.png"
-            alt="Logo"
-            className="block w-[130px] rounded-full cursor-pointer pl-5"
-          />
+          <Link to="/">
+            <img
+              src="/img/logo.png"
+              alt="Logo"
+              className="block w-[130px] rounded-full cursor-pointer pl-5"
+            />
+          </Link>
         </div>
 
         {/* Thanh tìm kiếm */}
@@ -87,13 +89,13 @@ function Header() {
             <div className="absolute z-10 top-full left-0 w-full bg-white border border-gray-300 rounded-md shadow-md">
               <ul>
                 <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
-                  Samsung Galaxy S25
+                  Tivi Sony 4K UHD 50 inch
                 </li>
                 <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
-                  iPhone 16
+                  Tivi LG QLED 4K 55 inch
                 </li>
                 <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
-                  Xiaomi Redmi Note 12
+                  Tivi Samsung Full HD 65
                 </li>
               </ul>
             </div>
@@ -104,7 +106,7 @@ function Header() {
         <div className="flex space-x-6 items-center">
           <div className="relative group cursor-pointer">
             <div className="block p-3 group-hover:bg-primary/15 rounded-full">
-              <img src="./img/cart.png" alt="Cart" className="w-[40px] h-[40px]" />
+              <img src="/img/cart.png" alt="Cart" className="w-[40px] h-[40px]" />
             </div>
           </div>
 
@@ -159,7 +161,7 @@ function Header() {
       {isMobileMenuOpen && (
         <div className="absolute top-16 right-4 bg-white shadow-md rounded-md w-48 p-4 z-50">
           <div className="flex items-center space-x-2 mb-2">
-            <img src="./img/cart.png" alt="Cart" className="w-8 h-8" />
+            <img src="/img/cart.png" alt="Cart" className="w-8 h-8" />
             <span>Giỏ hàng</span>
           </div>
           <div className="flex items-center space-x-2 mt-2">

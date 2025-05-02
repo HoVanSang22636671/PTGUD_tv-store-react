@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
 import FireImg from "../../assets/camket/fireSale.svg";
 import formatCurrency from "../../calculator/FormatCurrency";
-// import { useNavigate } from "react-router-dom";
+import { useProduct } from "../../API/UseProvider";
+import { useNavigate } from "react-router-dom";
 
 function ProductFlashSale() {
     const [isHidden, setIsHidden] = useState(true);
     const [maxProducts, setMaxProducts] = useState(6);
     const [timeLeft, setTimeLeft] = useState(2483); // 41 phút 23 giây (41 * 60 + 23)
-
+    // 
     // Dữ liệu giả để hiển thị khung sản phẩm
+    const [productList, setProductList] = useState([]);
+    const { product } = useProduct();
+    const navigate = useNavigate();
     const mockProductList = Array.from({ length: 10 }, (_, index) => ({
         id: index + 1,
         img: [{ img: "https://via.placeholder.com/150" }], // Placeholder image
@@ -17,6 +21,12 @@ function ProductFlashSale() {
         sold: Math.floor(Math.random() * 100), // Số lượng đã bán
         inventory: 100, // Tổng lượng hàng
     }));
+
+    useEffect(() => {
+        if (product && Array.isArray(product)) {
+            setProductList(product.filter((item) => !item.flashSale));
+        }
+    }, [product]);
 
     useEffect(() => {
         if (timeLeft > 0) {
@@ -65,7 +75,7 @@ function ProductFlashSale() {
                                 </span>
                             </div>
                         </div>
-                        {maxProducts === mockProductList.length ? (
+                        {maxProducts === productList.length ? (
                             <div
                                 className="p-3 text-primary text-[18px] font-bold cursor-pointer"
                                 onClick={() => setMaxProducts(6)}
@@ -75,21 +85,19 @@ function ProductFlashSale() {
                         ) : (
                             <div
                                 className="p-3 text-primary text-[18px] font-bold cursor-pointer"
-                                onClick={() => setMaxProducts(mockProductList.length)}
+                                onClick={() => setMaxProducts(productList.length)}
                             >
                                 Xem tất cả
                             </div>
                         )}
                     </div>
                     <div className="grid grid-cols-2 lg:grid-cols-6 gap-2">
-                        {mockProductList.slice(0, maxProducts).map((product, index) => (
+                        {productList.slice(0, maxProducts).map((product, index) => (
                             <div
                                 key={index}
                                 className="mx-auto w-[95%] h-[280px] border border-gray-200 rounded-lg
     cursor-pointer hover:shadow-md transition duration-300 ease-in-out"
-                                onClick={() => {
-                                    console.log("Clicked product:", product);
-                                }}
+                                onClick={() => navigate(`/productDetail/${product.id}`)}
                             >
                                 <div className="p-2">
                                     {/* IMG */}

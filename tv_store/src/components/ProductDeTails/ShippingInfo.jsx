@@ -45,7 +45,7 @@ function ShippingInfo() {
             <span>{defaultAddress.phone}</span>
           </div>
           <div className="flex items-center gap-2">
-            <img src="./img/dinhvi.png" alt="" className="w-[30px]" />
+            <img src="/img/dinhvi.png" alt="" className="w-[30px]" />
             <span className="text-lg text-secondary leading-6">
               {defaultAddress.address}
             </span>
