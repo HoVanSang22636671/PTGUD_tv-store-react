@@ -1,17 +1,16 @@
-import { useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import Header from './components/Header'
-import Footer from './components/Footer'
-
-import ProductDeTail from './pages/ProductDeTail'
-
+import Footer from "./components/Footer"
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div>
-      <ProductDeTail/>
-    </div>
+    <>
+
+    {/*  */}
+    <Header/>
+      <Footer/>
+ 
+    </>
   )
 }
 
