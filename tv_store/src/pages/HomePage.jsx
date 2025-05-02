@@ -12,6 +12,7 @@ import Footer from "../components/Footer";
 import ThuongHieuFilter from "../components/FilterDetail/ThuongHieuFilter";
 import GiaCaFilter from "../components/FilterDetail/GiaCaFilter";
 import DanhGiaFilter from "../components/FilterDetail/DanhGiaFilter";
+import MiniFilter from "../components/FilterDetail/MiniFilter";
 import FilterProduct from "../components/FilterProduct";
 import Product from "../components/Product";
 import { useProduct } from '../API/UseProvider';
@@ -92,9 +93,17 @@ function HomePage() {
                     {filter === 6 && (
                         <DanhGiaFilter danhGia={danhGia} setDanhGia={setDanhGia} />
                     )}
+                    <MiniFilter
+                        thuongHieu={thuongHieu}
+                        setThuongHieu={setThuongHieu}
+                        danhGia={danhGia}
+                        setDanhGia={setDanhGia}
+                        giaCa={giaCa}
+                        setGiaCa={setGiaCa}
+                    />
                     {/* Hiển thị sản phẩm được lọc */}
                     {(thuongHieu.length > 0 || giaCa !== 0 || danhGia.length > 0) &&
-                        filterProduct.length > 0 && (
+                        kq.length > 0 && (
                             <FilterProduct title={"Kết quả lọc"}>
                                 {filterProduct.map((product) => (
                                     <Product key={product.id} product={product} />
