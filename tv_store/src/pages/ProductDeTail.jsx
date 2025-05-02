@@ -12,11 +12,12 @@ const ProductDetail = () => {
   const [imgDevice, setImgDevice] = useState(0);
   const [num, setNum] = useState(1);
   const [error, setError] = useState('');
+  const [filter, setFilter] = useState([1, 2]);
   useEffect(() => {
     const apiUrl =
-    window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-      ? 'http://localhost:3000/api/db.json' // local
-      : 'https://your-project-name.vercel.app/api/db.json';
+      window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:3000/api/db.json' // local
+        : 'https://your-project-name.vercel.app/api/db.json';
     fetch(apiUrl)
       .then((res) => res.json())
       .then((data) => {
@@ -39,9 +40,30 @@ const ProductDetail = () => {
   if (!product) {
     return <div>Loading...</div>;
   }
-
+  const filterStar = [
+    {
+      id: 1,
+      num: 1,
+    },
+    {
+      id: 2,
+      num: 2,
+    },
+    {
+      id: 3,
+      num: 3,
+    },
+    {
+      id: 4,
+      num: 4,
+    },
+    {
+      id: 5,
+      num: 5,
+    },
+  ];
   return (
-    <div className="bg-[#f5f5fa]">
+    <div className="bg-[#f5f5fa] transform transition-all duration-500">
       <Header />
       <div className="flex flex-col md:flex-row gap-4 p-[24px]">
         {/* left  */}
@@ -152,62 +174,190 @@ const ProductDetail = () => {
                 <ThongTinVanChuyen />
                 {/* Bảo hành */}
                 <div className="flex mt-3 flex-col gap-3 bg-white rounded-md p-4">
-                      <h1 className="font-bold text-center text-[25px]">
-                        Thông tin bảo hành
-                      </h1>
-                      <div>
-                        <div className="border-b border-gray-200 p-3 flex gap-2">
-                          <span className="text-[18px]">
-                            Thời gian bảo hành:
-                          </span>
-                          <span className="text-[18px] font-semibold">
-                            {product.baohanh.thoigian}
-                          </span>
-                        </div>
-                        <div className="border-b border-gray-200 p-3 flex gap-2">
-                          <span className="text-[18px]">
-                            Hình thức bảo hành::
-                          </span>
-                          <span className="text-[18px] font-semibold">
-                            {product.baohanh.hinhthuc}
-                          </span>
-                        </div>
-                        <div className="border-b border-gray-200 p-3 flex gap-2">
-                          <span className="text-[18px]">Nơi bảo hành:</span>
-                          <span className="text-[18px] font-semibold">
-                            {product.baohanh.noibaohanh}
-                          </span>
-                        </div>
-                      </div>
+                  <h1 className="font-bold text-center text-[25px]">
+                    Thông tin bảo hành
+                  </h1>
+                  <div>
+                    <div className="border-b border-gray-200 p-3 flex gap-2">
+                      <span className="text-[18px]">
+                        Thời gian bảo hành:
+                      </span>
+                      <span className="text-[18px] font-semibold">
+                        {product.baohanh.thoigian}
+                      </span>
                     </div>
+                    <div className="border-b border-gray-200 p-3 flex gap-2">
+                      <span className="text-[18px]">
+                        Hình thức bảo hành::
+                      </span>
+                      <span className="text-[18px] font-semibold">
+                        {product.baohanh.hinhthuc}
+                      </span>
+                    </div>
+                    <div className="border-b border-gray-200 p-3 flex gap-2">
+                      <span className="text-[18px]">Nơi bảo hành:</span>
+                      <span className="text-[18px] font-semibold">
+                        {product.baohanh.noibaohanh}
+                      </span>
+                    </div>
+                  </div>
+                </div>
                 {/* Cam kết */}
                 <CamKet />
                 {/* Thông số sản phẩm */}
                 <div className="flex mt-3 flex-col gap-3 bg-white rounded-md p-4">
-                      <h1 className="font-bold text-center text-[25px]">
-                        Thông tin chi tiết
-                      </h1>
-                      <div>
-                        {product.info.map((item, index) => (
-                          <div
-                            key={index}
-                            className="border-b border-gray-200 p-3 flex gap-2"
-                          >
-                            <span className="text-secondary w-1/2 text-[18px]">
-                              {item.name}
-                            </span>
-                            <span className="w-1/2 text-[18px]">
-                              {item.value}
-                            </span>
-                          </div>
-                        ))}
+                  <h1 className="font-bold text-center text-[25px]">
+                    Thông tin chi tiết
+                  </h1>
+                  <div>
+                    {product.info.map((item, index) => (
+                      <div
+                        key={index}
+                        className="border-b border-gray-200 p-3 flex gap-2"
+                      >
+                        <span className="text-secondary w-1/2 text-[18px]">
+                          {item.name}
+                        </span>
+                        <span className="w-1/2 text-[18px]">
+                          {item.value}
+                        </span>
                       </div>
-                    </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           {/* Đánh giá khách hàng */}
-
+          <div className="bg-white rounded-md p-7">
+            <h1 className="text-[25px] font-semibold">Đánh giá</h1>
+            <div className="flex gap-10">
+              <div>
+                <h1 className="text-[18px] my-3">Tổng quan</h1>
+                {/* Star */}
+                <div>
+                  <div className="flex gap-2">
+                    <h1 className="text-[35px] font-semibold">{"4.9"}</h1>
+                    <div className="flex items-center mt-1">
+                      {Array.from({ length: 5 }, (_, index) => (
+                        <FaStar
+                          key={index}
+                          className="text-yellow-400 text-lg"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <span className="text-secondary">{`(${"41 đánh giá"})`}</span>
+                  {/* Chi tiết số Star */}
+                  <div>
+                    {/* 5 star */}
+                    <div className="flex gap-2 w-[150px] justify-between items-center mt-3">
+                      <div className="flex items-center">
+                        {Array.from({ length: 5 }, (_, index) => (
+                          <FaStar
+                            key={index}
+                            className="text-yellow-400 text-lg"
+                          />
+                        ))}
+                      </div>
+                      <span className="text-secondary">{"2"}</span>
+                    </div>
+                    {/* 4 star */}
+                    <div className="flex gap-2 w-[150px] justify-between items-center mt-3">
+                      <div className="flex items-center">
+                        {Array.from({ length: 4 }, (_, index) => (
+                          <FaStar
+                            key={index}
+                            className="text-yellow-400 text-lg"
+                          />
+                        ))}
+                      </div>
+                      <span className="text-secondary">{"2"}</span>
+                    </div>
+                    {/* 3 star */}
+                    <div className="flex gap-2 w-[150px] justify-between items-center mt-3">
+                      <div className="flex items-center">
+                        {Array.from({ length: 3 }, (_, index) => (
+                          <FaStar
+                            key={index}
+                            className="text-yellow-400 text-lg"
+                          />
+                        ))}
+                      </div>
+                      <span className="text-secondary">{"2"}</span>
+                    </div>
+                    {/* 2 star */}
+                    <div className="flex gap-2 w-[150px] justify-between items-center mt-3">
+                      <div className="flex items-center">
+                        {Array.from({ length: 2 }, (_, index) => (
+                          <FaStar
+                            key={index}
+                            className="text-yellow-400 text-lg"
+                          />
+                        ))}
+                      </div>
+                      <span className="text-secondary">{"2"}</span>
+                    </div>
+                    {/* 1 star */}
+                    <div className="flex gap-2 w-[150px] justify-between items-center mt-3">
+                      <div className="flex items-center">
+                        {Array.from({ length: 1 }, (_, index) => (
+                          <FaStar
+                            key={index}
+                            className="text-yellow-400 text-lg"
+                          />
+                        ))}
+                      </div>
+                      <span className="text-secondary">{"2"}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="border border-gray-200 "></div>
+              {/* Bình luận */}
+              <div className="flex-1">
+                {/* Lọc */}
+                <h1 className="m-2 text-[20px] font-bold">Lọc theo</h1>
+                <div className="flex gap-3">
+                  {filterStar.map((star) =>
+                    filter.includes(star.id) ? (
+                      <div
+                        key={star.id}
+                        className="text-[20px] border border-primary text-primary p-3 rounded-full
+                        cursor-pointer"
+                        onClick={() =>
+                          setFilter(
+                            filter.filter((item) => item !== star.num)
+                          )
+                        }
+                      >
+                        {star.num + " sao"}
+                      </div>
+                    ) : (
+                      <div
+                        key={star.id}
+                        className="text-[20px] border border-gray-200 p-3 rounded-full
+                        cursor-pointer"
+                        onClick={() =>
+                          setFilter((prev) => [...prev, star.id])
+                        }
+                      >
+                        {star.num + " sao"}
+                      </div>
+                    )
+                  )}
+                </div>
+                {/* List bình luận */}
+                <div>
+                  {/* <div className="space-y-5 mt-3">
+                    {listComment.map((list) => (
+                      <Comment key={list.id} list={list} />
+                    ))}
+                  </div> */}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         {/* {Thanh toán} */}
         <div className="w-full md:w-1/3 order-2 md:order-1">
