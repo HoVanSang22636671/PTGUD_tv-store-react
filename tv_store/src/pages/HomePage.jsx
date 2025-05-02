@@ -11,6 +11,7 @@ import Footer from "../components/Footer";
 
 import ThuongHieuFilter from "../components/FilterDetail/ThuongHieuFilter";
 import GiaCaFilter from "../components/FilterDetail/GiaCaFilter";
+import DanhGiaFilter from "../components/FilterDetail/DanhGiaFilter";
 import FilterProduct from "../components/FilterProduct";
 import Product from "../components/Product";
 import { useProduct } from '../API/UseProvider';
@@ -19,14 +20,17 @@ function HomePage() {
     const [filter, setFilter] = useState(1); // Bộ lọc hiện tại (1: Tất cả, 2: Thương hiệu, ...)
     const [thuongHieu, setThuongHieu] = useState([]); // Danh sách thương hiệu đã chọn
     const [giaCa, setGiaCa] = useState(0);
+    const [danhGia, setDanhGia] = useState([]);
     const [productList, setProductList] = useState([]); // Danh sách sản phẩm
     const { product } = useProduct(); // Lấy danh sách sản phẩm từ API/Provider
 
-    // Lọc sản phẩm theo thương hiệu
+    // Lọc sản phẩm theo các điều kiện
     const filterProduct = productList.filter((item) => {
         const isThuongHieuValid =
-            thuongHieu.length === 0 || thuongHieu.includes(item.thuongHieu); // Kiểm tra thương hiệu
-        return isThuongHieuValid;
+            thuongHieu.length === 0 || thuongHieu.includes(item.thuongHieu);
+        const isDanhGiaValid =
+            danhGia.length === 0 || danhGia.includes(item.star); // Kiểm tra đánh giá
+        return isThuongHieuValid && isDanhGiaValid;
     });
 
     // Reset bộ lọc khi chọn "Tất cả" hoặc "Bán chạy"
@@ -84,14 +88,19 @@ function HomePage() {
                                 ))}
                         </FilterProduct>
                     )}
-                    {/* Sản phẩm được lọc */}
-                    {(thuongHieu.length > 0 || giaCa !== 0) && kq.length > 0 && (
-                        <FilterProduct title={"Kết quả lọc"}>
-                            {kq.map((product) => (
-                                <Product key={product.id} product={product} />
-                            ))}
-                        </FilterProduct>
+                    {/* Lọc theo đánh giá */}
+                    {filter === 6 && (
+                        <DanhGiaFilter danhGia={danhGia} setDanhGia={setDanhGia} />
                     )}
+                    {/* Hiển thị sản phẩm được lọc */}
+                    {(thuongHieu.length > 0 || giaCa !== 0 || danhGia.length > 0) &&
+                        filterProduct.length > 0 && (
+                            <FilterProduct title={"Kết quả lọc"}>
+                                {filterProduct.map((product) => (
+                                    <Product key={product.id} product={product} />
+                                ))}
+                            </FilterProduct>
+                        )}
                     {/* Sản phẩm sale */}
                     <ProductSale />
 
