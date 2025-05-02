@@ -73,7 +73,17 @@ function HomePage() {
                     {filter === 3 && (
                         <GiaCaFilter giaCa={giaCa} setGiaCa={setGiaCa} />
                     )}
-                    {/* Sản phẩm được lọc */}
+                    {/* Hiển thị sản phẩm bán chạy */}
+                    {filter === 4 && (
+                        <FilterProduct title={"Sản phẩm bán chạy"}>
+                            {productList
+                                .sort((a, b) => b.sold - a.sold) // Sắp xếp giảm dần theo số lượng đã bán
+                                .slice(0, 10) // Lấy top 10 sản phẩm bán chạy
+                                .map((product) => (
+                                    <Product key={product.id} product={product} />
+                                ))}
+                        </FilterProduct>
+                    )}
                     {/* Sản phẩm được lọc */}
                     {(thuongHieu.length > 0 || giaCa !== 0) && kq.length > 0 && (
                         <FilterProduct title={"Kết quả lọc"}>
