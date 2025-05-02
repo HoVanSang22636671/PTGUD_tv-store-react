@@ -6,6 +6,7 @@ import { GoInfo } from "react-icons/go";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ThongTinVanChuyen from "../components/ProductDeTails/ThongTinVanChuyen";
+import CamKet from "../components/ProductDeTails/CamKet";
 const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const [imgDevice, setImgDevice] = useState(0);
@@ -150,11 +151,58 @@ const ProductDetail = () => {
                 {/* Vận chuyển */}
                 <ThongTinVanChuyen />
                 {/* Bảo hành */}
-
+                <div className="flex mt-3 flex-col gap-3 bg-white rounded-md p-4">
+                      <h1 className="font-bold text-center text-[25px]">
+                        Thông tin bảo hành
+                      </h1>
+                      <div>
+                        <div className="border-b border-gray-200 p-3 flex gap-2">
+                          <span className="text-[18px]">
+                            Thời gian bảo hành:
+                          </span>
+                          <span className="text-[18px] font-semibold">
+                            {product.baohanh.thoigian}
+                          </span>
+                        </div>
+                        <div className="border-b border-gray-200 p-3 flex gap-2">
+                          <span className="text-[18px]">
+                            Hình thức bảo hành::
+                          </span>
+                          <span className="text-[18px] font-semibold">
+                            {product.baohanh.hinhthuc}
+                          </span>
+                        </div>
+                        <div className="border-b border-gray-200 p-3 flex gap-2">
+                          <span className="text-[18px]">Nơi bảo hành:</span>
+                          <span className="text-[18px] font-semibold">
+                            {product.baohanh.noibaohanh}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                 {/* Cam kết */}
-
+                <CamKet />
                 {/* Thông số sản phẩm */}
-
+                <div className="flex mt-3 flex-col gap-3 bg-white rounded-md p-4">
+                      <h1 className="font-bold text-center text-[25px]">
+                        Thông tin chi tiết
+                      </h1>
+                      <div>
+                        {product.info.map((item, index) => (
+                          <div
+                            key={index}
+                            className="border-b border-gray-200 p-3 flex gap-2"
+                          >
+                            <span className="text-secondary w-1/2 text-[18px]">
+                              {item.name}
+                            </span>
+                            <span className="w-1/2 text-[18px]">
+                              {item.value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
               </div>
             </div>
           </div>

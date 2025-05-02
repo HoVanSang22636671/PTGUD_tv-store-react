@@ -58,7 +58,7 @@ const Footer = () => {
 
       {/* Bản quyền */}
       <div className="border-t border-gray-400 text-center py-2 text-sm mt-4">
-        <p>©CopyRight <span className="font-bold"></span> 2024</p>
+        <p>©CopyRight <span className="font-bold"></span> 2025</p>
       </div>
     </footer>
   );
