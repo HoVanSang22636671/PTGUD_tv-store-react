@@ -5,6 +5,7 @@ import Banner from './components/Banner'
 import FilterBar from './components/FillterBar'
 import ProductSale from './components/ProductFillter/ProductSale'
 import ProductFlashSale from './components/ProductFillter/ProductFlashSale'
+import Preview from './components/Preview'
 import Footer from './components/Footer'
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
         <FilterBar />
         <ProductSale />
         <ProductFlashSale />
+        <Preview />
+
       </div>
       <Footer />
     </div>
