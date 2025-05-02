@@ -6,6 +6,7 @@ import FilterBar from './components/FillterBar'
 import ProductSale from './components/ProductFillter/ProductSale'
 import ProductFlashSale from './components/ProductFillter/ProductFlashSale'
 import Preview from './components/Preview'
+import ProductSuggest from './components/ProductFillter/ProductSuggest'
 import Footer from './components/Footer'
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
         <ProductSale />
         <ProductFlashSale />
         <Preview />
-
+        <ProductSuggest />
       </div>
       <Footer />
     </div>
