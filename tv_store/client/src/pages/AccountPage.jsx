@@ -9,6 +9,8 @@ import { MdPassword, MdPolicy, MdSupervisorAccount } from "react-icons/md";
 import { IoMdExit } from "react-icons/io";
 import ConfirmDialog from "../message/ConfirmDialog";
 import AccountInfo from "../components/itemsAccountInfo/AccountInfo";
+import ChangePassword from "../components/itemsAccountInfo/ChangePassword";
+
 const infoList = [
   { id: 1, name: "Thông tin tài khoản", icon: RiAccountCircle2Line },
   { id: 2, name: "Quản lý đơn hàng", icon: FaBookOpen },
@@ -32,6 +34,8 @@ function AccountPage() {
   }
 
   const handleMenuClick = (data) => {
+    console.log("Selected menu ID:", data.id);
+    setFilter(data.id);
     if (data.id === 8) {
       setShowConfirm(true);
     } else if (data.id === 3) {
@@ -39,7 +43,7 @@ function AccountPage() {
     } else if (data.id === 5) {
       navigate("/supportPage");
     }
-    setFilter(data.id);
+    
   };
 
   const handleLogout = () => {
@@ -68,8 +72,8 @@ function AccountPage() {
                     key={data.id}
                     className={`flex items-center gap-3 px-4 py-3 cursor-pointer text-gray-900${
                       data.id === filter && data.id !== 6
-                        ? "bg-gray-300"
-                        : "hover:bg-gray-100"
+                        ? " bg-gray-300"
+                        : " hover:bg-gray-100"
                     }`}
                     onClick={() => handleMenuClick(data)}
                   >
@@ -87,6 +91,7 @@ function AccountPage() {
           <div className="w-full md:w-4/5 bg-white rounded-md shadow-md p-3 md:p-4">
             {/* Chuyển đổi nội dung theo các menu chọn */}
             {filter === 1 && <AccountInfo account={account} />}
+            {filter === 6 && <ChangePassword />}
           </div>
         </div>
       </div>

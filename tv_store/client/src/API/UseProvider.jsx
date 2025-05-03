@@ -97,7 +97,41 @@ export const UserProvider = ({ children }) => {
       }
     }
   }, [isDataLoaded, accountList]); // Đảm bảo dữ liệu đã tải xong
-
+  const changePassword = async (userId, newPassword) => {
+    const apiUrl =
+      window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+        ? `http://localhost:3000/api/change-password/${userId}`
+        : `https://ptgud-tv-store-react.onrender.com/api/change-password/${userId}`;
+  
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newPassword }),
+      });
+  
+      const result = await response.json();
+      
+      // Kiểm tra kết quả và cập nhật lại accountList
+      if (result && result.modifiedCount > 0) {
+        // Cập nhật mật khẩu cho user trong accountList
+        setAccountList((prevList) =>
+          prevList.map((account) =>
+            account.id === userId ? { ...account, password: newPassword } : account
+          )
+        );
+        // Nếu đang đăng nhập, cũng cập nhật mật khẩu trong account
+        if (account && account.id === userId) {
+          setAccount((prevAccount) => ({ ...prevAccount, password: newPassword }));
+        }
+      }
+  
+      return result;
+    } catch (error) {
+      console.error("Lỗi khi thay đổi mật khẩu:", error);
+      return { success: false, message: "Có lỗi khi thay đổi mật khẩu." };
+    }
+  };
   // Hàm đăng nhập
   const login = (username, password) => {
     const user = accountList.find(
@@ -114,6 +148,7 @@ export const UserProvider = ({ children }) => {
     }
     return false;
   };
+
 
   // Hàm đăng xuất
   const logout = () => {
@@ -135,7 +170,8 @@ export const UserProvider = ({ children }) => {
         setIsAccount,
         accountList,
         login, // expose login function
-        logout, // expose logout function
+        logout,
+        changePassword, // expose logout function
       }}
     >
       {children}

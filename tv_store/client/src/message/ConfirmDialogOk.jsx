@@ -18,7 +18,7 @@ const ConfirmDialogOk = ({ message, onConfirm, onCancel }) => {
         <div className="flex justify-center gap-3 mt-4">
           <button
             onClick={onConfirm}
-            className="px-4 py-2 text-white bg-primary rounded-lg hover:bg-primary/95  transition"
+            className="px-4 py-2 text-white bg-blue-700 rounded-lg hover:bg-blue-700/95  transition"
           >
             Xác nhận
           </button>
