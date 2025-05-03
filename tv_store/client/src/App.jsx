@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage'
 import MainPage from './pages/MainPage'
 import ProductDetail from './pages/ProductDetail'
 import Login from './pages/Login'
+import AccountPage from './pages/AccountPage'
 function App() {
   return (
     <>
@@ -14,6 +15,7 @@ function App() {
         {/* Các route sử dụng MainPage làm layout */}
         <Route path="/" element={<MainPage />}>
           <Route index element={<HomePage />} />
+          <Route path='/account' element={<AccountPage/>}/>
           {/* các route khác nằm trong layout MainPage */}
         </Route>
 
