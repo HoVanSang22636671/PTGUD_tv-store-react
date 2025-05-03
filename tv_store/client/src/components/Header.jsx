@@ -13,7 +13,7 @@ function Header() {
   const navigate = useNavigate(); // Initialize useNavigate
 
   // Lấy thông tin tài khoản từ localStorage (giả lập đăng nhập)
-  
+
   const { account } = useProduct(); // Lấy thông tin tài khoản từ context
   const handleSearch = () => {
     const trimmedSearch = search.trim();
@@ -104,12 +104,16 @@ function Header() {
 
         {/* Giỏ hàng, thông báo và tài khoản */}
         <div className="flex space-x-6 items-center">
-          <div className="relative group cursor-pointer">
-            <div className="block p-3 group-hover:bg-primary/15 rounded-full">
+          <Link to="/cart" className="relative group cursor-pointer">
+            <div className="hidden lg:block p-3 group-hover:bg-primary/15 rounded-full">
               <img src="/img/cart.png" alt="Cart" className="w-[40px] h-[40px]" />
             </div>
-          </div>
-
+            {account?.cart?.length > 0 && (
+              <span className="hidden lg:block absolute top-4 right-3 translate-x-1/2 -translate-y-1/2 px-2 py-1 text-center text-white text-sm rounded-full bg-red-500">
+                {account.cart.length}
+              </span>
+            )}
+          </Link>
           {/* Thông báo */}
           <Notification />
           <span className="border border-gray-400 h-[30px] hidden md:block"></span>
