@@ -1390,5 +1390,134 @@
         "sold": 100,
         "inventory": 47
       }
+    ],
+    "user":[
+      {
+        "id": 1,
+        "userName": "john_doe",
+        "phone": "0123456789",
+        "password": "password123",
+        "role": "quanly", 
+        "email": "john.doe@example.com",
+        "address": "123 Main St, City, Country",
+        "fullName": "John Doe",
+        "cart": [
+          {
+            "id": 1,
+            "idProduct": 1,
+            "quantity": 2
+          },
+          {
+            "id": 2,
+            "idProduct": 2,
+            "quantity": 1
+          },
+          {
+            "id": 3,
+            "idProduct": 3,
+            "quantity": 5
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "userName": "alice_smith",
+        "phone": "0987654321",
+        "password": "securepass456",
+        "role": "khachhang",
+        "email": "alice.smith@example.com",
+        "address": "456 Elm St, City, Country",
+        "fullName": "Alice Smith",
+        "cart": [
+          {
+            "id": 1,
+            "idProduct": 4,
+            "quantity": 3
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "userName": "bob_jones",
+        "phone": "0112233445",
+        "password": "bobpass789",
+        "role": "khachhang",
+        "email": "bob.jones@example.com",
+        "address": "789 Oak St, City, Country",
+        "fullName": "Bob Jones",
+        "cart": [
+          {
+            "id": 1,
+            "idProduct": 2,
+            "quantity": 1
+          },
+          {
+            "id": 2,
+            "idProduct": 5,
+            "quantity": 4
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "userName": "carol_white",
+        "phone": "0223344556",
+        "password": "carolpass112",
+        "role": "khachhang",
+        "email": "carol.white@example.com",
+        "address": "321 Pine St, City, Country",
+        "fullName": "Carol White",
+        "cart": [
+          {
+            "id": 1,
+            "idProduct": 6,
+            "quantity": 2
+          },
+          {
+            "id": 2,
+            "idProduct": 7,
+            "quantity": 3
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "userName": "david_brown",
+        "phone": "0334455667",
+        "password": "davidbrown321",
+        "role": "khachhang",
+        "email": "david.brown@example.com",
+        "address": "654 Maple St, City, Country",
+        "fullName": "David Brown",
+        "cart": [
+          {
+            "id": 1,
+            "idProduct": 3,
+            "quantity": 2
+          },
+          {
+            "id": 2,
+            "idProduct": 8,
+            "quantity": 1
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "userName": "emily_davis",
+        "phone": "0445566778",
+        "password": "emilypass654",
+        "role": "khachhang",
+        "email": "emily.davis@example.com",
+        "address": "987 Birch St, City, Country",
+        "fullName": "Emily Davis",
+        "cart": [
+          {
+            "id": 1,
+            "idProduct": 9,
+            "quantity": 5
+          }
+        ]
+      }
     ]
   }

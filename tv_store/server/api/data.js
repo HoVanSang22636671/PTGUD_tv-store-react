@@ -14,7 +14,7 @@ const client = new MongoClient(uri, {
 
 let cachedClient = null;
 
-export default async function handler(req, res) {
+const getData = async (req, res) => {
   try {
     if (!cachedClient) {
       await client.connect();
@@ -25,12 +25,13 @@ export default async function handler(req, res) {
     const db = cachedClient.db('tvstore');
     const collection = db.collection('data');
 
-    const result = await collection.find().toArray(); // Lấy toàn bộ document
+    const result = await collection.find().toArray();
 
     return res.status(200).json(result);
   } catch (err) {
     console.error(err);
-    console.log("✅ Mongo URI:", process.env.MONGODB_URI);
     return res.status(500).json({ error: '❌ MongoDB query failed' });
   }
-}
+};
+
+export default getData;
