@@ -4,7 +4,7 @@ import { HiMenu, HiX } from "react-icons/hi";
 import { VscAccount } from "react-icons/vsc";
 import { Link, useNavigate } from "react-router-dom"; // Import Link và useNavigate
 import Notification from "./Notifications";
-
+import { useProduct } from "../API/UseProvider";// Import useProvider từ API
 function Header() {
   const [search, setSearch] = useState("");
   const [isSuggestionsVisible, setIsSuggestionsVisible] = useState(false); // Quản lý trạng thái hiển thị gợi ý
@@ -13,8 +13,8 @@ function Header() {
   const navigate = useNavigate(); // Initialize useNavigate
 
   // Lấy thông tin tài khoản từ localStorage (giả lập đăng nhập)
-  const account = JSON.parse(localStorage.getItem("isAccount")) || null;
-
+  
+  const { account } = useProduct(); // Lấy thông tin tài khoản từ context
   const handleSearch = () => {
     const trimmedSearch = search.trim();
     if (trimmedSearch) {
@@ -130,7 +130,7 @@ function Header() {
                 <VscAccount className="text-[32px] text-secondary group-hover:text-primary" />
               )}
               <h4 className="text-secondary text-lg group-hover:text-primary">
-                {account.username}
+                {account.userName}
               </h4>
             </Link>
           ) : (

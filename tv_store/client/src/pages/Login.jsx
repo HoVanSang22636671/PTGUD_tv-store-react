@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Link,useNavigate } from 'react-router-dom';
+import { useProduct } from '../API/UseProvider'; // Import useProduct từ UseProvider.jsx
 function Login() {
     const [isActive, setIsActive] = useState(false);
     const [tk, setTk] = useState('');
@@ -8,14 +9,15 @@ function Login() {
     const navigate = useNavigate();
     const handleLoginClick = () => setIsActive(false);
     const handleRegisterClick = () => setIsActive(true);
-
+    const {login} = useProduct(); // Giả sử bạn đã định nghĩa hàm login trong UseProvider.jsx
     const handleLogin = () => {
-        if (tk === 'admin' && mk === 'admin') {
-            navigate('/');
+        const success = login(tk, mk);
+        if (success) {
+          navigate('/'); // điều hướng khi đăng nhập thành công
         } else {
-            navigate('/');
+          alert('Sai tài khoản hoặc mật khẩu');
         }
-    };
+      };
 
     return (
         <div className="min-h-screen bg-gradient-to-r from-gray-100 to-indigo-200 flex flex-col items-center justify-center font-[Montserrat]">
