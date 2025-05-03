@@ -3,9 +3,14 @@
     "private": true,
     "version": "0.0.0",
     "scripts": {
-      "dev": "concurrently \"npm run dev --prefix client\" \"npm run dev --prefix server\"",
-      "build": "npm run build --prefix client",
-      "preview": "npm run preview --prefix client"
+        "dev": "concurrently \"npm run dev --prefix client\" \"npm run dev --prefix server\"",
+        "build": "npm run build --prefix client",
+        "preview": "npm run preview --prefix client"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.5.0",
+        "express": "^5.1.0",
+        "mongodb": "^6.16.0"
     }
-  }
-  
+}

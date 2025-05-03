@@ -9,6 +9,7 @@ function Header() {
   const [search, setSearch] = useState("");
   const [isSuggestionsVisible, setIsSuggestionsVisible] = useState(false); // Quản lý trạng thái hiển thị gợi ý
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [searchHistory, setSearchHistory] = useState([]);
   const inputRef = useRef(null);
   const navigate = useNavigate(); // Initialize useNavigate
 
@@ -17,11 +18,21 @@ function Header() {
 
   const handleSearch = () => {
     const trimmedSearch = search.trim();
+    console.log("handleSearch called with:", trimmedSearch);
     if (trimmedSearch) {
-      // Chuyển hướng đến trang tìm kiếm
-      navigate(`/search?q=${encodeURIComponent(trimmedSearch)}`);
+      let updatedHistory = searchHistory.filter(
+        (item) => item !== trimmedSearch
+      ); // Xóa nếu từ khóa đã tồn tại
+      updatedHistory.unshift(trimmedSearch); // Thêm từ khóa mới vào đầu danh sách
+      if (updatedHistory.length > 7) {
+        updatedHistory.pop(); // Giữ tối đa 7 từ khóa
+      }
+      setSearchHistory(updatedHistory);
+      localStorage.setItem("searchHistory", JSON.stringify(updatedHistory));
+      navigate(`/search?q=${encodeURIComponent(trimmedSearch)}`); // Chuyển hướng đến trang tìm kiếm
     }
   };
+
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
