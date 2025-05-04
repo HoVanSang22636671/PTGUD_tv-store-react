@@ -23,7 +23,7 @@ const ProductDetail = () => {
       setSelectedProduct(found);
     }
   }, [product, id]);
-
+// 
   // Hàm formatCurrency để định dạng giá tiền
   const formatCurrency = (value) => {
     return value.toLocaleString("vi-VN", {
