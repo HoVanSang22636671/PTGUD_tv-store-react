@@ -4,7 +4,7 @@ import Header from './components/Header'
 import Footer from "./components/Footer"
 import HomePage from './pages/HomePage'
 import MainPage from './pages/MainPage'
-import ProductDetail from './pages/ProductDeTail'
+import ProductDetail from './pages/ProductDetail'
 import Login from './pages/Login'
 import AccountPage from './pages/AccountPage'
 import CartPage from './pages/CartPage'
