@@ -8,7 +8,7 @@ const ConfirmDialog = ({ message, onConfirm, onCancel }) => {
   };
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+      className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-30 backdrop-blur-sm z-50"
       onClick={handleOverlayClick}
     >
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
@@ -28,6 +28,7 @@ const ConfirmDialog = ({ message, onConfirm, onCancel }) => {
           </button>
         </div>
       </div>
+
     </div>
   );
 };

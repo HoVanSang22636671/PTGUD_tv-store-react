@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Header from "../components/Header";
 import LocationIcon from "../assets/camket/dinhvi.png";
 import CartImgEmpty from "../assets/camket/cartPage.png";
-import { MdOutlineDelete } from "react-icons/md";
+import { MdEdit, MdOutlineDelete } from "react-icons/md";
 import { GoAlert } from "react-icons/go";
 import ProductCart from "../components/cart/ProductCart";
 import ShippingInfo from "../components/cart/ShippingInfo";
@@ -53,18 +53,19 @@ function CartPage() {
 
   const handleSelectAll = () => {
     if (checkAll) {
-      // Nếu đã chọn tất cả, bỏ chọn tất cả
       setSelectedProducts([]);
     } else {
-      // Nếu chưa chọn tất cả, thêm tất cả sản phẩm vào danh sách selectedProducts
-      setSelectedProducts(cart.map((item) => item.id));
+      setSelectedProducts(cart.map((item) => item.idProduct)); // CHỈNH Ở ĐÂY
     }
     setCheckAll(!checkAll);
   };
-
+  // useEffect(() => {
+  //   console.log("Selected products:", selectedProducts);
+  // }, [selectedProducts]);
   const handleSelectProduct = (productId, isChecked) => {
     if (isChecked) {
       setSelectedProducts((prev) => [...prev, productId]);
+
     } else {
       setSelectedProducts((prev) => prev.filter((id) => id !== productId));
     }
@@ -76,18 +77,26 @@ function CartPage() {
 
   const calculateTotalOriginalPrice = () => {
     return cart
-      .filter((item) => selectedProducts.includes(item.id))
-      .reduce((total, item) => {
-        if (item.sale) {
-          return (
-            total +
-            (item.price - item.price * (item.sale / 100)) * item.quantity
-          );
-        } else {
-          return total + item.price * item.quantity;
+      .filter((item) => selectedProducts.includes(String(item.idProduct))) // Sử dụng idProduct ở đây
+      .reduce((total, cartItem) => {
+        const product1 = product.find(
+          (p) => String(p.id) === String(cartItem.idProduct) // Sử dụng idProduct ở đây
+        );
+  
+        if (!product1) {
+          console.warn("Không tìm thấy sản phẩm:", cartItem.idProduct);
+          return total;
         }
+  
+        const price = Number(product1.price) || 0;
+        const sale = Number(product1.sale) || 0;
+        const discountPrice = price - (price * sale) / 100;
+  
+        return total + discountPrice * cartItem.quantity;
       }, 0);
   };
+  
+  
 
   const totalOriginalPrice = calculateTotalOriginalPrice();
 
@@ -148,7 +157,7 @@ function CartPage() {
                           <div className="w-[20%]">Số lượng</div>
                           <div className="w-[20%]">Thành tiền</div>
                           <div className="w-[5%]">
-                            <MdOutlineDelete className="text-[25px]" />
+                            <MdEdit className="text-[25px] text-gray-500" />
                           </div>
                         </div>
                       </div>
@@ -156,12 +165,14 @@ function CartPage() {
                       <div>
                         {cart.map((cartItem) => (
                           <ProductCart
-                            key={cartItem.id}
+                            key={cartItem.idProduct}
                             product={product.find(p => String(p.id) === String(cartItem.idProduct))} // Tìm sản phẩm từ danh sách theo id
                             setCart={updateCartInLocalStorage}
                             handleSelectProduct={handleSelectProduct}
                             selectedProducts={selectedProducts}
                             selectAll={checkAll}
+                            quantity={cartItem.quantity}
+                            account={account ? account : null}
                           />
                         ))}
                       </div>

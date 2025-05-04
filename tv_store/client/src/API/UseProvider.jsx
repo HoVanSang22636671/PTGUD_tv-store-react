@@ -132,10 +132,98 @@ export const UserProvider = ({ children }) => {
       return { success: false, message: "Có lỗi khi thay đổi mật khẩu." };
     }
   };
+  const updateProductQuantity = async (userId, idProduct, newQuantity) => {
+    const apiUrl =
+      window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+        ? `http://localhost:3000/api/updatecart/${userId}`
+        : `https://ptgud-tv-store-react.onrender.com/api/updatecart/${userId}`;
+  
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idProduct, quantity: newQuantity }),
+      });
+  
+      const result = await response.json();
+  
+      if (result && result.modifiedCount > 0) {
+        // ✅ Cập nhật trong accountList
+        setAccountList((prevList) =>
+          prevList.map((user) => {
+            if (user.id === userId) {
+              const updatedCart = user.cart.map((item) =>
+                item.idProduct === idProduct ? { ...item, quantity: newQuantity } : item
+              );
+              return { ...user, cart: updatedCart };
+            }
+            return user;
+          })
+        );
+  
+        // ✅ Nếu là user đang đăng nhập, cập nhật luôn trong account
+        if (account && account.id === userId) {
+          const updatedCart = account.cart.map((item) =>
+            item.idProduct === idProduct ? { ...item, quantity: newQuantity } : item
+          );
+          setAccount((prev) => ({ ...prev, cart: updatedCart }));
+        }
+      }
+  
+      return result;
+    } catch (error) {
+      console.error("Lỗi khi cập nhật số lượng sản phẩm:", error);
+      return { success: false, message: "Có lỗi khi cập nhật số lượng sản phẩm." };
+    }
+  };
+  //deleteCart
+  const deleteProduct = async (userId, idProduct) => {
+    const apiUrl =
+      window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+        ? `http://localhost:3000/api/deletecart/${userId}`
+        : `https://ptgud-tv-store-react.onrender.com/api/deletecart/${userId}`;
+  
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idProduct }),
+      });
+  
+      const result = await response.json();
+  
+      if (result && result.modifiedCount > 0) {
+        // ✅ Cập nhật trong accountList
+        setAccountList((prevList) =>
+          prevList.map((user) => {
+            if (user.id === userId) {
+              const updatedCart = user.cart.filter((item) => item.idProduct !== idProduct);
+              return { ...user, cart: updatedCart };
+            }
+            return user;
+          })
+        );
+  
+        // ✅ Nếu là user đang đăng nhập, cập nhật luôn trong account
+        if (account && account.id === userId) {
+          const updatedCart = account.cart.filter((item) => item.idProduct !== idProduct);
+          setAccount((prev) => ({ ...prev, cart: updatedCart }));
+        }
+      }
+  
+      return result;
+    } catch (error) {
+      console.error("Lỗi khi xóa sản phẩm khỏi giỏ hàng:", error);
+      return { success: false, message: "Có lỗi khi xóa sản phẩm khỏi giỏ hàng." };
+    }
+  };
+  
+
+  
   // Hàm đăng nhập
   const login = (username, password) => {
-    const user = accountList.find(
-      (acc) => acc.phone === username && acc.password === password
+    const user = accountList?.find(
+      (acc) => acc?.phone === username && acc?.password === password
     );
     if (user) {
       setAccount(user);
@@ -171,7 +259,9 @@ export const UserProvider = ({ children }) => {
         accountList,
         login, // expose login function
         logout,
-        changePassword, // expose logout function
+        changePassword,
+        updateProductQuantity,
+        deleteProduct, // expose logout function
       }}
     >
       {children}
