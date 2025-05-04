@@ -1,1 +1,7 @@
 @import "tailwindcss";
+button {
+    cursor: pointer;
+  }
+  a:hover {
+    color: #1a94ff; /* Màu xanh bạn muốn, có thể thay bằng màu khác */
+  }

@@ -84,9 +84,8 @@ function AccountInfo({ account }) {
                   value={username}
                   readOnly={!isEditable}
                   onChange={(e) => setUserName(e.target.value)}
-                  className={` p-2 text-[20px] w-[200px] border ${
-                    isEditable ? "border-gray-600" : "border-gray-400"
-                  } rounded-md mx-1`}
+                  className={` p-2 text-[20px] w-[200px] border ${isEditable ? "border-gray-600" : "border-gray-400"
+                    } rounded-md mx-1`}
                 />
               </div>
               <div className="flex items-center justify-between mt-3">
@@ -96,9 +95,8 @@ function AccountInfo({ account }) {
                   value={phone}
                   readOnly={!isEditable}
                   onChange={(e) => setPhone(e.target.value)}
-                  className={` p-2 text-[20px] w-[200px] border ${
-                    isEditable ? "border-gray-600" : "border-gray-400"
-                  } rounded-md mx-1`}
+                  className={` p-2 text-[20px] w-[200px] border ${isEditable ? "border-gray-600" : "border-gray-400"
+                    } rounded-md mx-1`}
                 />
               </div>
               <div className="flex items-center justify-between mt-3">
@@ -108,9 +106,8 @@ function AccountInfo({ account }) {
                   value={email}
                   readOnly={!isEditable}
                   onChange={(e) => setEmail(e.target.value)}
-                  className={` p-2 text-[20px] w-[200px] border ${
-                    isEditable ? "border-gray-600" : "border-gray-400"
-                  } rounded-md mx-1`}
+                  className={` p-2 text-[20px] w-[200px] border ${isEditable ? "border-gray-600" : "border-gray-400"
+                    } rounded-md mx-1`}
                 />
               </div>
             </div>
@@ -118,7 +115,7 @@ function AccountInfo({ account }) {
           {!isEditable ? (
             <button
               onClick={() => setIsEditable(true)}
-              className="px-6 mt-2 py-3 bg-primary text-white rounded-md text-[18px] hover:bg-blue-700"
+              className="px-6 mt-2 py-3 bg-blue-500 text-white rounded-md text-[18px] hover:bg-blue-700"
             >
               Chỉnh sửa thông tin
             </button>
@@ -132,12 +129,12 @@ function AccountInfo({ account }) {
           )}
         </div>
         {/* Cột phải */}
-        <div className="w-[40%] mx-4 rounded-md bg-white flex flex-col items-center justify-center">
-          <h1 className="text-[18px] font-bold border-b border-gray-300 pb-2">
+        <div className="w-[50%] ml-auto rounded-md bg-white flex flex-col items-center justify-center pl-6 py-4">
+          <h1 className="text-[20px] font-bold border-b border-gray-300 pb-2 w-full text-center">
             Địa chỉ giao hàng
           </h1>
-          <div>
-            <ShippingInfo />
+          <div className="w-full px-4">
+            <ShippingInfo account={account} />
           </div>
         </div>
       </div>

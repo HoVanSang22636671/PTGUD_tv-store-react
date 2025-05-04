@@ -7,6 +7,7 @@ import MainPage from './pages/MainPage'
 import ProductDetail from './pages/ProductDetail'
 import Login from './pages/Login'
 import AccountPage from './pages/AccountPage'
+import CartPage from './pages/CartPage'
 function App() {
   return (
     <>
@@ -17,6 +18,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path='/account' element={<AccountPage/>}/>
           {/* các route khác nằm trong layout MainPage */}
+          <Route path="/cart" element={<CartPage />} />
         </Route>
 
         {/* Route không dùng MainPage */}
