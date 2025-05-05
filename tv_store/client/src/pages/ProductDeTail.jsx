@@ -462,7 +462,7 @@ const ProductDetail = () => {
                   <div
                     className={`flex-1 text-center p-3 border text-[20px] rounded-md cursor-pointer transition duration-200 ${isInCart && existingItem?.quantity === num
                       ? 'border-gray-400 text-gray-400 cursor-not-allowed'
-                      : 'border-primary text-primary hover:bg-primary hover:text-white'
+                      : 'border-primary text-primary hover:bg-blue-700 hover:text-white'
                       }`}
                     onClick={() => {
                       if (!account || !selectedProduct || num <= 0) {

@@ -2,23 +2,22 @@ import { useState, useRef } from "react";
 import { IoIosSearch, IoMdClose } from "react-icons/io";
 import { HiMenu, HiX } from "react-icons/hi";
 import { VscAccount } from "react-icons/vsc";
-import { Link, useNavigate } from "react-router-dom"; // Import Link và useNavigate
+import { Link, useNavigate } from "react-router-dom";
 import Notification from "./Notifications";
-import { useProduct } from "../API/UseProvider";// Import useProvider từ API
+import { useProduct } from "../API/UseProvider";
+
 function Header() {
   const [search, setSearch] = useState("");
-  const [isSuggestionsVisible, setIsSuggestionsVisible] = useState(false); // Quản lý trạng thái hiển thị gợi ý
+  const [isSuggestionsVisible, setIsSuggestionsVisible] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const inputRef = useRef(null);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
-  // Lấy thông tin tài khoản từ localStorage (giả lập đăng nhập)
+  const { account } = useProduct();
 
-  const { account } = useProduct(); // Lấy thông tin tài khoản từ context
   const handleSearch = () => {
     const trimmedSearch = search.trim();
     if (trimmedSearch) {
-      // Chuyển hướng đến trang tìm kiếm
       navigate(`/search?q=${encodeURIComponent(trimmedSearch)}`);
     }
   };
@@ -29,27 +28,38 @@ function Header() {
     }
   };
 
+  const handleMobileNavigate = (path) => {
+    setIsMobileMenuOpen(false);
+    navigate(path);
+  };
+
   return (
-    <div className="bg-white shadow-md py-2 flex justify-center">
-      <div className="container flex justify-between items-center max-w-[1200px] w-full">
-        {/* Logo */}
-        <div>
+    <div className="bg-white shadow-md py-2 flex justify-center relative z-50">
+      <div className="container flex flex-col md:flex-row justify-between items-start md:items-center max-w-[1200px] w-full px-4">
+        {/* Logo và menu mobile */}
+        <div className="flex justify-between items-center w-full md:w-auto">
           <Link to="/">
             <img
               src="/img/logo.png"
               alt="Logo"
-              className="block w-[130px] rounded-full cursor-pointer pl-5"
+              className="w-[130px] rounded-full cursor-pointer"
             />
           </Link>
+          <button
+            className="md:hidden"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <HiX size={30} /> : <HiMenu size={30} />}
+          </button>
         </div>
 
         {/* Thanh tìm kiếm */}
         <div
-          className="flex-col mt-3 flex relative"
-          onMouseEnter={() => setIsSuggestionsVisible(true)} // Hiển thị gợi ý khi đưa chuột vào
-          onMouseLeave={() => setIsSuggestionsVisible(false)} // Ẩn gợi ý khi rời chuột khỏi thanh tìm kiếm
+          className="flex-col mt-3 md:mt-0 flex relative w-full md:w-auto"
+          onMouseEnter={() => setIsSuggestionsVisible(true)}
+          onMouseLeave={() => setIsSuggestionsVisible(false)}
         >
-          <div className="relative flex group ml-2">
+          <div className="relative flex group mt-2 md:mt-0">
             <IoIosSearch
               size={25}
               className="absolute top-1/4 left-3 text-secondary"
@@ -66,7 +76,7 @@ function Header() {
               }}
               type="text"
               placeholder="Tìm kiếm sản phẩm ... "
-              className="text-lg w-[300px] lg:w-[550px] h-[50px] border border-gray-300 rounded-s-md pl-12 outline-none"
+              className="text-lg w-full md:w-[300px] lg:w-[550px] h-[50px] border border-gray-300 rounded-s-md pl-12 outline-none"
             />
             {search && (
               <IoMdClose
@@ -84,7 +94,6 @@ function Header() {
               Tìm kiếm
             </span>
           </div>
-          {/* Hiển thị gợi ý tìm kiếm */}
           {isSuggestionsVisible && (
             <div className="absolute z-10 top-full left-0 w-full bg-white border border-gray-300 rounded-md shadow-md">
               <ul>
@@ -102,23 +111,25 @@ function Header() {
           )}
         </div>
 
-        {/* Giỏ hàng, thông báo và tài khoản */}
-        <div className="flex space-x-6 items-center">
+        {/* Giỏ hàng, thông báo, tài khoản (desktop only) */}
+        <div className="hidden md:flex space-x-6 items-center mt-4 md:mt-0">
           <Link to="/cart" className="relative group cursor-pointer">
-            <div className="hidden lg:block p-3 group-hover:bg-primary/15 rounded-full">
-              <img src="/img/cart.png" alt="Cart" className="w-[40px] h-[40px]" />
+            <div className="p-3 group-hover:bg-primary/15 rounded-full">
+              <img
+                src="/img/cart.png"
+                alt="Cart"
+                className="w-[40px] h-[40px]"
+              />
             </div>
             {account?.cart?.length > 0 && (
-              <span className="hidden lg:block absolute top-4 right-3 translate-x-1/2 -translate-y-1/2 px-2 py-1 text-center text-white text-sm rounded-full bg-red-500">
+              <span className="absolute top-4 right-3 translate-x-1/2 -translate-y-1/2 px-2 py-1 text-center text-white text-sm rounded-full bg-red-500">
                 {account.cart.length}
               </span>
             )}
           </Link>
-          {/* Thông báo */}
           <Notification />
           <span className="border border-gray-400 h-[30px] hidden md:block"></span>
 
-          {/* Tài khoản */}
           {account ? (
             <Link
               to="/account"
@@ -151,26 +162,22 @@ function Header() {
         </div>
       </div>
 
-      {/* Menu mobile */}
-      <div className="flex items-center space-x-4">
-        <button
-          className="md:hidden"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <HiX size={30} /> : <HiMenu size={30} />}
-        </button>
-      </div>
-
       {/* Dropdown mobile */}
       {isMobileMenuOpen && (
-        <div className="absolute top-16 right-4 bg-white shadow-md rounded-md w-48 p-4 z-50">
-          <div className="flex items-center space-x-2 mb-2">
+        <div className="absolute top-20 right-4 bg-white shadow-md rounded-md w-48 p-4 z-50 md:hidden">
+          <div
+            onClick={() => handleMobileNavigate("/cart")}
+            className="flex items-center space-x-2 mb-3 cursor-pointer hover:text-primary"
+          >
             <img src="/img/cart.png" alt="Cart" className="w-8 h-8" />
             <span>Giỏ hàng</span>
           </div>
-          <div className="flex items-center space-x-2 mt-2">
+          <div
+            onClick={() => handleMobileNavigate(account ? "/account" : "/login")}
+            className="flex items-center space-x-2 cursor-pointer hover:text-primary"
+          >
             <VscAccount size={25} className="text-secondary" />
-            <span>Đăng nhập</span>
+            <span>{account ? "Tài khoản" : "Đăng nhập"}</span>
           </div>
         </div>
       )}
