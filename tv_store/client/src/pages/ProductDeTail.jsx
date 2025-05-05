@@ -8,22 +8,37 @@ import Footer from "../components/Footer";
 import ThongTinVanChuyen from "../components/ProductDeTails/ThongTinVanChuyen";
 import CamKet from "../components/ProductDeTails/CamKet";
 import { useProduct } from "../API/UseProvider";
-import { useParams } from 'react-router-dom';
+import { useParams,Link } from 'react-router-dom';
 const ProductDetail = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [imgDevice, setImgDevice] = useState(0);
   const [num, setNum] = useState(1);
   const [error, setError] = useState('');
   const [filter, setFilter] = useState([1, 2]);
-  const { product } = useProduct();
+  const { product, account, addToCart } = useProduct();
   const { id } = useParams();
+  const existingItem = account?.cart.find(item => item.idProduct === id);
+
+  useEffect(() => {
+    // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+
+    if (existingItem) {
+      // Nếu có, đặt số lượng từ giỏ hàng
+      setNum(existingItem?.quantity);
+    } else {
+      // Nếu không, đặt số lượng mặc định là 1
+      setNum(1);
+    }
+  }, [account, id]);
+  const isInCart = !!existingItem;
   useEffect(() => {
     if (product && Array.isArray(product)) {
       const found = product.find((p) => String(p.id) === String(id));
       setSelectedProduct(found);
     }
   }, [product, id]);
-// 
+  // 
+  // console.log(account?.id);
   // Hàm formatCurrency để định dạng giá tiền
   const formatCurrency = (value) => {
     return value.toLocaleString("vi-VN", {
@@ -442,13 +457,46 @@ const ProductDetail = () => {
                 >
                   Mua ngay
                 </div>
-                <div
-                  className="w-[90%] mx-auto p-3 text-primary text-center border border-primary text-[20px] rounded-md cursor-pointer"
-                  onClick={() => {
-                  }}
-                >
-                  Thêm vào giỏ hàng
+                <div className="w-[90%] mx-auto flex items-center gap-2">
+                  {/* Nút thêm/cập nhật */}
+                  <div
+                    className={`flex-1 text-center p-3 border text-[20px] rounded-md cursor-pointer transition duration-200 ${isInCart && existingItem?.quantity === num
+                      ? 'border-gray-400 text-gray-400 cursor-not-allowed'
+                      : 'border-primary text-primary hover:bg-primary hover:text-white'
+                      }`}
+                    onClick={() => {
+                      if (!account || !selectedProduct || num <= 0) {
+                        console.log('Dữ liệu không hợp lệ.');
+                        return;
+                      }
+
+                      if (isInCart && existingItem?.quantity === num) {
+                        console.log('Số lượng giống nhau, không cần cập nhật.');
+                        return;
+                      }
+
+                      addToCart(account?.id, selectedProduct.id, num);
+                    }}
+                  >
+                    {isInCart
+                      ? existingItem?.quantity !== num
+                        ? 'Cập nhật số lượng'
+                        : 'Đã có trong giỏ hàng'
+                      : 'Thêm vào giỏ hàng'}
+                  </div>
+
+                  {/* Icon giỏ hàng nhỏ */}
+                  {isInCart && (
+                    <Link
+                      to="/cart"
+                      className="p-3 border border-green-500 text-green-600 rounded-md cursor-pointer hover:bg-green-500 hover:text-white h-full flex items-center justify-center"
+                      title="Đi đến giỏ hàng"
+                    >
+                      🛒
+                    </Link>
+                  )}
                 </div>
+
               </div>
             </div>
             <div className="mt-4">

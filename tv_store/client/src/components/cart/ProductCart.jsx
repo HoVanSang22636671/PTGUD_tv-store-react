@@ -62,7 +62,7 @@ function ProductCart({
             className="flex cursor-pointer"
             onClick={() => {
               localStorage.setItem("detailProduct", JSON.stringify(product));
-              navigate("/productDetail", { state: { fromData: true } });
+              navigate(`/productDetail/${product?.id}`, { state: { fromData: true } });
             }}
           >
             <img

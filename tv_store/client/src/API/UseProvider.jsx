@@ -102,16 +102,16 @@ export const UserProvider = ({ children }) => {
       window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
         ? `http://localhost:3000/api/change-password/${userId}`
         : `https://ptgud-tv-store-react.onrender.com/api/change-password/${userId}`;
-  
+
     try {
       const response = await fetch(apiUrl, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ newPassword }),
       });
-  
+
       const result = await response.json();
-      
+
       // Kiểm tra kết quả và cập nhật lại accountList
       if (result && result.modifiedCount > 0) {
         // Cập nhật mật khẩu cho user trong accountList
@@ -125,7 +125,7 @@ export const UserProvider = ({ children }) => {
           setAccount((prevAccount) => ({ ...prevAccount, password: newPassword }));
         }
       }
-  
+
       return result;
     } catch (error) {
       console.error("Lỗi khi thay đổi mật khẩu:", error);
@@ -137,16 +137,16 @@ export const UserProvider = ({ children }) => {
       window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
         ? `http://localhost:3000/api/updatecart/${userId}`
         : `https://ptgud-tv-store-react.onrender.com/api/updatecart/${userId}`;
-  
+
     try {
       const response = await fetch(apiUrl, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ idProduct, quantity: newQuantity }),
       });
-  
+
       const result = await response.json();
-  
+
       if (result && result.modifiedCount > 0) {
         // ✅ Cập nhật trong accountList
         setAccountList((prevList) =>
@@ -160,7 +160,7 @@ export const UserProvider = ({ children }) => {
             return user;
           })
         );
-  
+
         // ✅ Nếu là user đang đăng nhập, cập nhật luôn trong account
         if (account && account.id === userId) {
           const updatedCart = account.cart.map((item) =>
@@ -169,7 +169,7 @@ export const UserProvider = ({ children }) => {
           setAccount((prev) => ({ ...prev, cart: updatedCart }));
         }
       }
-  
+
       return result;
     } catch (error) {
       console.error("Lỗi khi cập nhật số lượng sản phẩm:", error);
@@ -182,16 +182,16 @@ export const UserProvider = ({ children }) => {
       window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
         ? `http://localhost:3000/api/deletecart/${userId}`
         : `https://ptgud-tv-store-react.onrender.com/api/deletecart/${userId}`;
-  
+
     try {
       const response = await fetch(apiUrl, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ idProduct }),
       });
-  
+
       const result = await response.json();
-  
+
       if (result && result.modifiedCount > 0) {
         // ✅ Cập nhật trong accountList
         setAccountList((prevList) =>
@@ -203,23 +203,108 @@ export const UserProvider = ({ children }) => {
             return user;
           })
         );
-  
+
         // ✅ Nếu là user đang đăng nhập, cập nhật luôn trong account
         if (account && account.id === userId) {
           const updatedCart = account.cart.filter((item) => item.idProduct !== idProduct);
           setAccount((prev) => ({ ...prev, cart: updatedCart }));
         }
       }
-  
+
       return result;
     } catch (error) {
       console.error("Lỗi khi xóa sản phẩm khỏi giỏ hàng:", error);
       return { success: false, message: "Có lỗi khi xóa sản phẩm khỏi giỏ hàng." };
     }
   };
+  //them vào giỏ hàng
+  const addToCart = async (userId, idProduct, quantity) => {
+    console.log("userId:", userId);
+  
+    const apiUrl =
+      window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+        ? `http://localhost:3000/api/addtocart/${userId}`
+        : `https://ptgud-tv-store-react.onrender.com/api/addtocart/${userId}`;
+  
+    try {
+      // Gửi yêu cầu đến API
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idProduct, quantity }),
+      });
+  
+      console.log("API URL:", apiUrl);
+      console.log("Response status:", response.status); // Kiểm tra mã trạng thái HTTP
+  
+      // Kiểm tra nếu phản hồi thành công (status 200)
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const result = await response.json();
+      console.log("Response body:", result);
+  
+      if (result && result.modifiedCount > 0) {
+        // Cập nhật giỏ hàng trong accountList
+        setAccountList((prevList) =>
+          prevList.map((user) => {
+            if (user.id === userId) {
+              const existingItem = user.cart.find((item) => item.idProduct === idProduct);
+              let updatedCart;
+              if (existingItem) {
+                updatedCart = user.cart.map((item) =>
+                  item.idProduct === idProduct
+                    ? { ...item, quantity: quantity }
+                    : item
+                );
+              } else {
+                const maxId = user.cart.length > 0 ? Math.max(...user.cart.map(item => item.id)) : 0;
+                const newItem = {
+                  id: maxId + 1,
+                  idProduct,
+                  quantity,
+                };
+                updatedCart = [...user.cart, newItem];
+              }
+              return { ...user, cart: updatedCart };
+            }
+            return user;
+          })
+        );
+  
+        // Cập nhật giỏ hàng cho account nếu user đang đăng nhập
+        if (account && account.id === userId) {
+          const existingItem = account.cart.find((item) => item.idProduct === idProduct);
+          let updatedCart;
+          if (existingItem) {
+            updatedCart = account.cart.map((item) =>
+              item.idProduct === idProduct
+                ? { ...item, quantity: quantity }
+                : item
+            );
+          } else {
+            const maxId = account.cart.length > 0 ? Math.max(...account.cart.map(item => item.id)) : 0;
+            const newItem = {
+              id: maxId + 1,
+              idProduct,
+              quantity,
+            };
+            updatedCart = [...account.cart, newItem];
+          }
+          setAccount((prev) => ({ ...prev, cart: updatedCart }));
+        }
+      }
+  
+      return result;
+    } catch (error) {
+      console.error("Lỗi khi thêm sản phẩm vào giỏ hàng:", error);
+      return { success: false, message: "Có lỗi khi thêm sản phẩm vào giỏ hàng." };
+    }
+  };
   
 
-  
+
   // Hàm đăng nhập
   const login = (username, password) => {
     const user = accountList?.find(
@@ -261,7 +346,8 @@ export const UserProvider = ({ children }) => {
         logout,
         changePassword,
         updateProductQuantity,
-        deleteProduct, // expose logout function
+        deleteProduct,
+        addToCart, // expose logout function
       }}
     >
       {children}
