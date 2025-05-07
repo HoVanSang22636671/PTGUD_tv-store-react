@@ -5,6 +5,7 @@ import { VscAccount } from "react-icons/vsc";
 import { Link, useNavigate } from "react-router-dom"; // Import Link và useNavigate
 import Notification from "./Notifications";
 import SearchHistory from "./Search/SearchHistory";
+import SearchPopular from "./Search/SearchPopular";
 
 function Header() {
   const [search, setSearch] = useState("");
@@ -105,6 +106,13 @@ function Header() {
                   handleSearch={handleSearch}
                 />
               )}
+              <SearchPopular
+                input={inputRef}
+                searchHistory={searchHistory}
+                setSearchHistory={setSearchHistory}
+                setSearch={setSearch}
+                handleSearch={handleSearch}
+              />
             </div>
           </div>
         </div>
