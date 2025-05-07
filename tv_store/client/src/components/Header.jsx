@@ -1,13 +1,14 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { IoIosSearch, IoMdClose } from "react-icons/io";
 import { HiMenu, HiX } from "react-icons/hi";
 import { VscAccount } from "react-icons/vsc";
 import { Link, useNavigate } from "react-router-dom"; // Import Link và useNavigate
 import Notification from "./Notifications";
+import SearchHistory from "./Search/SearchHistory";
 
 function Header() {
   const [search, setSearch] = useState("");
-  const [isSuggestionsVisible, setIsSuggestionsVisible] = useState(false); // Quản lý trạng thái hiển thị gợi ý
+  // const [isSuggestionsVisible, setIsSuggestionsVisible] = useState(false); // Quản lý trạng thái hiển thị gợi ý
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchHistory, setSearchHistory] = useState([]);
   const inputRef = useRef(null);
@@ -16,9 +17,13 @@ function Header() {
   // Lấy thông tin tài khoản từ localStorage (giả lập đăng nhập)
   const account = JSON.parse(localStorage.getItem("isAccount")) || null;
 
+  useEffect(() => {
+    const storedHistory =
+      JSON.parse(localStorage.getItem("searchHistory")) || [];
+    setSearchHistory(storedHistory);
+  }, []);
   const handleSearch = () => {
     const trimmedSearch = search.trim();
-    console.log("handleSearch called with:", trimmedSearch);
     if (trimmedSearch) {
       let updatedHistory = searchHistory.filter(
         (item) => item !== trimmedSearch
@@ -55,11 +60,7 @@ function Header() {
         </div>
 
         {/* Thanh tìm kiếm */}
-        <div
-          className="flex-col mt-3 flex relative"
-          onMouseEnter={() => setIsSuggestionsVisible(true)} // Hiển thị gợi ý khi đưa chuột vào
-          onMouseLeave={() => setIsSuggestionsVisible(false)} // Ẩn gợi ý khi rời chuột khỏi thanh tìm kiếm
-        >
+        <div className="flex-col mt-3 flex">
           <div className="relative flex group ml-2">
             <IoIosSearch
               size={25}
@@ -69,7 +70,7 @@ function Header() {
               spellCheck={false}
               ref={inputRef}
               value={search}
-              onKeyDown={handleKeyDown}
+              onKeyDown={handleKeyDown} // Nhấn Enter sẽ tìm kiếm
               onChange={(e) => {
                 if (!e.target.value.startsWith(" ")) {
                   setSearch(e.target.value);
@@ -90,27 +91,22 @@ function Header() {
             )}
             <span
               className="w-[100px] h-[50px] flex items-center justify-center text-center text-primary text-[18px] border border-gray-300 rounded-e-md hover:bg-[rgba(10,104,255,0.2)] cursor-pointer"
-              onClick={handleSearch}
+              onClick={handleSearch} // Nhấn nút tìm kiếm sẽ tìm kiếm
             >
               Tìm kiếm
             </span>
-          </div>
-          {/* Hiển thị gợi ý tìm kiếm */}
-          {isSuggestionsVisible && (
-            <div className="absolute z-10 top-full left-0 w-full bg-white border border-gray-300 rounded-md shadow-md">
-              <ul>
-                <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
-                  Tivi Sony 4K UHD 50 inch
-                </li>
-                <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
-                  Tivi LG QLED 4K 55 inch
-                </li>
-                <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
-                  Tivi Samsung Full HD 65
-                </li>
-              </ul>
+            {/* Hiển thị lịch sử tìm kiếm */}
+            <div className="hidden absolute py-2 z-10 top-full left-0 translate-x-2 w-[590px] min-h-[50px] bg-white border border-gray-300 rounded-md group-hover:block">
+              {searchHistory.length > 0 && (
+                <SearchHistory
+                  setSearchHistory={setSearchHistory}
+                  searchHistory={searchHistory}
+                  setSearch={setSearch}
+                  handleSearch={handleSearch}
+                />
+              )}
             </div>
-          )}
+          </div>
         </div>
 
         {/* Giỏ hàng, thông báo và tài khoản */}
@@ -186,3 +182,4 @@ function Header() {
 }
 
 export default Header;
+
