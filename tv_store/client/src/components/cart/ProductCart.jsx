@@ -4,7 +4,8 @@ import { MdEdit, MdOutlineDelete, MdSave } from "react-icons/md";
 import GiaoHangIcon from "../../assets/camket/giaohang.png";
 import formatCurrency from "../../calculator/FormatCurrency";
 import { useProduct } from "../../API/UseProvider";
-import ConfirmDialog from "../../message/ConfirmDialog"; // Import useProvider từ API
+import ConfirmDialog from "../../message/ConfirmDialog";
+
 function ProductCart({
   product,
   setCart,
@@ -16,44 +17,42 @@ function ProductCart({
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [localQuantity, setLocalQuantity] = useState(quantity);
-  const {updateProductQuantity,deleteProduct} = useProduct(); 
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);// Lấy hàm updateProductQuantity từ context
+  const { updateProductQuantity, deleteProduct } = useProduct();
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+
   function getDateAfterFourDays() {
     const today = new Date();
     today.setDate(today.getDate() + 4);
     return today.toLocaleDateString("vi-VN");
   }
 
- // State để kiểm soát modal xác nhận
-
-  // Hàm xác nhận xóa sản phẩm
   const handleDelete = () => {
-    setShowConfirmDialog(true); // Mở modal xác nhận xóa
+    setShowConfirmDialog(true);
   };
 
   const handleConfirmDelete = () => {
-    deleteProduct(account?.id, product?.id);  // Gọi hàm xóa
-    setShowConfirmDialog(false);  // Đóng modal sau khi xác nhận xóa
-    setIsEditing(false);  // Đóng chế độ chỉnh sửa
+    deleteProduct(account?.id, product?.id);
+    setShowConfirmDialog(false);
+    setIsEditing(false);
   };
 
   const handleCancelDelete = () => {
-    setShowConfirmDialog(false);  // Đóng modal nếu người dùng hủy
+    setShowConfirmDialog(false);
   };
-// console.log(account?.id, product?.id, localQuantity);
+
   const handleSave = () => {
     updateProductQuantity(account?.id, product?.id, localQuantity);
-    setIsEditing(false) // This is now a function reference, not immediately called.
+    setIsEditing(false);
   };
 
   return (
-    <div className="bg-white p-3 rounded-md text-[18px] mt-3">
-      <div className="flex items-center">
+    <div className="bg-white p-3 rounded-md text-[18px] mt-3 shadow-sm">
+      <div className="flex flex-col md:flex-row md:items-center gap-3">
         {/* PRODUCT INFO */}
-        <div className="flex w-[35%] items-center">
+        <div className="flex md:w-[35%] w-full items-start gap-2">
           <input
             type="checkbox"
-            className="w-[25px] cursor-pointer scale-150"
+            className="w-[25px] mt-2 cursor-pointer scale-150"
             checked={selectedProducts.includes(product.id)}
             onChange={(e) => handleSelectProduct(product.id, e.target.checked)}
           />
@@ -68,17 +67,17 @@ function ProductCart({
             <img
               src={product.img[0].img}
               alt=""
-              className="w-[80px] h-[80px] mx-3"
+              className="w-[80px] h-[80px] mx-2 object-cover"
             />
-            <div>
-              <h1 className="line-clamp-2">{product.name}</h1>
-              <div className="flex gap-1">
+            <div className="flex flex-col justify-between">
+              <h1 className="line-clamp-2 text-[16px] md:text-[18px] font-medium">{product.name}</h1>
+              <div className="flex items-center gap-2">
                 <img
                   src={GiaoHangIcon}
                   alt=""
                   className="hidden md:block w-[28px]"
                 />
-                <span className="text-secondary text-[15px]">
+                <span className="text-secondary text-[14px]">
                   Giao hàng ngày {getDateAfterFourDays()}
                 </span>
               </div>
@@ -87,27 +86,27 @@ function ProductCart({
         </div>
 
         {/* GIÁ */}
-        <div className="w-[20%] pl-3">
+        <div className="md:w-[20%] w-full pl-2">
           {product.sale ? (
             <div>
-              <h1 className="text-red-500 font-bold">
+              <h1 className="text-red-500 font-bold text-[17px]">
                 {formatCurrency(
                   product.price - product.price * (product.sale / 100)
                 )}
               </h1>
-              <del className="text-secondary text-[17px]">
+              <del className="text-secondary text-[15px]">
                 {formatCurrency(product.price)}
               </del>
             </div>
           ) : (
-            <h1 className="text-red-500 font-bold">
+            <h1 className="text-red-500 font-bold text-[17px]">
               {formatCurrency(product.price)}
             </h1>
           )}
         </div>
 
         {/* SỐ LƯỢNG */}
-        <div className="w-[20%] flex">
+        <div className="md:w-[20%] w-full flex items-center">
           {isEditing ? (
             <>
               <button
@@ -132,8 +131,8 @@ function ProductCart({
         </div>
 
         {/* TỔNG GIÁ */}
-        <div className="w-[20%]">
-          <h1 className="text-red-500 font-bold">
+        <div className="md:w-[20%] w-full">
+          <h1 className="text-red-500 font-bold text-[17px]">
             {formatCurrency(
               (product.price -
                 (product.sale ? product.price * (product.sale / 100) : 0)) *
@@ -143,7 +142,7 @@ function ProductCart({
         </div>
 
         {/* HÀNH ĐỘNG */}
-        <div className="w-[5%] relative">
+        <div className="md:w-[5%] w-full flex md:justify-end justify-start">
           {!isEditing ? (
             <MdEdit
               className="text-[25px] text-secondary cursor-pointer hover:scale-110 transition duration-300"
@@ -151,7 +150,7 @@ function ProductCart({
               title="Chỉnh sửa"
             />
           ) : (
-            <div className="flex flex-col items-center gap-2">
+            <div className="flex flex-row md:flex-col items-center gap-2">
               <MdSave
                 className="text-[25px] text-green-600 cursor-pointer hover:scale-110 transition duration-300"
                 onClick={handleSave}
@@ -166,12 +165,13 @@ function ProductCart({
           )}
         </div>
       </div>
+
       {/* Modal Xác Nhận Xóa */}
       {showConfirmDialog && (
         <ConfirmDialog
           message="Bạn chắc chắn muốn xóa sản phẩm này?"
-          onConfirm={handleConfirmDelete} // Xác nhận xóa
-          onCancel={handleCancelDelete} // Hủy xóa
+          onConfirm={handleConfirmDelete}
+          onCancel={handleCancelDelete}
         />
       )}
     </div>

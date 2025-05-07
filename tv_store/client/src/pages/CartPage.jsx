@@ -82,23 +82,64 @@ function CartPage() {
         const product1 = product.find(
           (p) => String(p.id) === String(cartItem.idProduct) // Sử dụng idProduct ở đây
         );
-  
+
         if (!product1) {
           console.warn("Không tìm thấy sản phẩm:", cartItem.idProduct);
           return total;
         }
-  
+
         const price = Number(product1.price) || 0;
         const sale = Number(product1.sale) || 0;
         const discountPrice = price - (price * sale) / 100;
-  
+
         return total + discountPrice * cartItem.quantity;
       }, 0);
   };
-  
-  
+  const calculateTotalOriginalPricev2 = () => {
+    return cart
+      .filter((item) => selectedProducts.includes(String(item.idProduct))) // Sử dụng idProduct ở đây
+      .reduce((total, cartItem) => {
+        const product1 = product.find(
+          (p) => String(p.id) === String(cartItem.idProduct) // Sử dụng idProduct ở đây
+        );
+
+        if (!product1) {
+          console.warn("Không tìm thấy sản phẩm:", cartItem.idProduct);
+          return total;
+        }
+
+        const price = Number(product1.price) || 0;
+        // const sale = Number(product1.sale) || 0;
+        // const discountPrice = price - (price * sale) / 100;
+
+        return total + price * cartItem.quantity;
+      }, 0);
+  };
+  const calculateTotalOriginalPricev1 = () => {
+    return cart
+      .filter((item) => selectedProducts.includes(String(item.idProduct))) // Sử dụng idProduct ở đây
+      .reduce((total, cartItem) => {
+        const product1 = product.find(
+          (p) => String(p.id) === String(cartItem.idProduct) // Sử dụng idProduct ở đây
+        );
+
+        if (!product1) {
+          console.warn("Không tìm thấy sản phẩm:", cartItem.idProduct);
+          return total;
+        }
+
+        const price = Number(product1.price) || 0;
+        const sale = Number(product1.sale) || 0;
+        const discountPrice = (price * sale) / 100;
+
+        return total + discountPrice * cartItem.quantity;
+      }, 0);
+  };
+
 
   const totalOriginalPrice = calculateTotalOriginalPrice();
+  const totalOriginalPricev1 = calculateTotalOriginalPricev1();
+  const totalOriginalPricev2 = calculateTotalOriginalPricev2();
 
   // Hàm cập nhật lại localStorage khi giỏ hàng thay đổi
   const updateCartInLocalStorage = (newCart) => {
@@ -139,45 +180,45 @@ function CartPage() {
             {cart?.length > 0 ? (
               <div className="flex flex-col md:flex-row p-5">
                 {/* Chi tiết đơn hàng */}
-                <div className="w-full md:w-[70%] ">
+                <div className="w-full md:w-[70%]">
                   <div>
-                    <h1 className="font-bold text-xl">GIỎ HÀNG</h1>
-                    <div>
-                      <div className="bg-white p-3 rounded-md text-secondary text-[18px]">
-                        <div className="flex">
-                          <div className="w-[35%] flex gap-1">
-                            <input
-                              type="checkbox"
-                              className="w-[20px] cursor-pointer"
-                              onChange={() => handleSelectAll()}
-                            />
-                            <span>Tất cả</span>
-                          </div>
-                          <div className="w-[20%] pl-3">Đơn giá</div>
-                          <div className="w-[20%]">Số lượng</div>
-                          <div className="w-[20%]">Thành tiền</div>
-                          <div className="w-[5%]">
-                            <MdEdit className="text-[25px] text-gray-500" />
-                          </div>
-                        </div>
+                    <h1 className="font-bold text-xl mb-2">GIỎ HÀNG</h1>
+
+                    <div className="bg-white p-3 rounded-md text-secondary text-[18px] hidden md:flex">
+                      <div className="w-[35%] flex gap-1 items-center">
+                        <input
+                          type="checkbox"
+                          className="w-[20px] cursor-pointer scale-125"
+                          onChange={() => handleSelectAll()}
+                        />
+                        <span>Tất cả</span>
                       </div>
-                      {/* Product */}
-                      <div>
-                        {cart.map((cartItem) => (
-                          <ProductCart
-                            key={cartItem.idProduct}
-                            product={product.find(p => String(p.id) === String(cartItem.idProduct))} // Tìm sản phẩm từ danh sách theo id
-                            setCart={updateCartInLocalStorage}
-                            handleSelectProduct={handleSelectProduct}
-                            selectedProducts={selectedProducts}
-                            selectAll={checkAll}
-                            quantity={cartItem.quantity}
-                            account={account ? account : null}
-                          />
-                        ))}
+                      <div className="w-[20%] pl-3">Đơn giá</div>
+                      <div className="w-[20%]">Số lượng</div>
+                      <div className="w-[20%]">Thành tiền</div>
+                      <div className="w-[5%] flex justify-end">
+                        <MdEdit className="text-[25px] text-gray-500" />
                       </div>
                     </div>
+
+                    {/* Product list */}
+                    <div>
+                      {cart.map((cartItem) => (
+                        <ProductCart
+                          key={cartItem.idProduct}
+                          product={product.find(p => String(p.id) === String(cartItem.idProduct))}
+                          setCart={updateCartInLocalStorage}
+                          handleSelectProduct={handleSelectProduct}
+                          selectedProducts={selectedProducts}
+                          selectAll={checkAll}
+                          quantity={cartItem.quantity}
+                          account={account ? account : null}
+                        />
+                      ))}
+                    </div>
                   </div>
+
+
                 </div>
                 {/* Chi tiết thanh toán */}
                 <div className="w-full md:flex-1">
@@ -187,17 +228,17 @@ function CartPage() {
                       <div className="flex justify-between">
                         <span className="text-secondary text-lg">Giá gốc</span>
                         <span className="text-lg">
-                          {formatCurrency(totalOriginalPrice)}
+                          {formatCurrency(totalOriginalPricev2)}
                         </span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-secondary text-lg">Giảm giá</span>
-                        <span className="text-lg">0 đ</span>
+                        <span className="text-lg">{formatCurrency(totalOriginalPricev1)}</span>
                       </div>
                     </div>
                     <div className="pt-5 flex items-center justify-between">
                       <span className="font-bold text-lg">
-                        Tổng tiền thanh toán
+                      Tổng thành tiền
                       </span>
                       <span className="text-xl text-red-500 font-bold">
                         {formatCurrency(totalOriginalPrice)}

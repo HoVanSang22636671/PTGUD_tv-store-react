@@ -11,18 +11,14 @@ function AccountInfo({ account }) {
   const [avatar, setAvatar] = useState(account.avatar || AvatarImg);
 
   const handleFileChange = (event) => {
-    const file = event.target.files[0]; // Lấy file đầu tiên
+    const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        // Cập nhật avatar vào state và localStorage
-        setAvatar(reader.result); // Lưu avatar vào state
-
-        // Cập nhật avatar vào account trong localStorage
+        setAvatar(reader.result);
         const updatedAccount = { ...account, avatar: reader.result };
         localStorage.setItem("isAccount", JSON.stringify(updatedAccount));
 
-        // Cập nhật avatar trong danh sách account nếu có nhiều tài khoản
         const listAccount = JSON.parse(localStorage.getItem("account")) || [];
         const updatedListAccount = listAccount.map((acc) =>
           acc.userName === account.userName
@@ -31,7 +27,7 @@ function AccountInfo({ account }) {
         );
         localStorage.setItem("account", JSON.stringify(updatedListAccount));
       };
-      reader.readAsDataURL(file); // Đọc file dưới dạng base64
+      reader.readAsDataURL(file);
     }
   };
 
@@ -39,7 +35,6 @@ function AccountInfo({ account }) {
     const updatedAccount = { ...account, username, phone, email };
     localStorage.setItem("isAccount", JSON.stringify(updatedAccount));
 
-    // Cập nhật avatar trong danh sách account nếu có nhiều tài khoản
     const listAccount = JSON.parse(localStorage.getItem("account")) || [];
     const updatedListAccount = listAccount.map((acc) =>
       acc.username === account.username
@@ -52,11 +47,11 @@ function AccountInfo({ account }) {
   };
 
   return (
-    <div>
-      <h1 className="text-[25px] text-center">Thông tin tài khoản</h1>
-      <div className="flex">
+    <div className="p-4">
+      <h1 className="text-[25px] text-center mb-4">Thông tin tài khoản</h1>
+      <div className="flex flex-col lg:flex-row gap-4">
         {/* Cột trái */}
-        <div className="w-[60%] p-4 rounded-md bg-white">
+        <div className="w-full lg:w-[60%] p-4 rounded-md bg-white">
           <h1 className="text-secondary text-[20px] py-4">Thông tin cá nhân</h1>
           <input
             type="file"
@@ -65,75 +60,74 @@ function AccountInfo({ account }) {
             accept="image/*"
             onChange={handleFileChange}
           />
-          <div className="flex items-center">
+          <div className="flex flex-col md:flex-row items-center">
             <label htmlFor="avatarInput">
-              <div className="relative cursor-pointer flex items-center justify-center text-[#1a94ff] w-[190px] h-[190px] border-[7px] border-[#c2e1ff] rounded-full bg-[#f0f8ff]">
-                <MdEdit className="absolute text-[20px] text-white bg-secondary rounded-full right-[18px] bottom-0 " />
+              <div className="relative cursor-pointer flex items-center justify-center text-[#1a94ff] w-[140px] h-[140px] md:w-[190px] md:h-[190px] border-[6px] border-[#c2e1ff] rounded-full bg-[#f0f8ff]">
+                <MdEdit className="absolute text-[20px] text-white bg-secondary rounded-full right-[10px] bottom-0" />
                 <img
-                  src={avatar} // Hiển thị ảnh đã chọn hoặc ảnh mặc định
+                  src={avatar}
                   alt="Avatar"
-                  className="rounded-full w-[140px] h-[140px] object-cover"
+                  className="rounded-full w-[100px] h-[100px] md:w-[140px] md:h-[140px] object-cover"
                 />
               </div>
             </label>
-            <div className="flex-1 ml-5">
-              <div className="flex items-center justify-between">
-                <span className="text-[20px]">Username</span>
+            <div className="flex-1 mt-4 md:mt-0 md:ml-5 w-full">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-[18px] md:text-[20px]">Username</span>
                 <input
                   type="text"
                   value={username}
                   readOnly={!isEditable}
                   onChange={(e) => setUserName(e.target.value)}
-                  className={` p-2 text-[20px] w-[200px] border ${isEditable ? "border-gray-600" : "border-gray-400"
-                    } rounded-md mx-1`}
+                  className={`p-2 text-[16px] md:text-[20px] w-[60%] border ${isEditable ? "border-gray-600" : "border-gray-400"} rounded-md`}
                 />
               </div>
-              <div className="flex items-center justify-between mt-3">
-                <span className="text-[20px]">Phone</span>
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-[18px] md:text-[20px]">Phone</span>
                 <input
                   type="text"
                   value={phone}
                   readOnly={!isEditable}
                   onChange={(e) => setPhone(e.target.value)}
-                  className={` p-2 text-[20px] w-[200px] border ${isEditable ? "border-gray-600" : "border-gray-400"
-                    } rounded-md mx-1`}
+                  className={`p-2 text-[16px] md:text-[20px] w-[60%] border ${isEditable ? "border-gray-600" : "border-gray-400"} rounded-md`}
                 />
               </div>
-              <div className="flex items-center justify-between mt-3">
-                <span className="text-[20px]">Email</span>
+              <div className="flex items-center justify-between">
+                <span className="text-[18px] md:text-[20px]">Email</span>
                 <input
                   type="email"
                   value={email}
                   readOnly={!isEditable}
                   onChange={(e) => setEmail(e.target.value)}
-                  className={` p-2 text-[20px] w-[200px] border ${isEditable ? "border-gray-600" : "border-gray-400"
-                    } rounded-md mx-1`}
+                  className={`p-2 text-[16px] md:text-[20px] w-[60%] border ${isEditable ? "border-gray-600" : "border-gray-400"} rounded-md`}
                 />
               </div>
             </div>
           </div>
-          {!isEditable ? (
-            <button
-              onClick={() => setIsEditable(true)}
-              className="px-6 mt-2 py-3 bg-blue-500 text-white rounded-md text-[18px] hover:bg-blue-700"
-            >
-              Chỉnh sửa thông tin
-            </button>
-          ) : (
-            <button
-              onClick={handleSave}
-              className="px-6 mt-2 py-3 bg-green-600 text-white rounded-md text-[18px] hover:bg-green-700"
-            >
-              Lưu thông tin
-            </button>
-          )}
+          <div className="mt-4 text-center md:text-left">
+            {!isEditable ? (
+              <button
+                onClick={() => setIsEditable(true)}
+                className="px-6 py-3 bg-blue-500 text-white rounded-md text-[18px] hover:bg-blue-700"
+              >
+                Chỉnh sửa thông tin
+              </button>
+            ) : (
+              <button
+                onClick={handleSave}
+                className="px-6 py-3 bg-green-600 text-white rounded-md text-[18px] hover:bg-green-700"
+              >
+                Lưu thông tin
+              </button>
+            )}
+          </div>
         </div>
         {/* Cột phải */}
-        <div className="w-[50%] ml-auto rounded-md bg-white flex flex-col items-center justify-center pl-6 py-4">
+        <div className="w-full lg:w-[40%] rounded-md bg-white flex flex-col items-center justify-center p-4">
           <h1 className="text-[20px] font-bold border-b border-gray-300 pb-2 w-full text-center">
             Địa chỉ giao hàng
           </h1>
-          <div className="w-full px-4">
+          <div className="w-full px-2 md:px-4">
             <ShippingInfo account={account} />
           </div>
         </div>

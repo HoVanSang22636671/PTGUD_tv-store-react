@@ -5,6 +5,7 @@ import { VscAccount } from "react-icons/vsc";
 import { Link, useNavigate } from "react-router-dom";
 import Notification from "./Notifications";
 import { useProduct } from "../API/UseProvider";
+import formatCurrency from "../calculator/FormatCurrency";
 
 function Header() {
   const [search, setSearch] = useState("");
@@ -13,7 +14,7 @@ function Header() {
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
-  const { account } = useProduct();
+  const { account, product } = useProduct();
 
   const handleSearch = () => {
     const trimmedSearch = search.trim();
@@ -88,7 +89,7 @@ function Header() {
               />
             )}
             <span
-              className="w-[100px] h-[50px] flex items-center justify-center text-center text-primary text-[18px] border border-gray-300 rounded-e-md hover:bg-[rgba(10,104,255,0.2)] cursor-pointer"
+              className="w-[100px] h-[50px] flex items-center justify-center text-center text-blue-600 text-[18px] border border-gray-300 rounded-e-md hover:bg-[rgba(10,104,255,0.2)] cursor-pointer"
               onClick={handleSearch}
             >
               Tìm kiếm
@@ -113,20 +114,60 @@ function Header() {
 
         {/* Giỏ hàng, thông báo, tài khoản (desktop only) */}
         <div className="hidden md:flex space-x-6 items-center mt-4 md:mt-0">
-          <Link to="/cart" className="relative group cursor-pointer">
-            <div className="p-3 group-hover:bg-primary/15 rounded-full">
-              <img
-                src="/img/cart.png"
-                alt="Cart"
-                className="w-[40px] h-[40px]"
-              />
+          <div className="relative group">
+            <Link to="/cart" className="group cursor-pointer">
+              <div className="p-3 group-hover:bg-primary/15 rounded-full">
+                <img
+                  src="/img/cart.png"
+                  alt="Cart"
+                  className="w-[40px] h-[40px]"
+                />
+              </div>
+              {account?.cart?.length > 0 && (
+                <span className="absolute top-4 right-3 translate-x-1/2 -translate-y-1/2 px-2 py-1 text-center text-white text-sm rounded-full bg-red-500">
+                  {account.cart.length}
+                </span>
+              )}
+            </Link>
+            <div className="absolute right-0 w-[350px] bg-white shadow-lg rounded-md mt-2 invisible group-hover:visible transition-all duration-300">
+              {account?.cart?.length > 0 ? (
+                <div className="p-3 max-h-[300px] overflow-y-auto">
+                  <h3 className="font-bold text-lg mb-2">Sản phẩm trong giỏ hàng</h3>
+                  {account.cart.map((cartItem, index) => {
+                    // Tìm sản phẩm tương ứng với idProduct từ danh sách products
+                    const product1 = product.find((p) => p.id === cartItem.idProduct);
+
+                    return (
+                      product1 && (
+                        <Link to={`/productDetail/${product1.id}`} key={index} className="flex items-center gap-3 mb-3">
+                          <img
+                            src={product1.img[0].img}
+                            alt={product1.name}
+                            className="w-[50px] h-[50px] object-cover rounded"
+                          />
+                          <div className="flex flex-col flex-grow">
+                            <span className="text-sm font-medium">{product1.name}</span>
+                            <span className="text-xs text-gray-500">
+                              {formatCurrency(product1.price)}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {/* Hiển thị số lượng sản phẩm */}
+                            <span className="text-xs text-gray-600">x{cartItem.quantity}</span>
+                          </div>
+                        </Link>
+                      )
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="p-3 text-center text-sm text-gray-500">
+                  Giỏ hàng trống
+                </div>
+              )}
             </div>
-            {account?.cart?.length > 0 && (
-              <span className="absolute top-4 right-3 translate-x-1/2 -translate-y-1/2 px-2 py-1 text-center text-white text-sm rounded-full bg-red-500">
-                {account.cart.length}
-              </span>
-            )}
-          </Link>
+
+          </div>
           <Notification />
           <span className="border border-gray-400 h-[30px] hidden md:block"></span>
 

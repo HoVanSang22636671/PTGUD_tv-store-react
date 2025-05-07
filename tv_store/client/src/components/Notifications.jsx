@@ -15,14 +15,14 @@ function Notification() {
     >
       <div className="flex items-center cursor-pointer group">
         <div className="relative">
-          <FaRegBell className="text-[32px] text-secondary cursor-pointer group-hover:text-primary" />
+          <FaRegBell className="text-[32px] text-secondary cursor-pointer group-hover:text-blue-700" />
           {info.length > 0 && (
             <span className="absolute top-0 right-1 translate-x-1/2 -translate-y-1/2 px-2 py-1 text-center text-white text-sm rounded-full bg-red-500">
               {info.reduce((total, item) => total + (!item.see ? 1 : 0), 0)}
             </span>
           )}
         </div>
-        <span className="text-secondary text-lg group-hover:text-primary ml-2">
+        <span className="text-secondary text-lg group-hover:text-blue-700 ml-2">
           Thông báo
         </span>
       </div>
