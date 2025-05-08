@@ -1,5 +1,6 @@
 import Sidebar from "../components/AdminComponents/Sidebar";
 import AdminHeader from "../components/AdminComponents/AdminHeader";
+import Overview from "../components/AdminComponents/Overview";
 
 function Admin() {
     return (
@@ -14,8 +15,7 @@ function Admin() {
 
                 {/* Admin Page Content */}
                 <div className="p-4">
-                    <h1 className="text-xl font-bold">Welcome to Admin Dashboard</h1>
-                    <p className="text-gray-600">Use the sidebar to navigate through the admin functionalities.</p>
+                    <Overview />
                 </div>
             </div>
         </div>

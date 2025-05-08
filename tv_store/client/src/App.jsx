@@ -7,6 +7,7 @@ import SearchPage from './pages/SearchPage'
 import MainPage from './pages/MainPage'
 import ProductDetail from './pages/ProductDetail'
 import Login from './pages/Login'
+import Admin from './pages/Amin'
 function App() {
   return (
     <>
@@ -23,6 +24,7 @@ function App() {
         <Route path="/productDetail/:id" element={<ProductDetail />} />
         <Route path="/login" element={<Login />} />
 
+        <Route path='/admin' element={<Admin />} />
 
         {/* Route không tìm thấy */}
       </Routes>
