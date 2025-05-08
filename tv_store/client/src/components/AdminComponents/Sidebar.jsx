@@ -5,7 +5,7 @@ import { FaTv, FaClipboardList, FaUsers } from "react-icons/fa";
 
 const Sidebar = () => {
     const menuItems = [
-        { name: "Dashboard", icon: <MdDashboard />, path: "/dashboard" },
+        { name: "Trang quản lý", icon: <MdDashboard />, path: "/dashboard" },
         { name: "Sản phẩm", icon: <FaTv />, path: "/products" },
         { name: "Đơn hàng", icon: <FaClipboardList />, path: "/orders" },
         { name: "Khách hàng", icon: <FaUsers />, path: "/customers" },

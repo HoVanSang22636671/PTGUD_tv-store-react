@@ -17,7 +17,7 @@ function AdminHeader({ isSidebarOpen, toggleSidebar }) {
 
       <div className="flex items-center space-x-2 ">
         <Link to="/admin" className="text-xl font-bold text-gray-800">
-          Dashboard
+          Quản lý
         </Link>
       </div>
 

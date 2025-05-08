@@ -34,7 +34,7 @@ function Overview() {
             {/* Header */}
             <div className="flex items-center gap-2 mb-6">
                 <MdOutlineWidgets size={32} className="text-gray-700" />
-                <h3 className="text-2xl font-bold text-gray-800">Overview</h3>
+                <h3 className="text-2xl font-bold text-gray-800">Tổng quan</h3>
             </div>
 
             {/* Cards */}
