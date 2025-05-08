@@ -1,4 +1,4 @@
-import { useNavigate,useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // import HomeImg from "../assets/camket/home.png";
 // import Home2Img from "../assets/camket/home2.png";
 import { GoAlert, GoInfo } from "react-icons/go";
@@ -14,7 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 import { IoArrowBack } from "react-icons/io5";
 import axios from "axios";
 import { useProduct } from "../API/UseProvider";
-
+import ConfirmDialog from "../message/ConfirmDialog";
 
 const hinhThucThanhToanList = [
   {
@@ -38,14 +38,16 @@ function PaymentNowPage() {
   const navigate = useNavigate();
   const [voucherPopup, setVoucherPopup] = useState(false);
   const [myVoucher, setMyVoucher] = useState([]);
-  const account = JSON.parse(localStorage.getItem("isAccount")) || {};
+  // const account = JSON.parse(localStorage.getItem("isAccount")) || {};
   // const product = JSON.parse(localStorage.getItem("ProductPayNow")) || {};
   const [voucherList, setVoucherList] = useState([]);
   const [payPro, setPayPro] = useState(1);
-  const {product} =useProduct()
+  const { product, account, addOrder } = useProduct()
   const [totalPrice, setTotalPrice] = useState(0);
-  const{id,num}=useParams();
+  const { id, num } = useParams();
+  const [showConfirm, setShowConfirm] = useState(false);
   const productSelected = product?.find((item) => item.id.toString() === id);
+
   // console.log(product);
   // console.log(productSelected);
   useEffect(() => {
@@ -65,9 +67,34 @@ function PaymentNowPage() {
     today.setDate(today.getDate());
     return today.toLocaleDateString("vi-VN");
   }
-//   console.log(num);
-// console.log(productSelected?.price*parseFloat(num));
-
+  //   console.log(num);
+  // console.log(productSelected?.price*parseFloat(num));
+  const handlePayment = async () => {
+    const userId = account?.id;
+    const idProduct = productSelected?.id;
+    const quantity = parseFloat(num);
+    const status = "processing";
+    const date = new Date().toISOString(); 
+  
+    // Tạo mảng sản phẩm (dù chỉ có 1 sản phẩm)
+    const products = [{ idProduct, quantity }];
+  
+    try {
+      const result = await addOrder(userId, date, status, products);
+      if (result && result.success) {
+        // alert("Thanh toán thành công!");
+        navigate("/paymentSuccess");
+      } else {
+        alert("Thanh toán thất bại. Vui lòng thử lại.");
+      }
+    } catch (error) {
+      console.error("Lỗi khi thanh toán:", error);
+      alert("Đã xảy ra lỗi khi thanh toán.");
+    } finally {
+      setShowConfirm(false);
+    }
+  }
+  
 
   return (
     <div>
@@ -168,7 +195,7 @@ function PaymentNowPage() {
                               (productSelected?.sale
                                 ? productSelected?.price * (productSelected?.sale / 100)
                                 : 0)) *
-                              (parseFloat(num) || 1)
+                            (parseFloat(num) || 1)
                           )}
                         </h1>
                       </div>
@@ -329,14 +356,14 @@ function PaymentNowPage() {
                 <span className="text-[30px] text-red-500">
                   {formatCurrency(
                     productSelected?.price * parseFloat(num) +
-                      37000 -
-                      (productSelected?.sale
-                        ? productSelected?.price *
-                          (productSelected?.sale / 100) *
-                          parseFloat(num)
-                        : 0) -
-                      (parseFloat(num) > 1 ? 37000 : 0) 
-                      // totalVoucherValue
+                    37000 -
+                    (productSelected?.sale
+                      ? productSelected?.price *
+                      (productSelected?.sale / 100) *
+                      parseFloat(num)
+                      : 0) -
+                    (parseFloat(num) > 1 ? 37000 : 0)
+                    // totalVoucherValue
                   )}
                 </span>
               </div>
@@ -349,10 +376,19 @@ function PaymentNowPage() {
               </span>
               <div
                 className="w-[90%] mx-auto p-3 bg-red-500 text-white text-center text-[20px] rounded-md cursor-pointer"
-                onClick={() => handlePayMentNow()}
+                onClick={() => setShowConfirm(true)}
               >
                 Mua ngay
               </div>
+
+              {showConfirm && (
+                <ConfirmDialog
+                  message="Bạn có chắc chắn muốn thanh toán?"
+                  onConfirm={handlePayment}
+                  onCancel={() => setShowConfirm(false)}
+                />
+              )}
+
             </div>
           </div>
         </div>

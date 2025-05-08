@@ -10,6 +10,8 @@ import AccountPage from './pages/AccountPage'
 import CartPage from './pages/CartPage'
 import PaymentNowPage from './pages/PaymentNowPage'
 import PaymentCartPage from './pages/PaymentCartPage'
+import PaymentSuccess from './pages/PaymentSuccess'
+import SupportPage from './pages/SupportPage'
 function App() {
   return (
     <>
@@ -23,13 +25,15 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path='/paymentnow/:id/:num' element={<PaymentNowPage/>}/>
           <Route path="/paymentcartpay" element={<PaymentCartPage />} />
+          
         </Route>
 
         {/* Route không dùng MainPage */}
         <Route path="/productDetail/:id" element={<ProductDetail />} />
         <Route path="/login" element={<Login />} />
-
+        <Route path="/paymentSuccess" element={<PaymentSuccess />} />
         {/* Route không tìm thấy */}
+        <Route path="/supportPage" element={<SupportPage />} />
       </Routes>
 
 

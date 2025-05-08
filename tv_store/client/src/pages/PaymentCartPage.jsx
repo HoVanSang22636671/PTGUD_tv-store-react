@@ -15,7 +15,8 @@ import { IoArrowBack } from "react-icons/io5";
 import Footer from "../components/Footer.jsx";
 import axios from "axios";
 import { useProduct } from "../API/UseProvider.jsx";
-import { useSelectedProducts } from "../API/SelectedProductsContext"; 
+import { useSelectedProducts } from "../API/SelectedProductsContext";
+import ConfirmDialog from "../message/ConfirmDialog";
 const hinhThucThanhToanList = [
   {
     id: 1,
@@ -38,7 +39,7 @@ function PaymentCartPage() {
   const navigate = useNavigate();
   const [voucherPopup, setVoucherPopup] = useState(false);
   const [myVoucher, setMyVoucher] = useState([]);
-  const {account,product}=useProduct();
+  const { account, product, addOrder, deleteProduct } = useProduct();
   const { selectedProducts1, setSelectedProducts1 } = useSelectedProducts();
   // const account = JSON.parse(localStorage.getItem("isAccount")) || {};
   // const product = JSON.parse(localStorage.getItem("payCartMent")) || {};
@@ -46,7 +47,8 @@ function PaymentCartPage() {
   const [payPro, setPayPro] = useState(1);
   const [mess, setMess] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
-
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   // const products = account?.cart?.map((item) => {
   //   const matchedProduct = product?.find((p) => p.id === item.id);
   //   return {
@@ -56,17 +58,62 @@ function PaymentCartPage() {
   // });
   // console.log(products);
   const selectedItems = account?.cart
-  .filter(item => selectedProducts1?.includes(item.idProduct))
-  .map(item => {
-    const matchedProduct = product?.find(p => p.id === item.idProduct);
-    return {
-      ...matchedProduct,
-      quantity: item.quantity
-    };
-  });
+    .filter(item => selectedProducts1?.includes(item.idProduct))
+    .map(item => {
+      const matchedProduct = product?.find(p => p.id === item.idProduct);
+      return {
+        ...matchedProduct,
+        quantity: item.quantity
+      };
+    });
+  const handlePayment = async () => {
+    const userId = account?.id;
+    const status = "processing";
+    const date = new Date().toISOString(); 
 
-console.log(selectedItems);
-  console.log(selectedItems);
+    // Bật trạng thái loading
+    setIsLoading(true);
+
+    // Duyệt qua từng item và chỉ lấy idProduct và quantity
+    const products = selectedItems?.map(item => ({
+      idProduct: item.id, // Giả sử item có thuộc tính 'id' là idProduct
+      quantity: item.quantity, // Lấy số lượng sản phẩm
+    }));
+
+    if (!products || products.length === 0) {
+      alert("Giỏ hàng trống!");
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      // Gửi yêu cầu thanh toán với mảng sản phẩm đã được lọc
+      const result = await addOrder(userId, date, status, products);
+
+      if (result && result.success) {
+        // Xóa tất cả sản phẩm khỏi giỏ hàng
+        for (const item of selectedItems) {
+          await deleteProduct(userId, item.id); // Xóa từng sản phẩm khỏi giỏ hàng
+        }
+
+        navigate("/paymentSuccess");
+      } else {
+        alert("Thanh toán thất bại. Vui lòng thử lại.");
+      }
+    } catch (error) {
+      console.error("Lỗi khi thanh toán:", error);
+      alert("Đã xảy ra lỗi khi thanh toán.");
+    } finally {
+      // Tắt trạng thái loading
+      setIsLoading(false);
+      setShowConfirm(false);
+    }
+  };
+
+
+
+
+
   function getDateAfterFourDays() {
     const today = new Date();
     today.setDate(today.getDate() + 4);
@@ -165,7 +212,7 @@ console.log(selectedItems);
                                 <h1 className="text-red-500 font-bold">
                                   {formatCurrency(
                                     product?.price -
-                                      product?.price * (product?.sale / 100)
+                                    product?.price * (product?.sale / 100)
                                   )}
                                 </h1>
                                 <del className="text-secondary text-[17px]">
@@ -190,7 +237,7 @@ console.log(selectedItems);
                                   (product?.sale
                                     ? product?.price * (product?.sale / 100)
                                     : 0)) *
-                                  (product?.quantity || 1)
+                                (product?.quantity || 1)
                               )}
                             </h1>
                           </div>
@@ -245,80 +292,6 @@ console.log(selectedItems);
           {/* Chi tiết thanh toán */}
           <div className="flex-1">
             <ShippingInfo account={account} />
-            {/* Mã giảm giá */}
-            {/* <div className="flex flex-col gap-3 bg-white rounded-md mx-auto my-3 w-[90%] px-4 py-8">
-              <h1 className="text-[25px] font-bold">Voucher khuyến mãi</h1>
-              <p className="text-secondary italic">Tối đa 2 Voucher !</p>
-              <div className="flex flex-col gap-3">
-                {myVoucher.length > 0 &&
-                  myVoucher.map((data) => (
-                    <div
-                      key={data.id}
-                      className="w-[100%] p-6 border rounded-lg "
-                    >
-                      <div className="flex justify-between">
-                        <h1 className="text-[25px] font-semibold">
-                          {data.name}
-                        </h1>
-                        <GoInfo className="text-[25px]" />
-                      </div>
-                      <div className="flex justify-between">
-                        <div>
-                          <p className="text-[20px] text-secondary">
-                            {data.condition}
-                          </p>
-                          <div className="text-[20px] text-secondary">
-                            <span>Ngày kết thúc:</span>
-                            <span>{" " + data.endDate}</span>
-                          </div>
-                        </div>
-                        <button
-                          className="py-2 px-6 text-white bg-primary/70 rounded-md"
-                          onClick={() => {
-                            setMyVoucher(
-                              myVoucher.filter((item) => item.id !== data.id)
-                            );
-                            setVoucherList((prev) =>
-                              prev.map((item) =>
-                                item.id === data.id
-                                  ? { ...item, select: false }
-                                  : item
-                              )
-                            );
-                          }}
-                        >
-                          Xóa
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-              <div
-                className="p-3 bg-primary w-[190px] text-center font-semibold mx-auto cursor-pointer text-white rounded-md"
-                onClick={() => {
-                  setVoucherPopup(true);
-                  setTotalPrice(
-                    product.reduce(
-                      (total, item) => total + item.price * item.quantity,
-                      0
-                    ) +
-                      37000 -
-                      product.reduce(
-                        (total, item) =>
-                          total +
-                          (item.sale ? item.price * (item.sale / 100) : 0),
-                        0
-                      ) -
-                      (product.length > 1 ||
-                      product.find((pro) => pro.quantity > 1)
-                        ? 37000
-                        : 0)
-                  );
-                }}
-              >
-                Chọn Voucher
-              </div>
-            </div> */}
             {/* Thông tin giá cả */}
             <div className="flex flex-col gap-3 bg-white rounded-md mx-auto my-3 w-[90%] px-4 py-8">
               <h1 className="text-[25px] font-bold">Đơn hàng</h1>
@@ -350,7 +323,7 @@ console.log(selectedItems);
                     selectedItems?.reduce(
                       (total, item) =>
                         total +
-                        (item.sale ? item.price * (item.sale / 100)*item.quantity : 0),
+                        (item.sale ? item.price * (item.sale / 100) * item.quantity : 0),
                       0
                     )
                   )}
@@ -363,7 +336,7 @@ console.log(selectedItems);
                 <span className="text-[20px] text-[#00ab56]">
                   {formatCurrency(
                     selectedItems?.length > 1 ||
-                    selectedItems?.find((pro) => pro.quantity > 1)
+                      selectedItems?.find((pro) => pro.quantity > 1)
                       ? 37000
                       : 0
                   )}
@@ -371,27 +344,6 @@ console.log(selectedItems);
               </div>
               <div className="flex justify-between">
                 <span className="text-[20px] text-secondary">Mã giảm giá:</span>
-                {/* <span className="text-[20px] text-[#00ab56]">
-                  {formatCurrency(
-                    totalVoucher(
-                      product.reduce(
-                        (total, item) => total + item.price * item.quantity,
-                        0
-                      ) +
-                        37000 -
-                        product.reduce(
-                          (total, item) =>
-                            total +
-                            (item.sale ? item.price * (item.sale / 100) : 0),
-                          0
-                        ) -
-                        (product.length > 1 ||
-                        product.find((pro) => pro.quantity > 1)
-                          ? 37000
-                          : 0)
-                    )
-                  )}
-                </span> */}
               </div>
               <div className="flex justify-between border-t border-gray-300 py-2">
                 <span className="text-[20px] font-bold">
@@ -405,10 +357,10 @@ console.log(selectedItems);
                     ) - selectedItems?.reduce(
                       (total, item) =>
                         total +
-                        (item.sale ? item.price * (item.sale / 100)*item.quantity : 0),
+                        (item.sale ? item.price * (item.sale / 100) * item.quantity : 0),
                       0
                     ) + (selectedItems?.length > 1 ||
-                    selectedItems?.find((pro) => pro.quantity > 1)
+                      selectedItems?.find((pro) => pro.quantity > 1)
                       ? 0
                       : 37000)
                   )}
@@ -422,15 +374,26 @@ console.log(selectedItems);
                 các chi phí phát sinh khác)`}
               </span>
               <div
-                className="w-[90%] mx-auto p-3 bg-red-500 text-white text-center text-[20px] rounded-md cursor-pointer"
-                onClick={() =>
-                  handlePayMentNow(
-                    
-                  )
-                }
+                className={`w-[90%] mx-auto p-3 text-center text-[20px] rounded-md cursor-pointer ${isLoading ? 'bg-gray-500' : 'bg-red-500'
+                  }`}
+                onClick={() => {
+                  if (!isLoading) setShowConfirm(true); // Chỉ hiển thị confirm khi không đang loading
+                }}
               >
-                Mua ngay
+                {/* Nếu đang loading, hiển thị spinner, nếu không hiển thị nội dung nút */}
+                {isLoading ? (
+                  <div className="w-6 h-6 border-4 border-t-4 border-white border-solid rounded-full animate-spin mx-auto"></div>
+                ) : (
+                  'Mua ngay'
+                )}
               </div>
+              {showConfirm && (
+                <ConfirmDialog
+                  message="Bạn có chắc chắn muốn thanh toán?"
+                  onConfirm={handlePayment}
+                  onCancel={() => setShowConfirm(false)}
+                />
+              )}
             </div>
           </div>
         </div>

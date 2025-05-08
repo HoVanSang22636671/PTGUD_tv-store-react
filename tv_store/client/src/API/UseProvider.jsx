@@ -302,8 +302,58 @@ const { selectedProducts1, setSelectedProducts1 } = useSelectedProducts();
       return { success: false, message: "Có lỗi khi thêm sản phẩm vào giỏ hàng." };
     }
   };
+  // Thêm đơn hàng page now
+  const addOrder = async (userId, date, status, products) => {
+    console.log("userId:", userId);
+    
+    const apiUrl =
+      window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+        ? `http://localhost:3000/api/addordernow/${userId}`
+        : `https://ptgud-tv-store-react.onrender.com/api/addordernow/${userId}`;
   
-
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ date, status, products }),
+      });
+  
+      console.log("API URL:", apiUrl);
+      console.log("Response status:", response.status);
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const result = await response.json();
+      console.log("Response body:", result);
+  
+      if (result && result.success && result.order) {
+        // Cập nhật order trong accountList
+        setAccountList((prevList) =>
+          prevList.map((user) => {
+            if (user.id === userId) {
+              const updatedOrders = [...(user.order || []), result.order];
+              return { ...user, order: updatedOrders };
+            }
+            return user;
+          })
+        );
+  
+        // Cập nhật order nếu là user hiện tại đang đăng nhập
+        if (account && account.id === userId) {
+          const updatedOrders = [...(account.order || []), result.order];
+          setAccount((prev) => ({ ...prev, order: updatedOrders }));
+        }
+      }
+  
+      return result;
+    } catch (error) {
+      console.error("Lỗi khi thêm đơn hàng:", error);
+      return { success: false, message: "Có lỗi khi thêm đơn hàng." };
+    }
+  };
+  
 
   // Hàm đăng nhập
   const login = (username, password) => {
@@ -349,7 +399,8 @@ const { selectedProducts1, setSelectedProducts1 } = useSelectedProducts();
         changePassword,
         updateProductQuantity,
         deleteProduct,
-        addToCart, // expose logout function
+        addToCart,
+        addOrder, // expose logout function
       }}
     >
       {children}

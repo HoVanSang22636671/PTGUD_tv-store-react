@@ -10,7 +10,9 @@ import { IoMdExit } from "react-icons/io";
 import ConfirmDialog from "../message/ConfirmDialog";
 import AccountInfo from "../components/itemsAccountInfo/AccountInfo";
 import ChangePassword from "../components/itemsAccountInfo/ChangePassword";
-
+import OrderManagement from "../components/itemsAccountInfo/OrderManagement";
+import Blog from "../components/itemsAccountInfo/Blog";
+import Policy from "../components/itemsAccountInfo/Policy";
 const infoList = [
   { id: 1, name: "Thông tin tài khoản", icon: RiAccountCircle2Line },
   { id: 2, name: "Quản lý đơn hàng", icon: FaBookOpen },
@@ -91,6 +93,9 @@ function AccountPage() {
           <div className="w-full md:w-4/5 bg-white rounded-md shadow-md p-3 md:p-4">
             {/* Chuyển đổi nội dung theo các menu chọn */}
             {filter === 1 && <AccountInfo account={account} />}
+            {filter === 2 && <OrderManagement />}
+            {filter === 4 && <Blog />}
+            {filter === 7 && <Policy />}
             {filter === 6 && <ChangePassword />}
           </div>
         </div>
