@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useContext } from "react";
-
+import { useSelectedProducts } from "../API/SelectedProductsContext"; 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
@@ -10,7 +10,7 @@ export const UserProvider = ({ children }) => {
   const [isAccount, setIsAccount] = useState(false);
   const [accountList, setAccountList] = useState([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false); // Trạng thái kiểm tra dữ liệu đã được tải
-
+const { selectedProducts1, setSelectedProducts1 } = useSelectedProducts();
   // Fetch dữ liệu từ mock API hoặc server
   useEffect(() => {
     const apiUrl =
@@ -316,7 +316,7 @@ export const UserProvider = ({ children }) => {
 
       // Lưu ID người dùng vào localStorage
       localStorage.setItem("loggedInUserId", user.id);
-
+      setSelectedProducts1([]);
       return true;
     }
     return false;
@@ -327,7 +327,9 @@ export const UserProvider = ({ children }) => {
   const logout = () => {
     setAccount(null);
     setIsAccount(false);
+    setSelectedProducts1([]);
     localStorage.removeItem("loggedInUserId");
+    localStorage.removeItem("selectedProducts");
   };
 
   return (

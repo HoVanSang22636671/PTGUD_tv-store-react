@@ -1416,6 +1416,22 @@
             "id": 3,
             "idProduct": "3",
             "quantity": 5
+          }       
+        ],
+        "order": [
+          {
+            "id": 1,
+            "idProduct": "1",
+            "quantity": 2,
+            "status": "success",
+            "date": "2023-10-01"
+          },
+          {
+            "id": 2,
+            "idProduct": "2",
+            "quantity": 1,
+            "status": "transport",
+            "date": "2025-08-05"
           }
         ]
       },

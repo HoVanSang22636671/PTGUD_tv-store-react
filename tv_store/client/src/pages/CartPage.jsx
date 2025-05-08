@@ -12,14 +12,17 @@ import Message from "../message/Message";
 import Footer from "../components/Footer";
 import { useProduct } from "../API/UseProvider"; // Import useProvider từ API
 // 
+import { useSelectedProducts } from "../API/SelectedProductsContext"; // Import useSelectedProducts từ API
 import { useEffect } from "react";
 
 function CartPage() {
   const navigate = useNavigate();
   const [mess, setMess] = useState(false);
-  const [selectedProducts, setSelectedProducts] = useState([]);
+  const { selectedProducts1, setSelectedProducts1 } = useSelectedProducts();
+  const [selectedProducts, setSelectedProducts] = useState(selectedProducts1);
   const [checkAll, setCheckAll] = useState(false);
-  const { account, product } = useProduct(); // Lấy thông tin tài khoản từ context
+  const { account, product } = useProduct();
+   // Lấy thông tin tài khoản từ context
   const [addressMD, setDefaultAddress] = useState({
     name: "Nguyen Van A",
     phone: "9999999999",
@@ -53,27 +56,24 @@ function CartPage() {
 
   const handleSelectAll = () => {
     if (checkAll) {
-      setSelectedProducts([]);
+      setSelectedProducts([]);            // Local state
     } else {
-      setSelectedProducts(cart.map((item) => item.idProduct)); // CHỈNH Ở ĐÂY
+      const selected = cart.map((item) => item.idProduct);
+      setSelectedProducts(selected);      // Local state
     }
-    setCheckAll(!checkAll);
+    setCheckAll((prev) => !prev);         // Toggle checkAll state
   };
-  // useEffect(() => {
-  //   console.log("Selected products:", selectedProducts);
-  // }, [selectedProducts]);
+  
   const handleSelectProduct = (productId, isChecked) => {
     if (isChecked) {
       setSelectedProducts((prev) => [...prev, productId]);
-
     } else {
       setSelectedProducts((prev) => prev.filter((id) => id !== productId));
     }
   };
-
-  const handlePayProduct = () => {
-    return cart.filter((item) => selectedProducts.includes(item.id));
-  };
+  useEffect(() => {
+    setSelectedProducts1(selectedProducts); // Context cập nhật đồng bộ
+  }, [selectedProducts]);
 
   const calculateTotalOriginalPrice = () => {
     return cart
@@ -247,12 +247,9 @@ function CartPage() {
                     <div
                       className="w-[150px] cursor-pointer text-center text-[18px] my-3 mx-auto bg-red-500 p-3 text-white rounded-md"
                       onClick={() => {
-                        localStorage.setItem(
-                          "payCartMent",
-                          JSON.stringify(handlePayProduct())
-                        );
-                        if (handlePayProduct().length > 0) {
-                          navigate("/paymentCartSuccess");
+                       
+                        if (selectedProducts?.length > 0) {
+                          navigate("/paymentcartpay");
                         } else {
                           setMess(true);
                         }

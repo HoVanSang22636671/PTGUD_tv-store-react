@@ -20,7 +20,7 @@ function Message({ orderPopup, setOrderPopup, title }) {
                 <h1 className="my-3 text-center text-[20px]">{title}</h1>
                 <div className="flex justify-center">
                   <button
-                    className="px-7 py-3 bg-primary text-white rounded-lg"
+                    className="px-7 py-3 bg-blue-600 text-white rounded-lg"
                     onClick={() => setOrderPopup(false)}
                   >
                     OK

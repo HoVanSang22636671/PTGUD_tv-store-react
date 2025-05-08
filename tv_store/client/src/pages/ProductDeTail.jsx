@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 import ThongTinVanChuyen from "../components/ProductDeTails/ThongTinVanChuyen";
 import CamKet from "../components/ProductDeTails/CamKet";
 import { useProduct } from "../API/UseProvider";
-import { useParams,Link } from 'react-router-dom';
+import { useParams,Link,useNavigate } from 'react-router-dom';
 const ProductDetail = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [imgDevice, setImgDevice] = useState(0);
@@ -17,6 +17,7 @@ const ProductDetail = () => {
   const [filter, setFilter] = useState([1, 2]);
   const { product, account, addToCart } = useProduct();
   const { id } = useParams();
+  const navigate = useNavigate();
   const existingItem = account?.cart.find(item => item.idProduct === id);
 
   useEffect(() => {
@@ -452,7 +453,12 @@ const ProductDetail = () => {
                 <div
                   className="w-[90%] mx-auto p-3 bg-red-500 text-white text-center text-[20px] rounded-md cursor-pointer"
                   onClick={() => {
-
+                    if (!account ) {
+                      navigate("/login");
+                      return;
+                    }
+                  
+                    navigate(`/paymentnow/${selectedProduct.id}/${num}`);
                   }}
                 >
                   Mua ngay

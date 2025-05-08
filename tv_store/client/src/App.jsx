@@ -8,6 +8,8 @@ import ProductDetail from './pages/ProductDeTail'
 import Login from './pages/Login'
 import AccountPage from './pages/AccountPage'
 import CartPage from './pages/CartPage'
+import PaymentNowPage from './pages/PaymentNowPage'
+import PaymentCartPage from './pages/PaymentCartPage'
 function App() {
   return (
     <>
@@ -19,6 +21,8 @@ function App() {
           <Route path='/account' element={<AccountPage/>}/>
           {/* các route khác nằm trong layout MainPage */}
           <Route path="/cart" element={<CartPage />} />
+          <Route path='/paymentnow/:id/:num' element={<PaymentNowPage/>}/>
+          <Route path="/paymentcartpay" element={<PaymentCartPage />} />
         </Route>
 
         {/* Route không dùng MainPage */}
