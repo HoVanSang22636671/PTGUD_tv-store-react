@@ -11,6 +11,7 @@ import {
     Paper,
     Button,
     Typography,
+    Box,
 } from "@mui/material";
 
 const ProductList = ({ products, onEdit, onDelete, onAddProduct }) => {
@@ -27,19 +28,20 @@ const ProductList = ({ products, onEdit, onDelete, onAddProduct }) => {
     };
 
     return (
-        <div>
-            {/* Tiêu đề */}
-            <div className="flex justify-between items-center mb-4">
-                <Typography variant="h5" fontWeight="bold">
+        <Paper sx={{ p: 3, boxShadow: 3, mb: 4 }}>
+            {/* Tiêu đề và nút thao tác */}
+            <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+                <Typography variant="h6" fontWeight="bold">
                     Danh sách sản phẩm
                 </Typography>
-                <div className="flex gap-2">
+                <Box display="flex" gap={2}>
                     {/* Nút Thêm sản phẩm */}
                     <Button
                         onClick={onAddProduct}
                         variant="contained"
                         color="primary"
                         startIcon={<PlusIcon className="h-5 w-5" />}
+                        sx={{ textTransform: "none", fontWeight: "bold" }}
                     >
                         Thêm sản phẩm
                     </Button>
@@ -48,38 +50,51 @@ const ProductList = ({ products, onEdit, onDelete, onAddProduct }) => {
                     <Button
                         onClick={handleExportToExcel}
                         variant="contained"
-                        color="success"
+                        sx={{
+                            backgroundColor: "#4CAF50",
+                            color: "#fff",
+                            textTransform: "none",
+                            fontWeight: "bold",
+                            borderRadius: "4px",
+                            "&:hover": {
+                                backgroundColor: "#45A049", // Màu nền khi hover
+                            },
+                        }}
                         startIcon={<DocumentArrowDownIcon className="h-5 w-5" />}
                     >
-                        Xuất file Excel
+                        Xuất File Excel
                     </Button>
-                </div>
-            </div>
+                </Box>
+            </Box>
 
             {/* Bảng danh sách sản phẩm */}
             <TableContainer
-                component={Paper}
-                elevation={3}
-                style={{
-                    maxHeight: "400px", // Chiều cao cố định
-                    overflowY: "auto",  // Thêm thanh cuộn dọc
+                sx={{
+                    maxHeight: 400, // Chiều cao tối đa của bảng
+                    overflowY: "auto", // Thêm thanh cuộn dọc nếu nội dung vượt quá chiều cao
                 }}
             >
                 <Table stickyHeader>
                     <TableHead>
-                        <TableRow>
-                            <TableCell sx={{ fontSize: "1.1rem", fontWeight: "bold" }}>Tên sản phẩm</TableCell>
-                            <TableCell sx={{ fontSize: "1.1rem", fontWeight: "bold" }}>Hình ảnh</TableCell>
-                            <TableCell sx={{ fontSize: "1.1rem", fontWeight: "bold" }}>Giá</TableCell>
-                            <TableCell sx={{ fontSize: "1.1rem", fontWeight: "bold" }}>Số lượng</TableCell>
-                            <TableCell sx={{ fontSize: "1.1rem", fontWeight: "bold" }}>Thương hiệu</TableCell>
-                            <TableCell sx={{ fontSize: "1.1rem", fontWeight: "bold" }}>Trạng thái</TableCell>
-                            <TableCell sx={{ fontSize: "1.1rem", fontWeight: "bold" }}>Hành động</TableCell>
+                        <TableRow sx={{ backgroundColor: "#f0f0f0" }}>
+                            <TableCell sx={{ fontWeight: "bold" }}>Tên sản phẩm</TableCell>
+                            <TableCell sx={{ fontWeight: "bold" }}>Hình ảnh</TableCell>
+                            <TableCell sx={{ fontWeight: "bold" }}>Giá</TableCell>
+                            <TableCell sx={{ fontWeight: "bold" }}>Số lượng</TableCell>
+                            <TableCell sx={{ fontWeight: "bold" }}>Thương hiệu</TableCell>
+                            <TableCell sx={{ fontWeight: "bold" }}>Trạng thái</TableCell>
+                            <TableCell sx={{ fontWeight: "bold" }}>Hành động</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {products.map((product) => (
-                            <TableRow key={product.id} hover>
+                            <TableRow
+                                key={product.id}
+                                hover
+                                sx={{
+                                    "&:hover": { backgroundColor: "#f9f9f9" },
+                                }}
+                            >
                                 <TableCell>{product.name}</TableCell>
                                 <TableCell>
                                     <img
@@ -89,15 +104,29 @@ const ProductList = ({ products, onEdit, onDelete, onAddProduct }) => {
                                             width: "64px",
                                             height: "64px",
                                             objectFit: "cover",
+                                            borderRadius: "5px",
                                         }}
                                     />
                                 </TableCell>
                                 <TableCell>{product.price.toLocaleString()} VND</TableCell>
                                 <TableCell>{product.quantity}</TableCell>
                                 <TableCell>{product.brand}</TableCell>
-                                <TableCell>{product.status}</TableCell>
                                 <TableCell>
-                                    <div className="flex gap-2">
+                                    <Typography
+                                        fontWeight="bold"
+                                        color={
+                                            product.status === "Còn hàng"
+                                                ? "green"
+                                                : product.status === "Hết hàng"
+                                                    ? "red"
+                                                    : "orange"
+                                        }
+                                    >
+                                        {product.status}
+                                    </Typography>
+                                </TableCell>
+                                <TableCell>
+                                    <Box display="flex" gap={1}>
                                         {/* Nút Sửa */}
                                         <Button
                                             onClick={() => onEdit(product)}
@@ -119,14 +148,14 @@ const ProductList = ({ products, onEdit, onDelete, onAddProduct }) => {
                                         >
                                             Xóa
                                         </Button>
-                                    </div>
+                                    </Box>
                                 </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-        </div>
+        </Paper>
     );
 };
 
