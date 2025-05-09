@@ -1,27 +1,29 @@
 import Sidebar from "../../components/AdminComponents/Sidebar";
 import AdminHeader from "../../components/AdminComponents/AdminHeader";
 import Overview from "../../components/AdminComponents/Overview";
-import DetailedReport from "../../components/AdminComponents/DetailedReport";
-import ProductManagement from "../../components/AdminComponents/ProductManagement";
-import OrderManagement from "../../components/AdminComponents/OrderManagement";
-import CustomerManagement from "../../components/AdminComponents/CustomerManagement";
+import Dashboard from "../../components/AdminComponents/Dashboard";
 
 function Admin() {
     return (
-        <div className="bg-[#f5f5fa] transform transition-all duration-500 overflow-x-hidden flex">
+        <div className="bg-[#f5f5fa] flex h-screen overflow-hidden">
             {/* Sidebar */}
             <Sidebar />
 
             {/* Main Content */}
-            <div className="flex-1">
+            <div className="flex-1 flex flex-col">
                 {/* Header */}
                 <AdminHeader />
 
                 {/* Admin Page Content */}
-                <div className="p-4">
-                    <Overview />
-                    <div className="mt-8">
-                        <OrderManagement /> {/* Thêm thành phần DetailedReport */}
+                <div className="p-4 flex-1 flex flex-col">
+                    {/* Overview */}
+                    <div className="sticky top-0 z-10 bg-[#f5f5fa]">
+                        <Overview />
+                    </div>
+
+                    {/* Dashboard Area */}
+                    <div className="mt-8 flex-1 overflow-y-auto">
+                        <Dashboard />
                     </div>
                 </div>
             </div>

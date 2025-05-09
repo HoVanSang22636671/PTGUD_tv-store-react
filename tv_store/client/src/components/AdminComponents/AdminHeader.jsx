@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 function AdminHeader({ isSidebarOpen, toggleSidebar }) {
   return (
-    <div className="bg-gray-100 shadow-md py-2 px-4 flex justify-between items-center relative z-50 h-[120px]">
+    <div className="bg-gray-100 shadow-md py-2 px-4 flex justify-between items-center relative z-50 h-[100px]">
       {/* Menu Toggle Button */}
       <button
         className="text-gray-700 md:hidden"
