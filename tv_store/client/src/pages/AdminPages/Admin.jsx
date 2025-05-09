@@ -1,7 +1,8 @@
-import Sidebar from "../components/AdminComponents/Sidebar";
-import AdminHeader from "../components/AdminComponents/AdminHeader";
-import Overview from "../components/AdminComponents/Overview";
-import DetailedReport from "../components/AdminComponents/DetailedReport";
+import Sidebar from "../../components/AdminComponents/Sidebar";
+import AdminHeader from "../../components/AdminComponents/AdminHeader";
+import Overview from "../../components/AdminComponents/Overview";
+import DetailedReport from "../../components/AdminComponents/DetailedReport";
+import ProductManagement from "../../components/AdminComponents/ProductManagement";
 
 function Admin() {
     return (
@@ -18,7 +19,7 @@ function Admin() {
                 <div className="p-4">
                     <Overview />
                     <div className="mt-8">
-                        <DetailedReport /> {/* Thêm thành phần DetailedReport */}
+                        <ProductManagement /> {/* Thêm thành phần DetailedReport */}
                     </div>
                 </div>
             </div>

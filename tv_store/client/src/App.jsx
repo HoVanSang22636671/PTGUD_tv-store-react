@@ -7,7 +7,9 @@ import SearchPage from './pages/SearchPage'
 import MainPage from './pages/MainPage'
 import ProductDetail from './pages/ProductDetail'
 import Login from './pages/Login'
-import Admin from './pages/Amin'
+import Admin from './pages/AdminPages/Admin'
+
+
 function App() {
   return (
     <>
