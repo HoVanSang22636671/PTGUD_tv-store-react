@@ -60,7 +60,7 @@ function HomePage() {
     return (
         <div className="bg-[#f5f5fa] transform transition-all duration-500 overflow-x-hidden">
             {/* Header */}
-           
+
 
             {/* Nội dung chính */}
             <div className="container mx-auto px-4 max-[100%]:">
@@ -128,7 +128,7 @@ function HomePage() {
             </div>
 
             {/* Footer */}
-            
+
         </div>
     );
 }

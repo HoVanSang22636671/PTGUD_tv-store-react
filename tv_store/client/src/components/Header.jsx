@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { IoIosSearch, IoMdClose } from "react-icons/io";
 import { HiMenu, HiX } from "react-icons/hi";
 import { VscAccount } from "react-icons/vsc";
@@ -6,20 +6,39 @@ import { Link, useNavigate } from "react-router-dom";
 import Notification from "./Notifications";
 import { useProduct } from "../API/UseProvider";
 import formatCurrency from "../calculator/FormatCurrency";
+import SearchHistory from "./Search/SearchHistory";
+import SearchPopular from "./Search/SearchPopular";
+import SearchFlashPopular from "./Search/SearchFlashPopular";
 
 function Header() {
   const [search, setSearch] = useState("");
-  const [isSuggestionsVisible, setIsSuggestionsVisible] = useState(false);
+  const [searchHistory, setSearchHistory] = useState([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
   const { account, product } = useProduct();
+  console.log("Account data:", account);
+
+  useEffect(() => {
+    const storedHistory =
+      JSON.parse(localStorage.getItem("searchHistory")) || [];
+    setSearchHistory(storedHistory);
+  }, []);
 
   const handleSearch = () => {
     const trimmedSearch = search.trim();
     if (trimmedSearch) {
-      navigate(`/search?q=${encodeURIComponent(trimmedSearch)}`);
+      let updatedHistory = searchHistory.filter(
+        (item) => item !== trimmedSearch
+      ); // Xóa nếu từ khóa đã tồn tại
+      updatedHistory.unshift(trimmedSearch); // Thêm từ khóa mới vào đầu danh sách
+      if (updatedHistory.length > 7) {
+        updatedHistory.pop(); // Giữ tối đa 7 từ khóa
+      }
+      setSearchHistory(updatedHistory);
+      localStorage.setItem("searchHistory", JSON.stringify(updatedHistory));
+      navigate(`/search?q=${encodeURIComponent(trimmedSearch)}`); // Chuyển hướng đến trang tìm kiếm
     }
   };
 
@@ -94,22 +113,28 @@ function Header() {
             >
               Tìm kiếm
             </span>
-          </div>
-          {isSuggestionsVisible && (
-            <div className="absolute z-10 top-full left-0 w-full bg-white border border-gray-300 rounded-md shadow-md">
-              <ul>
-                <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
-                  Tivi Sony 4K UHD 50 inch
-                </li>
-                <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
-                  Tivi LG QLED 4K 55 inch
-                </li>
-                <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
-                  Tivi Samsung Full HD 65
-                </li>
-              </ul>
+
+            <div className="hidden absolute py-2 z-10 top-full left-0 translate-x-2 w-[590px] min-h-[50px] bg-white border border-gray-300 rounded-md group-hover:block">
+              {searchHistory.length > 0 && (
+                <SearchHistory
+                  setSearchHistory={setSearchHistory}
+                  searchHistory={searchHistory}
+                  setSearch={setSearch}
+                  handleSearch={handleSearch}
+                />
+              )}
+              <SearchPopular
+                setSearch={setSearch}
+                input={inputRef}
+                handleSearch={handleSearch}
+              />
             </div>
-          )}
+          </div>
+          <SearchFlashPopular
+            setSearch={setSearch}
+            input={inputRef}
+            handleSearch={handleSearch}
+          />
         </div>
 
         {/* Giỏ hàng, thông báo, tài khoản (desktop only) */}
@@ -171,7 +196,7 @@ function Header() {
           <Notification />
           <span className="border border-gray-400 h-[30px] hidden md:block"></span>
 
-          {account ? (
+          {account.userName ? (
             <Link
               to="/account"
               className="items-center gap-1 cursor-pointer group hidden md:flex"
