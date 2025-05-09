@@ -26,8 +26,16 @@ function Login() {
 
   const handleLogin = () => {
     const success = login(tk, mk);
+    
     if (success) {
-      navigate('/'); // Điều hướng khi đăng nhập thành công
+      const user = accountList.find((account) => account.userName === tk);
+      if (user?.role==="quanly") {
+        navigate('/admin');
+      }
+      else {
+        navigate('/');
+      }
+       // Điều hướng khi đăng nhập thành công
     } else {
       alert('Sai tài khoản hoặc mật khẩu');
     }

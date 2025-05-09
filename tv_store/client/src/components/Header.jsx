@@ -196,7 +196,7 @@ function Header() {
           <Notification />
           <span className="border border-gray-400 h-[30px] hidden md:block"></span>
 
-          {account.userName ? (
+          {account?.userName ? (
             <Link
               to="/account"
               className="items-center gap-1 cursor-pointer group hidden md:flex"

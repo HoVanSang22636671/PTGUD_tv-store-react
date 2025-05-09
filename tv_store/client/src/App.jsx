@@ -13,6 +13,7 @@ import PaymentNowPage from './pages/PaymentNowPage'
 import PaymentCartPage from './pages/PaymentCartPage'
 import PaymentSuccess from './pages/PaymentSuccess'
 import SupportPage from './pages/SupportPage'
+import Admin from './pages/AdminPages/Admin'
 import ChangeShippingInfo from './components/cart/ChangeShippingInfo'
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path='/paymentnow/:id/:num' element={<PaymentNowPage/>}/>
           <Route path="/paymentcartpay" element={<PaymentCartPage />} />
-          
+          <Route path='/search' element={<SearchPage />} />
         </Route>
 
         {/* Route không dùng MainPage */}
@@ -37,6 +38,7 @@ function App() {
         {/* Route không tìm thấy */}
         <Route path="/instantShipping" element={<ChangeShippingInfo />} />
         <Route path="/supportPage" element={<SupportPage />} />
+        <Route path='/admin' element={<Admin />} />
       </Routes>
 
 
