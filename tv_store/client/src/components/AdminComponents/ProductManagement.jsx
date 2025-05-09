@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ProductForm from "./PMComponets/ProductForm";
-import ProductList from "./PMComponets/ProductList";
+import ProductForm from "./PMComponents/ProductForm";
+import ProductList from "./PMComponents/ProductList";
 import {
     TextField,
     Select,

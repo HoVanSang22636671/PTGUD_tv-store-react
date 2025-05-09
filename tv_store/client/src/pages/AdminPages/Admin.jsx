@@ -3,6 +3,7 @@ import AdminHeader from "../../components/AdminComponents/AdminHeader";
 import Overview from "../../components/AdminComponents/Overview";
 import DetailedReport from "../../components/AdminComponents/DetailedReport";
 import ProductManagement from "../../components/AdminComponents/ProductManagement";
+import OrderManagement from "../../components/AdminComponents/OrderManagement";
 
 function Admin() {
     return (
@@ -19,7 +20,7 @@ function Admin() {
                 <div className="p-4">
                     <Overview />
                     <div className="mt-8">
-                        <ProductManagement /> {/* Thêm thành phần DetailedReport */}
+                        <OrderManagement /> {/* Thêm thành phần DetailedReport */}
                     </div>
                 </div>
             </div>
