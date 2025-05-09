@@ -2,13 +2,14 @@ import { useState } from "react";
 import ShippingInfo from "../cart/ShippingInfo";
 import { MdEdit } from "react-icons/md";
 import AvatarImg from "../../assets/camket/avatar.png";
+import { useProduct } from "../../API/UseProvider";
 
 function AccountInfo({ account }) {
-  const [username, setUserName] = useState(account.userName || "");
   const [phone, setPhone] = useState(account.phone || "");
   const [email, setEmail] = useState(account.email || "");
   const [isEditable, setIsEditable] = useState(false);
   const [avatar, setAvatar] = useState(account.avatar || AvatarImg);
+  const { updateUserInfo } = useProduct();
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -17,8 +18,9 @@ function AccountInfo({ account }) {
       reader.onloadend = () => {
         setAvatar(reader.result);
         const updatedAccount = { ...account, avatar: reader.result };
-        localStorage.setItem("isAccount", JSON.stringify(updatedAccount));
 
+        // Cập nhật vào localStorage nếu cần
+        localStorage.setItem("isAccount", JSON.stringify(updatedAccount));
         const listAccount = JSON.parse(localStorage.getItem("account")) || [];
         const updatedListAccount = listAccount.map((acc) =>
           acc.userName === account.userName
@@ -32,18 +34,18 @@ function AccountInfo({ account }) {
   };
 
   const handleSave = () => {
-    const updatedAccount = { ...account, username, phone, email };
-    localStorage.setItem("isAccount", JSON.stringify(updatedAccount));
+    // Chỉ cập nhật 4 thuộc tính: fullName, phone, address, email
+    const updatedAccount = {
+      fullName: account?.fullName,
+      phone: phone,
+      address: account?.address,
+      email: email,
+    };
 
-    const listAccount = JSON.parse(localStorage.getItem("account")) || [];
-    const updatedListAccount = listAccount.map((acc) =>
-      acc.username === account.username
-        ? { ...acc, ...account, username, phone, email }
-        : acc
-    );
-    localStorage.setItem("account", JSON.stringify(updatedListAccount));
+    // Cập nhật context
+    updateUserInfo(account?.id,updatedAccount);
+
     setIsEditable(false);
-    alert("Lưu thông tin thành công");
   };
 
   return (
@@ -76,10 +78,9 @@ function AccountInfo({ account }) {
                 <span className="text-[18px] md:text-[20px]">Username</span>
                 <input
                   type="text"
-                  value={username}
-                  readOnly={!isEditable}
-                  onChange={(e) => setUserName(e.target.value)}
-                  className={`p-2 text-[16px] md:text-[20px] w-[60%] border ${isEditable ? "border-gray-600" : "border-gray-400"} rounded-md`}
+                  value={account.userName}  // Không cho phép thay đổi username
+                  readOnly
+                  className="p-2 text-[16px] md:text-[20px] w-[60%] border border-gray-400 rounded-md"
                 />
               </div>
               <div className="flex items-center justify-between mb-3">
@@ -122,6 +123,7 @@ function AccountInfo({ account }) {
             )}
           </div>
         </div>
+
         {/* Cột phải */}
         <div className="w-full lg:w-[40%] rounded-md bg-white flex flex-col items-center justify-center p-4">
           <h1 className="text-[20px] font-bold border-b border-gray-300 pb-2 w-full text-center">

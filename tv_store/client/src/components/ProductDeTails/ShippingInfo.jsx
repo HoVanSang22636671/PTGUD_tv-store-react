@@ -1,11 +1,23 @@
 import { useState, useEffect } from "react";
-
+import { Link } from "react-router-dom";
+import { useProduct } from "../../API/UseProvider";
 function ShippingInfo() {
   const [defaultAddress, setDefaultAddress] = useState({
-    name: "Nguyên Văn A",
+    name: "Nguyễn Văn A",
     phone: "0999999999",
     address: "Phường 4, Nguyễn Văn Bảo, Quận Gò Vấp, TP HCM",
   });
+  const { account } = useProduct();
+  useEffect(() => {
+    if (account) {
+      setDefaultAddress({
+        name: account?.fullName || "Nguyên Văn A",
+        phone: account?.phone || "0999999999",
+        address:
+          account?.address || "Phường 4, Nguyễn Văn Bảo, Quận Gò Vấp, TP HCM",
+      });
+    }
+  }, [account]);
 
   // useEffect(() => {
   //   // Lấy dữ liệu tài khoản hiện tại từ localStorage
@@ -34,9 +46,11 @@ function ShippingInfo() {
               Thông tin giao hàng
             </h1>
             <a href="" className="no-underline">
-              <span className="text-blue-700 text-lg cursor-pointer">
+               <Link to="/instantShipping">
+              <span className="text-primary text-lg cursor-pointer">
                 Thay đổi
               </span>
+            </Link>
             </a>
           </div>
           <div className="font-bold text-lg flex opacity-50 pb-2">

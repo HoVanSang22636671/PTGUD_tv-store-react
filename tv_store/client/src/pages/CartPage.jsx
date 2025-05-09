@@ -22,7 +22,7 @@ function CartPage() {
   const [selectedProducts, setSelectedProducts] = useState(selectedProducts1);
   const [checkAll, setCheckAll] = useState(false);
   const { account, product } = useProduct();
-   // Lấy thông tin tài khoản từ context
+  // Lấy thông tin tài khoản từ context
   const [addressMD, setDefaultAddress] = useState({
     name: "Nguyen Van A",
     phone: "9999999999",
@@ -56,14 +56,23 @@ function CartPage() {
 
   const handleSelectAll = () => {
     if (checkAll) {
-      setSelectedProducts([]);            // Local state
+      // Bỏ chọn tất cả
+      setSelectedProducts([]);
     } else {
-      const selected = cart.map((item) => item.idProduct);
-      setSelectedProducts(selected);      // Local state
+      // Chỉ chọn những sản phẩm tồn kho đủ
+      const selected = cart
+        .filter((item) => {
+          const p = product.find((prod) => String(prod.id) === String(item.idProduct));
+          return p && item.quantity <= p.inventory;
+        })
+        .map((item) => item.idProduct);
+
+      setSelectedProducts(selected);
     }
-    setCheckAll((prev) => !prev);         // Toggle checkAll state
+    setCheckAll((prev) => !prev);
   };
-  
+
+
   const handleSelectProduct = (productId, isChecked) => {
     if (isChecked) {
       setSelectedProducts((prev) => [...prev, productId]);
@@ -189,7 +198,16 @@ function CartPage() {
                         <input
                           type="checkbox"
                           className="w-[20px] cursor-pointer scale-125"
-                          onChange={() => handleSelectAll()}
+                          checked={
+                            cart
+                              .filter((item) => {
+                                const p = product.find((prod) => String(prod.id) === String(item.idProduct));
+                                return p && item.quantity <= p.inventory;
+                              })
+                              .every((item) => selectedProducts.includes(item.idProduct)) &&
+                            selectedProducts.length > 0
+                          }
+                          onChange={handleSelectAll}
                         />
                         <span>Tất cả</span>
                       </div>
@@ -238,7 +256,7 @@ function CartPage() {
                     </div>
                     <div className="pt-5 flex items-center justify-between">
                       <span className="font-bold text-lg">
-                      Tổng thành tiền
+                        Tổng thành tiền
                       </span>
                       <span className="text-xl text-red-500 font-bold">
                         {formatCurrency(totalOriginalPrice)}
@@ -247,7 +265,7 @@ function CartPage() {
                     <div
                       className="w-[150px] cursor-pointer text-center text-[18px] my-3 mx-auto bg-red-500 p-3 text-white rounded-md"
                       onClick={() => {
-                       
+
                         if (selectedProducts?.length > 0) {
                           navigate("/paymentcartpay");
                         } else {

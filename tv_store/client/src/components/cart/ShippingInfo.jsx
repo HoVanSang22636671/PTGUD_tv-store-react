@@ -14,7 +14,7 @@ function ShippingInfo() {
   useEffect(() => {
     if (account) {
       setDefaultAddress({
-        name: account.name || "Nguyen Van A",
+        name: account.fullName || "Nguyen Van A",
         phone: account.phone || "9999999999",
         address:
           account.address ||

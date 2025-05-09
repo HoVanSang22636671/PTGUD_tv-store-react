@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 import ThongTinVanChuyen from "../components/ProductDeTails/ThongTinVanChuyen";
 import CamKet from "../components/ProductDeTails/CamKet";
 import { useProduct } from "../API/UseProvider";
-import { useParams,Link,useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 const ProductDetail = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [imgDevice, setImgDevice] = useState(0);
@@ -451,36 +451,53 @@ const ProductDetail = () => {
               {/* Mua */}
               <div className="space-y-2">
                 <div
-                  className="w-[90%] mx-auto p-3 bg-red-500 text-white text-center text-[20px] rounded-md cursor-pointer"
+                  className={`w-[90%] mx-auto p-3 text-center text-[20px] rounded-md cursor-pointer ${selectedProduct.inventory > 0 ? 'bg-red-500 text-white' : 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                    }`}
                   onClick={() => {
-                    if (!account ) {
+                    if (!account) {
                       navigate("/login");
                       return;
                     }
-                  
+
+                    // Kiểm tra nếu sản phẩm không còn hàng
+                    if (selectedProduct.inventory <= 0) {
+                      return; // Không làm gì nếu không còn hàng
+                    }
+
                     navigate(`/paymentnow/${selectedProduct.id}/${num}`);
                   }}
                 >
-                  Mua ngay
+                  {selectedProduct.inventory > 0 ? 'Mua ngay' : 'Hết hàng'}
                 </div>
+
                 <div className="w-[90%] mx-auto flex items-center gap-2">
                   {/* Nút thêm/cập nhật */}
                   <div
-                    className={`flex-1 text-center p-3 border text-[20px] rounded-md cursor-pointer transition duration-200 ${isInCart && existingItem?.quantity === num
+                    className={`flex-1 text-center p-3 border text-[20px] rounded-md cursor-pointer transition duration-200 ${(isInCart && existingItem?.quantity === num) || selectedProduct.inventory === 0
                       ? 'border-gray-400 text-gray-400 cursor-not-allowed'
                       : 'border-primary text-primary hover:bg-blue-700 hover:text-white'
                       }`}
                     onClick={() => {
+                      // Kiểm tra dữ liệu đầu vào
                       if (!account || !selectedProduct || num <= 0) {
-                        console.log('Dữ liệu không hợp lệ.');
+                        // console.log('Dữ liệu không hợp lệ.');
+                        navigate('/login');
                         return;
                       }
 
+                      // Kiểm tra nếu sản phẩm hết hàng
+                      if (selectedProduct.inventory === 0) {
+                        console.log('Sản phẩm đã hết hàng.');
+                        return;
+                      }
+
+                      // Nếu sản phẩm đã có trong giỏ và số lượng giống nhau thì không cần cập nhật
                       if (isInCart && existingItem?.quantity === num) {
                         console.log('Số lượng giống nhau, không cần cập nhật.');
                         return;
                       }
 
+                      // Thực hiện thêm hoặc cập nhật giỏ hàng
                       addToCart(account?.id, selectedProduct.id, num);
                     }}
                   >
@@ -502,6 +519,7 @@ const ProductDetail = () => {
                     </Link>
                   )}
                 </div>
+
 
               </div>
             </div>

@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import formatCurrency from "../../calculator/FormatCurrency";
 import { useProduct } from "../../API/UseProvider";
+import ConfirmDialog from "../../message/ConfirmDialog";
+import { useState } from "react";
 
 const statusMap = {
   processing: "Đang xử lý",
@@ -10,15 +12,53 @@ const statusMap = {
 };
 
 function ProductAll({ orders }) {
-  const { product } = useProduct();
+  const { product, deleteOrder, account } = useProduct();
   const navigate = useNavigate();
+
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const ordersPerPage = 3;
 
   const sortedOrders = orders?.sort((a, b) => new Date(b.date) - new Date(a.date));
 
+  const indexOfLastOrder = currentPage * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const currentOrders = sortedOrders?.slice(indexOfFirstOrder, indexOfLastOrder);
+  const totalPages = Math.ceil((sortedOrders?.length || 0) / ordersPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const handleCancelOrder = (order) => {
+    setSelectedOrder(order);
+    setShowConfirmDialog(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (selectedOrder) {
+      await deleteOrder(account?.id, selectedOrder?.id);
+      setShowConfirmDialog(false);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setShowConfirmDialog(false);
+  };
+
   return (
     <div className="grid grid-cols-1 gap-4">
-      {sortedOrders && product &&
-        sortedOrders.map((order) => {
+      {showConfirmDialog && (
+        <ConfirmDialog
+          message="Bạn chắc chắn muốn xóa đơn hàng này?"
+          onConfirm={handleConfirmDelete}
+          onCancel={handleCancelDelete}
+        />
+      )}
+
+      {currentOrders && product &&
+        currentOrders.map((order) => {
           const orderProducts = order.products?.map((item) => {
             return {
               ...product.find((prod) => prod.id === item.idProduct),
@@ -26,7 +66,6 @@ function ProductAll({ orders }) {
             };
           });
 
-          // ✅ Tính tổng tiền sau giảm giá
           const total = orderProducts?.reduce((acc, prod) => {
             if (!prod) return acc;
             const priceAfterSale = prod.price * (1 - (prod.sale || 0) / 100);
@@ -80,13 +119,12 @@ function ProductAll({ orders }) {
                 <span className="font-medium">Ngày đặt hàng:</span> {order.date.split("T")[0]}
               </div>
 
-              {/* ✅ Tổng tiền đơn hàng */}
               <div className="text-right font-semibold text-blue-600 text-lg mb-4">
                 Tổng tiền: {formatCurrency(total)}
               </div>
 
               <div className="flex justify-end">
-                {(order.status === 'processing' || order.status === 'shipping') && (
+                {(order.status === "processing" || order.status === "shipping") && (
                   <div
                     className="w-[150px] cursor-pointer text-[18px] rounded-lg text-center py-3 border-2 border-red-500 text-red-500"
                     onClick={() => handleCancelOrder(order)}
@@ -98,6 +136,22 @@ function ProductAll({ orders }) {
             </div>
           );
         })}
+
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-6 gap-2">
+          {Array.from({ length: totalPages }, (_, index) => index + 1).map((number) => (
+            <button
+              key={number}
+              onClick={() => handlePageChange(number)}
+              className={`px-4 py-2 rounded border ${
+                currentPage === number ? "bg-blue-500 text-white" : "bg-white text-blue-500"
+              }`}
+            >
+              {number}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

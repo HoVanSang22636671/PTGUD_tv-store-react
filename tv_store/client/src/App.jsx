@@ -12,6 +12,7 @@ import PaymentNowPage from './pages/PaymentNowPage'
 import PaymentCartPage from './pages/PaymentCartPage'
 import PaymentSuccess from './pages/PaymentSuccess'
 import SupportPage from './pages/SupportPage'
+import ChangeShippingInfo from './components/cart/ChangeShippingInfo'
 function App() {
   return (
     <>
@@ -33,6 +34,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/paymentSuccess" element={<PaymentSuccess />} />
         {/* Route không tìm thấy */}
+        <Route path="/instantShipping" element={<ChangeShippingInfo />} />
         <Route path="/supportPage" element={<SupportPage />} />
       </Routes>
 

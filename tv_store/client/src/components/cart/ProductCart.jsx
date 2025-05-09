@@ -20,6 +20,8 @@ function ProductCart({
   const { updateProductQuantity, deleteProduct } = useProduct();
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
+  const isOutOfStock = quantity > product.inventory;
+
   function getDateAfterFourDays() {
     const today = new Date();
     today.setDate(today.getDate() + 4);
@@ -41,6 +43,10 @@ function ProductCart({
   };
 
   const handleSave = () => {
+    if (localQuantity > product.inventory) {
+      alert(`Không thể lưu: Vượt quá tồn kho (${product.inventory} sản phẩm có sẵn)`);
+      return;
+    }
     updateProductQuantity(account?.id, product?.id, localQuantity);
     setIsEditing(false);
   };
@@ -54,7 +60,9 @@ function ProductCart({
             type="checkbox"
             className="w-[25px] mt-2 cursor-pointer scale-150"
             checked={selectedProducts.includes(product.id)}
+            disabled={isOutOfStock}
             onChange={(e) => handleSelectProduct(product.id, e.target.checked)}
+            title={isOutOfStock ? "Số lượng vượt quá tồn kho" : "Chọn sản phẩm"}
           />
 
           <div
@@ -70,7 +78,9 @@ function ProductCart({
               className="w-[80px] h-[80px] mx-2 object-cover"
             />
             <div className="flex flex-col justify-between">
-              <h1 className="line-clamp-2 text-[16px] md:text-[18px] font-medium">{product.name}</h1>
+              <h1 className="line-clamp-2 text-[16px] md:text-[18px] font-medium">
+                {product.name}
+              </h1>
               <div className="flex items-center gap-2">
                 <img
                   src={GiaoHangIcon}
@@ -106,27 +116,34 @@ function ProductCart({
         </div>
 
         {/* SỐ LƯỢNG */}
-        <div className="md:w-[20%] w-full flex items-center">
-          {isEditing ? (
-            <>
-              <button
-                className="rounded-s-md cursor-pointer hover:bg-gray-100 px-3 py-1 border border-gray-500 border-opacity-50"
-                onClick={() => setLocalQuantity(Math.max(1, localQuantity - 1))}
-              >
-                -
-              </button>
-              <div className="cursor-pointer hover:bg-gray-100 px-3 py-1 border-y border-gray-500 border-opacity-50">
-                {localQuantity}
-              </div>
-              <button
-                className="rounded-e-md cursor-pointer hover:bg-gray-100 px-3 py-1 border border-gray-500 border-opacity-50"
-                onClick={() => setLocalQuantity(localQuantity + 1)}
-              >
-                +
-              </button>
-            </>
-          ) : (
-            <div className="px-3 py-1">{quantity}</div>
+        <div className="md:w-[20%] w-full flex flex-col items-start">
+          <div className="flex items-center">
+            {isEditing ? (
+              <>
+                <button
+                  className="rounded-s-md cursor-pointer hover:bg-gray-100 px-3 py-1 border border-gray-500 border-opacity-50"
+                  onClick={() => setLocalQuantity(Math.max(1, localQuantity - 1))}
+                >
+                  -
+                </button>
+                <div className="cursor-pointer hover:bg-gray-100 px-3 py-1 border-y border-gray-500 border-opacity-50">
+                  {localQuantity}
+                </div>
+                <button
+                  className="rounded-e-md cursor-pointer hover:bg-gray-100 px-3 py-1 border border-gray-500 border-opacity-50"
+                  onClick={() => setLocalQuantity(localQuantity + 1)}
+                >
+                  +
+                </button>
+              </>
+            ) : (
+              <div className="px-3 py-1">{quantity}</div>
+            )}
+          </div>
+          {isOutOfStock && (
+            <div className="text-red-500 text-sm mt-1">
+              Vượt quá số lượng tồn kho ({product.inventory} sản phẩm có sẵn)
+            </div>
           )}
         </div>
 
