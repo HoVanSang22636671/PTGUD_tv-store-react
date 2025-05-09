@@ -97,6 +97,11 @@ const OrderManagement = () => {
         sendNotification(order.customerName, newStatus);
     };
 
+    // Hàm xử lý khi chọn đơn hàng
+    const handleSelectOrder = (order) => {
+        setSelectedOrder(order); // Đặt đơn hàng đã chọn vào state `selectedOrder`
+    };
+
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Box p={4} bgcolor="white" borderRadius={2} boxShadow={2}>
@@ -157,7 +162,9 @@ const OrderManagement = () => {
 
                 <OrderList
                     orders={orders}
-                    onSelectOrder={(order) => setSelectedOrder(order)}
+                    onSelectOrder={handleSelectOrder}
+                    title="Danh sách đơn hàng"
+                    onExportExcel={() => console.log("Xuất Excel")} // Hàm giả lập cho nút Xuất Excel
                 />
                 {selectedOrder && (
                     <OrderDetail

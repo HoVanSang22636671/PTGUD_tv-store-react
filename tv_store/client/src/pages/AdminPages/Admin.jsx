@@ -21,7 +21,7 @@ function Admin() {
                 <div className="p-4">
                     <Overview />
                     <div className="mt-8">
-                        <CustomerManagement /> {/* Thêm thành phần DetailedReport */}
+                        <OrderManagement /> {/* Thêm thành phần DetailedReport */}
                     </div>
                 </div>
             </div>
