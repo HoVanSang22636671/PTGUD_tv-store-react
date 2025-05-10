@@ -11,6 +11,7 @@ const pageTitles = {
   "/admin/products": "Sản phẩm",
   "/admin/orders": "Đơn hàng",
   "/admin/customers": "Khách hàng",
+  "/admin/settings": "Cài đặt",
   // Add other routes and their corresponding titles here
 };
 

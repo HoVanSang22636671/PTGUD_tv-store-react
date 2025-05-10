@@ -12,6 +12,7 @@ import Dashboard from './components/AdminComponents/Dashboard'
 import ProductManagement from './components/AdminComponents/ProductManagement'
 import OrderManagement from './components/AdminComponents/OrderManagement'
 import CustomerManagement from './components/AdminComponents/CustomerManagement'
+import Setting from './components/AdminComponents/Setting'
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
           <Route path="products" element={<ProductManagement />} />
           <Route path="orders" element={<OrderManagement />} />
           <Route path="customers" element={<CustomerManagement />} />
+          <Route path="settings" element={<Setting />} />
         </Route>
         {/* Route không tìm thấy */}
       </Routes >
