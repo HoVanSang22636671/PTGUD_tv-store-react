@@ -14,7 +14,7 @@ const OrderTable = ({ data }) => {
     return (
         <Paper sx={{ p: 3, boxShadow: 3, mb: 4 }}>
             <Typography variant="h6" fontWeight="bold" gutterBottom>
-                Danh sách đơn hàng
+                Danh sách đơn hàng gần đây
             </Typography>
             {/* Giới hạn chiều cao và thêm overflow-y: auto */}
             <TableContainer sx={{ maxHeight: 400, overflowY: "auto" }}>

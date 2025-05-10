@@ -2,9 +2,24 @@ import React from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { VscAccount } from "react-icons/vsc";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+
+// Map URL paths to page titles
+const pageTitles = {
+  "/admin": "Quản lý",
+  "/admin/account": "Quản lý tài khoản",
+  "/admin/products": "Sản phẩm",
+  "/admin/orders": "Đơn hàng",
+  "/admin/customers": "Khách hàng",
+  "/admin/settings": "Cài đặt",
+  // Add other routes and their corresponding titles here
+};
 
 function AdminHeader({ isSidebarOpen, toggleSidebar }) {
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const pageTitle = pageTitles[currentPath] || "Quản lý"; // Default to "Quản lý" if no match
+
   return (
     <div className="bg-gray-100 shadow-md py-2 px-4 flex justify-between items-center relative z-50 h-[100px]">
       {/* Menu Toggle Button */}
@@ -15,10 +30,11 @@ function AdminHeader({ isSidebarOpen, toggleSidebar }) {
         {isSidebarOpen ? <HiX size={30} /> : <HiMenu size={30} />}
       </button>
 
-      <div className="flex items-center space-x-2 ">
-        <Link to="/admin" className="text-xl font-bold text-gray-800">
-          Quản lý
-        </Link>
+      {/* Dynamic Page Title */}
+      <div className="flex items-center justify-center space-x-2 bg-gradient-to-r from-pink-500 to-red-500 py-2 px-4 rounded-lg shadow-md">
+        <span className="text-2xl font-extrabold text-white tracking-wide uppercase transition-all duration-300 hover:scale-105 hover:tracking-wider">
+          {pageTitle}
+        </span>
       </div>
 
       {/* Right Section */}

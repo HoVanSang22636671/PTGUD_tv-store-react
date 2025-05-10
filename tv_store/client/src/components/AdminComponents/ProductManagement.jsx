@@ -44,27 +44,26 @@ const initialProducts = [
 
 const ProductManagement = () => {
     const [products, setProducts] = useState(initialProducts);
-    const [editingProduct, setEditingProduct] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false); // Quản lý trạng thái hiển thị modal
+    const [selectedProduct, setSelectedProduct] = useState(null); // Quản lý sản phẩm được chọn (dùng cho sửa hoặc thêm mới)
     const [searchTerm, setSearchTerm] = useState("");
     const [filters, setFilters] = useState({
         status: "",
         brand: "",
     });
 
-    const handleAddProduct = (newProduct) => {
-        setProducts([...products, { ...newProduct, id: Date.now() }]);
-        setIsModalOpen(false); // Đóng modal sau khi thêm sản phẩm
-    };
-
-    const handleEditProduct = (updatedProduct) => {
-        setProducts(
-            products.map((product) =>
-                product.id === updatedProduct.id ? updatedProduct : product
-            )
-        );
-        setEditingProduct(null);
-        setIsModalOpen(false); // Đóng modal sau khi chỉnh sửa sản phẩm
+    const handleSaveProduct = (product) => {
+        if (product.id) {
+            // Cập nhật sản phẩm (Sửa)
+            setProducts(
+                products.map((p) =>
+                    p.id === product.id ? { ...p, ...product } : p
+                )
+            );
+        } else {
+            // Thêm sản phẩm mới
+            setProducts([...products, { ...product, id: Date.now() }]);
+        }
+        setSelectedProduct(null); // Đóng Modal sau khi lưu
     };
 
     const handleDeleteProduct = (id) => {
@@ -160,48 +159,20 @@ const ProductManagement = () => {
             {/* Danh sách sản phẩm */}
             <ProductList
                 products={filteredProducts}
-                onEdit={(product) => {
-                    setEditingProduct(product);
-                    setIsModalOpen(true); // Hiển thị modal khi chỉnh sửa sản phẩm
-                }}
+                onEdit={(product) => setSelectedProduct(product)} // Chọn sản phẩm để sửa
                 onDelete={handleDeleteProduct}
                 onToggleStatus={toggleStatus}
-                onAddProduct={() => setIsModalOpen(true)} // Hàm mở modal thêm sản phẩm
+                onAddProduct={() => setSelectedProduct({})} // Mở Modal thêm sản phẩm
             />
 
             {/* Modal thêm/sửa sản phẩm */}
-            {isModalOpen && (
-                <div className="fixed inset-0 bg-black bg-opacity-25 flex justify-center items-center">
-                    <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-lg">
-                        <Typography variant="h6" fontWeight="bold" gutterBottom>
-                            {editingProduct
-                                ? "Chỉnh sửa sản phẩm"
-                                : "Thêm sản phẩm"}
-                        </Typography>
-                        <ProductForm
-                            onSubmit={
-                                editingProduct
-                                    ? handleEditProduct
-                                    : handleAddProduct
-                            }
-                            editingProduct={editingProduct}
-                            setEditingProduct={setEditingProduct}
-                            existingBrands={uniqueBrands}
-                        />
-                        <Button
-                            onClick={() => {
-                                setEditingProduct(null);
-                                setIsModalOpen(false);
-                            }}
-                            variant="contained"
-                            color="secondary"
-                            fullWidth
-                            sx={{ mt: 2 }}
-                        >
-                            Đóng
-                        </Button>
-                    </div>
-                </div>
+            {selectedProduct && (
+                <ProductForm
+                    onSubmit={handleSaveProduct}
+                    editingProduct={selectedProduct}
+                    setEditingProduct={setSelectedProduct}
+                    existingBrands={uniqueBrands}
+                />
             )}
         </div>
     );

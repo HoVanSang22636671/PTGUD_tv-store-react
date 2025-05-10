@@ -1,4 +1,18 @@
 import React, { useState, useEffect } from "react";
+import {
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    Button,
+    TextField,
+    Typography,
+    Box,
+    FormControl,
+    Select,
+    MenuItem,
+    InputLabel,
+} from "@mui/material";
 import * as XLSX from "xlsx"; // Import thư viện xử lý file Excel
 
 const ProductForm = ({ onSubmit, editingProduct, setEditingProduct, existingBrands }) => {
@@ -66,98 +80,103 @@ const ProductForm = ({ onSubmit, editingProduct, setEditingProduct, existingBran
     };
 
     return (
-        <form onSubmit={handleSubmit} className="mb-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Tên sản phẩm */}
-                <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                        Tên sản phẩm
-                    </label>
-                    <input
-                        type="text"
-                        id="name"
+        <Dialog
+            open={Boolean(editingProduct)}
+            onClose={() => setEditingProduct(null)}
+            maxWidth="sm"
+            fullWidth
+            sx={{
+                "& .MuiDialog-paper": {
+                    borderRadius: 8, // Bo góc modal
+                },
+            }}
+            BackdropProps={{
+                style: {
+                    backgroundColor: "rgba(0, 0, 0, 0.5)", // Nền mờ phía sau Modal
+                },
+            }}
+        >
+            {/* Header - Tiêu đề */}
+            <DialogTitle
+                sx={{
+                    backgroundColor: "#f5f5f5",
+                    borderBottom: "1px solid #ddd",
+                    fontWeight: "bold",
+                    padding: "10px"
+                }}
+            >
+                {editingProduct ? "Cập nhật sản phẩm" : "Thêm sản phẩm"}
+            </DialogTitle>
+
+            {/* Nội dung - Form */}
+            <DialogContent
+                sx={{
+                    padding: "24px",
+                    paddingTop: "10px",
+                }}
+            >
+                <Box display="grid" gridTemplateColumns="1fr 1fr" gap={2}>
+                    {/* Tên sản phẩm */}
+                    <TextField
+                        label="Tên sản phẩm"
                         name="name"
-                        placeholder="Tên sản phẩm"
                         value={formData.name}
                         onChange={handleChange}
-                        className="mt-1 p-2 border rounded-md w-full"
+                        fullWidth
+                        required
                     />
-                </div>
 
-                {/* URL hình ảnh */}
-                <div>
-                    <label htmlFor="image" className="block text-sm font-medium text-gray-700">
-                        URL hình ảnh
-                    </label>
-                    <input
-                        type="text"
-                        id="image"
+                    {/* URL hình ảnh */}
+                    <TextField
+                        label="URL hình ảnh"
                         name="image"
-                        placeholder="URL hình ảnh"
                         value={formData.image}
                         onChange={handleChange}
-                        className="mt-1 p-2 border rounded-md w-full"
+                        fullWidth
+                        required
                     />
-                </div>
 
-                {/* Giá */}
-                <div>
-                    <label htmlFor="price" className="block text-sm font-medium text-gray-700">
-                        Giá
-                    </label>
-                    <input
-                        type="number"
-                        id="price"
+                    {/* Giá */}
+                    <TextField
+                        label="Giá"
                         name="price"
-                        placeholder="Giá"
+                        type="number"
                         value={formData.price}
                         onChange={handleChange}
-                        className="mt-1 p-2 border rounded-md w-full"
+                        fullWidth
+                        required
                     />
-                </div>
 
-                {/* Số lượng */}
-                <div>
-                    <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">
-                        Số lượng
-                    </label>
-                    <input
-                        type="number"
-                        id="quantity"
+                    {/* Số lượng */}
+                    <TextField
+                        label="Số lượng"
                         name="quantity"
-                        placeholder="Số lượng"
+                        type="number"
                         value={formData.quantity}
                         onChange={handleChange}
-                        className="mt-1 p-2 border rounded-md w-full"
+                        fullWidth
+                        required
                     />
-                </div>
 
-                {/* Trạng thái */}
-                <div>
-                    <label htmlFor="status" className="block text-sm font-medium text-gray-700">
-                        Trạng thái
-                    </label>
-                    <select
-                        id="status"
-                        name="status"
-                        value={formData.status}
-                        onChange={handleChange}
-                        className="mt-1 p-2 border rounded-md w-full"
-                    >
-                        <option value="Đang bán">Đang bán</option>
-                        <option value="Hết hàng">Hết hàng</option>
-                    </select>
-                </div>
+                    {/* Trạng thái */}
+                    <FormControl fullWidth>
+                        <InputLabel>Trạng thái</InputLabel>
+                        <Select
+                            name="status"
+                            value={formData.status}
+                            onChange={handleChange}
+                            fullWidth
+                        >
+                            <MenuItem value="Đang bán">Đang bán</MenuItem>
+                            <MenuItem value="Hết hàng">Hết hàng</MenuItem>
+                        </Select>
+                    </FormControl>
 
-                {/* Thương hiệu */}
-                <div>
-                    <label htmlFor="brand" className="block text-sm font-medium text-gray-700">
-                        Thương hiệu
-                    </label>
-                    {!isCustomBrand ? (
-                        <div className="flex gap-2">
-                            <select
-                                id="brand"
+                    {/* Thương hiệu */}
+                    <FormControl fullWidth>
+                        <InputLabel>Thương hiệu</InputLabel>
+                        {!isCustomBrand ? (
+                            <Select
                                 name="brand"
                                 value={formData.brand}
                                 onChange={(e) => {
@@ -168,61 +187,76 @@ const ProductForm = ({ onSubmit, editingProduct, setEditingProduct, existingBran
                                         handleChange(e);
                                     }
                                 }}
-                                className="mt-1 p-2 border rounded-md w-full"
+                                fullWidth
                             >
-                                <option value="">Chọn thương hiệu</option>
+                                <MenuItem value="">Chọn thương hiệu</MenuItem>
                                 {existingBrands.map((brand, index) => (
-                                    <option key={index} value={brand}>
+                                    <MenuItem key={index} value={brand}>
                                         {brand}
-                                    </option>
+                                    </MenuItem>
                                 ))}
-                                <option value="custom">Thêm thương hiệu mới</option>
-                            </select>
-                        </div>
-                    ) : (
+                                <MenuItem value="custom">Thêm thương hiệu mới</MenuItem>
+                            </Select>
+                        ) : (
+                            <TextField
+                                label="Thương hiệu mới"
+                                name="brand"
+                                value={formData.brand}
+                                onChange={handleChange}
+                                fullWidth
+                                required
+                            />
+                        )}
+                    </FormControl>
+
+                    {/* Tải file Excel */}
+                    <Box>
+                        <Typography variant="body1" sx={{ fontWeight: "bold", marginBottom: 1 }}>
+                            Thêm sản phẩm từ file Excel
+                        </Typography>
                         <input
-                            type="text"
-                            id="brand"
-                            name="brand"
-                            placeholder="Nhập thương hiệu mới"
-                            value={formData.brand}
-                            onChange={handleChange}
-                            className="mt-1 p-2 border rounded-md w-full"
+                            type="file"
+                            accept=".xlsx"
+                            onChange={handleFileUpload}
+                            style={{
+                                marginTop: "8px",
+                                padding: "8px",
+                                border: "1px solid #ddd",
+                                borderRadius: "4px",
+                                width: "100%",
+                                cursor: "pointer",
+                            }}
                         />
-                    )}
-                </div>
+                    </Box>
+                </Box>
+            </DialogContent>
 
-                {/* Tải file Excel */}
-                <div>
-                    <label htmlFor="fileUpload" className="block text-sm font-medium text-gray-700">
-                        Thêm sản phẩm từ file Excel
-                    </label>
-                    <input
-                        type="file"
-                        id="fileUpload"
-                        accept=".xlsx"
-                        onChange={handleFileUpload}
-                        className="mt-1 p-2 border rounded-md w-full"
-                    />
-                </div>
-            </div>
-
-            {/* Nút hành động */}
-            <div className="mt-4">
-                <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md">
+            {/* Footer - Nút hành động */}
+            <DialogActions
+                sx={{
+                    padding: "16px",
+                    borderTop: "1px solid #ddd",
+                    backgroundColor: "#f5f5f5",
+                }}
+            >
+                <Button
+                    onClick={() => setEditingProduct(null)}
+                    variant="contained"
+                    color="secondary"
+                    sx={{ fontWeight: "bold" }}
+                >
+                    Đóng
+                </Button>
+                <Button
+                    onClick={handleSubmit}
+                    variant="contained"
+                    color="primary"
+                    sx={{ fontWeight: "bold" }}
+                >
                     {editingProduct ? "Cập nhật sản phẩm" : "Thêm sản phẩm"}
-                </button>
-                {editingProduct && (
-                    <button
-                        type="button"
-                        onClick={() => setEditingProduct(null)}
-                        className="ml-2 px-4 py-2 bg-gray-500 text-white rounded-md"
-                    >
-                        Hủy
-                    </button>
-                )}
-            </div>
-        </form>
+                </Button>
+            </DialogActions>
+        </Dialog>
     );
 };
 
