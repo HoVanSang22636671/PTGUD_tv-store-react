@@ -1,162 +1,138 @@
-import React, { useState } from "react";
-import { Typography, Box, TextField, MenuItem, Select, FormControl, InputLabel } from "@mui/material";
+import React, { useState, useMemo } from "react";
+import {
+    Typography, Box, TextField, MenuItem, Select,
+    FormControl, InputLabel, Button
+} from "@mui/material";
 import CustomerTable from "./CMComponents/CustomerTable";
 import CustomerDetailModal from "./CMComponents/CustomerDetailModal";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
-
-const initialCustomers = [
-    {
-        id: 1,
-        name: "Nguyễn Văn A",
-        phone: "0987654321",
-        email: "nguyenvana@example.com",
-        address: "123 Đường ABC, Quận 1, TP.HCM",
-        isActive: true,
-        orderCount: 5,
-        totalSpent: 5000000,
-        orders: [
-            { id: 101, date: "2025-01-01", total: 1000000, status: "Đã giao" },
-            { id: 102, date: "2025-02-01", total: 2000000, status: "Đã giao" },
-        ],
-    },
-    {
-        id: 2,
-        name: "Trần Thị B",
-        phone: "0976543210",
-        email: "tranthib@example.com",
-        address: "456 Đường XYZ, Quận 5, TP.HCM",
-        isActive: true,
-        orderCount: 3,
-        totalSpent: 3000000,
-        orders: [
-            { id: 201, date: "2025-03-01", total: 1500000, status: "Đã giao" },
-            { id: 202, date: "2025-04-01", total: 1500000, status: "Đã giao" },
-        ],
-    },
-];
+import { useProduct } from "../../API/UseProvider";
 
 const CustomerManagement = () => {
-    const [customers, setCustomers] = useState(initialCustomers);
-    const [searchQuery, setSearchQuery] = useState(""); // Tìm kiếm
-    const [filterField, setFilterField] = useState("totalSpent"); // Lọc theo TotalSpent hoặc OrderCount
-    const [sortOrder, setSortOrder] = useState("asc"); // Tăng dần hoặc giảm dần
+    const { accountList, setAccountList, product } = useProduct();
+    const [searchQuery, setSearchQuery] = useState("");
+    const [filterField, setFilterField] = useState("totalSpent");
+    const [sortOrder, setSortOrder] = useState("desc");
     const [selectedCustomer, setSelectedCustomer] = useState(null);
 
-    // Hàm lọc và sắp xếp khách hàng
-    const filteredCustomers = customers
-        .filter(
-            (customer) =>
-                customer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                customer.phone.includes(searchQuery)
-        )
-        .sort((a, b) => {
-            // Sắp xếp tăng dần hoặc giảm dần
-            if (sortOrder === "asc") {
-                return a[filterField] - b[filterField];
-            } else {
-                return b[filterField] - a[filterField];
-            }
+    // Tính tổng số lượng và tổng chi tiêu cho mỗi khách hàng
+    const enrichedCustomers = useMemo(() => {
+        return accountList.map(customer => {
+            const orders = customer.order || [];
+            let totalQuantity = 0;
+            let totalSpent = 0;
+            orders.forEach(order => {
+                // Chỉ tính khi trạng thái đơn hàng là 'delivered'
+                if (order.status === 'delivered') {
+                    (order.products || []).forEach(item => {
+                        const prod = product.find(p => String(p.id) === String(item.idProduct));
+                        const price = prod ? prod.price : 0;
+                        totalQuantity += item.quantity;
+                        totalSpent += item.quantity * price;
+                    });
+                }
+            });
+            return {
+                ...customer,
+                fullName: customer.fullName || customer.userName,
+                orderCount: orders.length,
+                totalSpent,
+                totalQuantity
+            };
         });
+    }, [accountList, product]);
 
-    // Lưu thông tin khách hàng đã chỉnh sửa
-    const handleSaveCustomer = (updatedCustomer) => {
-        setCustomers((prev) =>
-            prev.map((customer) =>
-                customer.id === updatedCustomer.id ? updatedCustomer : customer
+    // Lọc và sắp xếp
+    const filteredCustomers = useMemo(() => {
+        return enrichedCustomers
+            .filter(customer =>
+                (customer.fullName || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+                (customer.phone || "").includes(searchQuery)
             )
-        );
+            .sort((a, b) => {
+                const aVal = a[filterField] ?? 0;
+                const bVal = b[filterField] ?? 0;
+                return sortOrder === 'asc' ? aVal - bVal : bVal - aVal;
+            });
+    }, [enrichedCustomers, searchQuery, filterField, sortOrder]);
+
+    // Lưu thông tin khách hàng sau khi chỉnh sửa
+    const handleSaveCustomer = updatedCustomer => {
+        setAccountList(prev => prev.map(c => c.id === updatedCustomer.id ? updatedCustomer : c));
     };
 
-    // Hàm xuất file Excel
+    // Xuất Excel
     const handleExportExcel = () => {
-        const exportData = customers.map((customer) => ({
-            ID: customer.id,
-            Tên: customer.name,
-            "Số điện thoại": customer.phone,
-            Email: customer.email,
-            "Địa chỉ": customer.address,
-            "Trạng thái": customer.isActive ? "Hoạt động" : "Vô hiệu hóa",
-            "Số đơn hàng": customer.orderCount,
-            "Tổng chi tiêu": customer.totalSpent,
+        const exportData = filteredCustomers.map(c => ({
+            ID: c.id,
+            Tên: c.fullName,
+            Số_điện_thoại: c.phone,
+            Email: c.email,
+            Địa_chỉ: c.address,
+            Trạng_thái: c.isActive ? 'Hoạt động' : 'Vô hiệu hóa',
+            Số_đơn_hàng: c.orderCount,
+            Tổng_chi_tiêu: c.totalSpent
         }));
-
-        const worksheet = XLSX.utils.json_to_sheet(exportData);
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Danh sách khách hàng");
-
-        const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
-        const data = new Blob([excelBuffer], { type: "application/octet-stream" });
-        saveAs(data, "Danh_sach_khach_hang.xlsx");
+        const ws = XLSX.utils.json_to_sheet(exportData);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'KhachHang');
+        const buf = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        saveAs(new Blob([buf], { type: 'application/octet-stream' }), 'Danh_sach_khach_hang.xlsx');
     };
 
     return (
         <Box p={4} bgcolor="white" borderRadius={2} boxShadow={2}>
             <Typography variant="h5" fontWeight="bold" gutterBottom>
-                Tìm kiếm
+                Quản lý khách hàng
             </Typography>
 
-            {/* Thanh tìm kiếm */}
-            <Box mb={3}>
+            <Box mb={3} display="flex" alignItems="center" gap={2} flexWrap="wrap">
                 <TextField
-                    label="Tìm kiếm khách hàng (Tên hoặc Số điện thoại)"
+                    label="Tìm kiếm (Tên hoặc SĐT)"
                     variant="outlined"
-                    fullWidth={false}
-                    margin="normal"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    sx={{ width: "300px", height: "40px", mr: 2 }}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    sx={{ width: 300 }}
                 />
-            </Box>
-
-            {/* Bộ lọc nâng cao */}
-            <Box display="flex" alignItems="center" gap={2} mb={2}>
-                <FormControl sx={{ width: "200px" }}>
+                <FormControl sx={{ width: 200 }}>
                     <InputLabel>Lọc theo</InputLabel>
-                    <Select
-                        value={filterField}
-                        onChange={(e) => setFilterField(e.target.value)}
-                        label="Lọc theo"
-                    >
+                    <Select value={filterField} onChange={e => setFilterField(e.target.value)} label="Lọc theo">
                         <MenuItem value="totalSpent">Tổng chi tiêu</MenuItem>
                         <MenuItem value="orderCount">Số đơn hàng</MenuItem>
+                        <MenuItem value="totalQuantity">Tổng số lượng</MenuItem>
                     </Select>
                 </FormControl>
-
-                <FormControl sx={{ width: "200px" }}>
+                <FormControl sx={{ width: 200 }}>
                     <InputLabel>Thứ tự</InputLabel>
-                    <Select
-                        value={sortOrder}
-                        onChange={(e) => setSortOrder(e.target.value)}
-                        label="Thứ tự"
-                    >
+                    <Select value={sortOrder} onChange={e => setSortOrder(e.target.value)} label="Thứ tự">
                         <MenuItem value="asc">Tăng dần</MenuItem>
                         <MenuItem value="desc">Giảm dần</MenuItem>
                     </Select>
                 </FormControl>
+                <Button variant="contained" onClick={handleExportExcel}>
+                    Xuất Excel
+                </Button>
             </Box>
 
-            {/* Bảng danh sách khách hàng */}
             <CustomerTable
                 customers={filteredCustomers}
-                onViewDetails={(customer) => setSelectedCustomer(customer)}
+                onViewDetails={c => setSelectedCustomer(c)}
                 onToggleActive={(id, isActive) =>
-                    setCustomers((prev) =>
-                        prev.map((customer) =>
-                            customer.id === id ? { ...customer, isActive } : customer
-                        )
-                    )
+                    setAccountList(prev => prev.map(c => c.id === id ? { ...c, isActive } : c))
                 }
-                title="Danh sách khách hàng" // Tiêu đề truyền xuống
-                onExportExcel={handleExportExcel} // Hàm xuất Excel truyền xuống
+                title="Danh sách khách hàng"
+                onExportExcel={handleExportExcel}
             />
 
-            {/* Modal chi tiết khách hàng */}
-            <CustomerDetailModal
-                customer={selectedCustomer}
-                onClose={() => setSelectedCustomer(null)}
-                onSave={handleSaveCustomer}
-            />
+            {selectedCustomer && (
+                <CustomerDetailModal
+                    customer={selectedCustomer}
+                    products={product}
+                    onClose={() => setSelectedCustomer(null)}
+                    onSave={handleSaveCustomer}
+                />
+            )}
         </Box>
     );
 };

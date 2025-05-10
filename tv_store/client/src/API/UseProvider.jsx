@@ -132,6 +132,48 @@ const { selectedProducts1, setSelectedProducts1 } = useSelectedProducts();
       return { success: false, message: "Có lỗi khi thay đổi mật khẩu." };
     }
   };
+  const addProduct = async (product) => {
+  const apiUrl =
+    window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+      ? "http://localhost:3000/api/addproduct"
+      : "https://ptgud-tv-store-react.onrender.com/api/addproduct";
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(product),
+    });
+
+    const result = await response.json();
+
+    // Nếu thêm/cập nhật thành công (giả sử server trả về đối tượng sản phẩm đã thêm/cập nhật)
+    if (result && result.success && result.product) {
+      // Cập nhật lại danh sách productList
+      setProduct((prevList) => {
+        const existingIndex = prevList.findIndex((p) => p.id === result.product.id);
+        if (existingIndex !== -1) {
+          // Cập nhật sản phẩm cũ
+          const updatedList = [...prevList];
+          updatedList[existingIndex] = result.product;
+          return updatedList;
+        } else {
+          // Thêm sản phẩm mới
+          return [...prevList, result.product];
+        }
+      });
+
+      // Nếu sản phẩm đang được chọn hoặc hiển thị riêng, cũng cập nhật
+      
+    }
+
+    return result;
+  } catch (error) {
+    console.error("Lỗi khi thêm/cập nhật sản phẩm:", error);
+    return { success: false, message: "Có lỗi khi thêm/cập nhật sản phẩm." };
+  }
+};
+
   const addUser = async (newUser) => {
   const apiUrl =
     window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
@@ -530,7 +572,8 @@ const { selectedProducts1, setSelectedProducts1 } = useSelectedProducts();
         addOrder, 
         deleteOrder,
         updateUserInfo,
-        addUser,// expose logout function
+        addUser,
+        addProduct,// expose logout function
       }}
     >
       {children}

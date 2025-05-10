@@ -31,7 +31,7 @@ const CustomerTable = ({ customers, onViewDetails, onToggleActive, title, onExpo
                         fontWeight: "bold",
                         borderRadius: "4px",
                         "&:hover": {
-                            backgroundColor: "#45A049", // Màu nền khi hover
+                            backgroundColor: "#45A049",
                         },
                     }}
                     startIcon={<DocumentArrowDownIcon className="h-5 w-5" />}
@@ -41,13 +41,14 @@ const CustomerTable = ({ customers, onViewDetails, onToggleActive, title, onExpo
             </Box>
 
             {/* Bảng danh sách khách hàng */}
-            <TableContainer sx={{ maxHeight: 400, overflowY: "auto" }}>
+            <TableContainer sx={{ maxHeight: 400 }}>
                 <Table stickyHeader>
                     <TableHead>
                         <TableRow sx={{ backgroundColor: "#f0f0f0" }}>
                             <TableCell sx={{ fontWeight: "bold" }}>ID</TableCell>
                             <TableCell sx={{ fontWeight: "bold" }}>Tên khách hàng</TableCell>
                             <TableCell sx={{ fontWeight: "bold" }}>Số đơn hàng</TableCell>
+                            <TableCell sx={{ fontWeight: "bold" }}>Tổng số lượng</TableCell>
                             <TableCell sx={{ fontWeight: "bold" }}>Tổng chi tiêu</TableCell>
                             <TableCell sx={{ fontWeight: "bold" }}>Trạng thái</TableCell>
                             <TableCell sx={{ fontWeight: "bold" }}>Hành động</TableCell>
@@ -59,19 +60,22 @@ const CustomerTable = ({ customers, onViewDetails, onToggleActive, title, onExpo
                                 key={customer.id}
                                 hover
                                 sx={{
-                                    "&:hover": { backgroundColor: "#f9f9f9" }, // Hiệu ứng hover
+                                    "&:hover": { backgroundColor: "#f9f9f9" },
                                 }}
                             >
                                 <TableCell>{customer.id}</TableCell>
-                                <TableCell>{customer.name}</TableCell>
+                                <TableCell>{customer.fullName || customer.name}</TableCell>
                                 <TableCell>{customer.orderCount}</TableCell>
-                                <TableCell>{customer.totalSpent.toLocaleString()} VND</TableCell>
+                                <TableCell>{customer.totalQuantity}</TableCell>
+                                <TableCell>
+                                    {customer.totalSpent.toLocaleString()} VND
+                                </TableCell>
                                 <TableCell>
                                     <Typography
                                         fontWeight="bold"
-                                        color={customer.isActive ? "green" : "red"}
+                                        color={ "green" }
                                     >
-                                        {customer.isActive ? "Hoạt động" : "Vô hiệu hóa"}
+                                        Hoạt động
                                     </Typography>
                                 </TableCell>
                                 <TableCell>
@@ -84,14 +88,7 @@ const CustomerTable = ({ customers, onViewDetails, onToggleActive, title, onExpo
                                     >
                                         Chi tiết
                                     </Button>
-                                    <Button
-                                        variant="outlined"
-                                        color={customer.isActive ? "secondary" : "success"}
-                                        size="small"
-                                        onClick={() => onToggleActive(customer.id, !customer.isActive)}
-                                    >
-                                        {customer.isActive ? "Vô hiệu hóa" : "Kích hoạt"}
-                                    </Button>
+                                    
                                 </TableCell>
                             </TableRow>
                         ))}

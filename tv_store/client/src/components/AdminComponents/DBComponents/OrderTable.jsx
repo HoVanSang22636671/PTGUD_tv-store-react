@@ -10,7 +10,7 @@ import {
     Paper,
 } from "@mui/material";
 
-const OrderTable = ({ data }) => {
+const OrderTable = ({ data = [] }) => {
     return (
         <Paper sx={{ p: 3, boxShadow: 3, mb: 4 }}>
             <Typography variant="h6" fontWeight="bold" gutterBottom>
@@ -22,40 +22,54 @@ const OrderTable = ({ data }) => {
                     <TableHead>
                         <TableRow sx={{ backgroundColor: "#f0f0f0" }}>
                             <TableCell><strong>Tên khách hàng</strong></TableCell>
-                            <TableCell><strong>Sản phẩm</strong></TableCell>
+
                             <TableCell><strong>Giá trị đơn hàng</strong></TableCell>
                             <TableCell><strong>Ngày đặt hàng</strong></TableCell>
                             <TableCell><strong>Trạng thái</strong></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data.map((item, index) => (
-                            <TableRow
-                                key={index}
-                                sx={{
-                                    "&:hover": { backgroundColor: "#f9f9f9" },
-                                }}
-                            >
-                                <TableCell>{item.customerName}</TableCell>
-                                <TableCell>{item.product}</TableCell>
-                                <TableCell>{item.orderValue.toLocaleString()} VND</TableCell>
-                                <TableCell>{item.orderDate}</TableCell>
-                                <TableCell>
-                                    <Typography
-                                        fontWeight="bold"
-                                        color={
-                                            item.status === "Đang xử lý"
-                                                ? "orange"
-                                                : item.status === "Hoàn thành"
-                                                    ? "green"
-                                                    : "red"
-                                        }
-                                    >
-                                        {item.status}
+                        {data.length > 0 ? (
+                            data.map((item, index) => (
+                                <TableRow
+                                    key={index}
+                                    sx={{
+                                        "&:hover": { backgroundColor: "#f9f9f9" },
+                                    }}
+                                >
+                                    <TableCell>{item.customerName || "Không xác định"}</TableCell>
+
+                                    <TableCell>
+                                        {item.date !== undefined
+                                            ? `${item.total.toLocaleString()} VND`
+                                            : "N/A"}
+                                    </TableCell>
+                                    <TableCell>{item.date || "N/A"}</TableCell>
+                                    <TableCell>
+                                        <Typography
+                                            fontWeight="bold"
+                                            color={
+                                                item.status === "processing" || item.status === "shipping"
+                                                    ? "orange"
+                                                    : item.status === "delivered"
+                                                        ? "green"
+                                                        : "red"
+                                            }
+                                        >
+                                            {item.status}
+                                        </Typography>
+                                    </TableCell>
+                                </TableRow>
+                            ))
+                        ) : (
+                            <TableRow>
+                                <TableCell colSpan={5} align="center">
+                                    <Typography variant="body1" color="textSecondary">
+                                        Không có dữ liệu đơn hàng
                                     </Typography>
                                 </TableCell>
                             </TableRow>
-                        ))}
+                        )}
                     </TableBody>
                 </Table>
             </TableContainer>

@@ -56,7 +56,7 @@ const OrderList = ({ orders, onSelectOrder, title, onExportExcel }) => {
                     <TableBody>
                         {orders.map((order) => (
                             <TableRow
-                                key={order.id}
+                                key={order.id + order.customerName} // Ensure unique key
                                 hover
                                 sx={{
                                     "&:hover": { backgroundColor: "#f9f9f9" }, // Hiệu ứng hover
@@ -69,11 +69,11 @@ const OrderList = ({ orders, onSelectOrder, title, onExportExcel }) => {
                                     <Typography
                                         fontWeight="bold"
                                         color={
-                                            order.status === "Đang xử lý"
+                                            order.status === "processing" || order.status === "shipping"
                                                 ? "orange"
-                                                : order.status === "Hoàn thành"
-                                                    ? "green"
-                                                    : "red"
+                                                : order.status === "delivered"
+                                                ? "green"
+                                                : "red"
                                         }
                                     >
                                         {order.status}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import OrderList from "./OMComponents/OrderList";
 import OrderDetail from "./OMComponents/OrderDetail";
 import { sendNotification } from "./OMComponents/NotificationService";
@@ -15,32 +15,53 @@ import {
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers";
-
-const initialOrders = [
-    {
-        id: 1,
-        customerName: "Nguyễn Văn A",
-        items: [
-            { name: "Tivi LG 55 inch", quantity: 1, price: 11590000 },
-            { name: "Máy giặt Samsung", quantity: 1, price: 8500000 },
-        ],
-        total: 20090000,
-        status: "Đang xử lý",
-        date: "2025-05-01",
-    },
-    {
-        id: 2,
-        customerName: "Trần Thị B",
-        items: [{ name: "Tủ lạnh Panasonic", quantity: 1, price: 12490000 }],
-        total: 12490000,
-        status: "Đã giao",
-        date: "2025-05-02",
-    },
-];
+import { useProduct } from "../../API/UseProvider";
 
 const OrderManagement = () => {
-    const [orders, setOrders] = useState(initialOrders);
-    const [selectedOrder, setSelectedOrder] = useState(null);
+    const { accountList, product } = useProduct();  // Lấy danh sách tài khoản và sản phẩm từ `useProduct`
+
+    // Tính toán initialOrders chỉ một lần khi dữ liệu thay đổi
+    const initialOrders = accountList?.flatMap(account =>
+        account?.order?.map(order => {
+            // Kiểm tra sự tồn tại của order.products
+            const total = order.products?.reduce((sum, item) => {
+                // Kiểm tra sự tồn tại của sản phẩm trong danh sách products
+                const productFound = product.find(p => p.id === item.idProduct);
+                if (productFound) {
+                    return sum + (productFound.price * item.quantity); // Tính tổng tiền
+                }
+                return sum;
+            }, 0) || 0; // Nếu không có sản phẩm thì tổng là 0
+
+            return {
+                id: order.id,
+                customerName: account.fullName,
+                items: order.items, // Nếu không sử dụng thì có thể bỏ đi
+                total: total,
+                status: order.status,
+                date: order.date,
+            };
+        }) || [] // Nếu không có order thì trả về mảng rỗng
+    );
+
+    // Kiểm tra kết quả
+    console.log(initialOrders);
+
+    const [orders, setOrders] = useState([]);  // State lưu trữ danh sách đơn hàng
+
+    // Chỉ cập nhật orders nếu cần thiết, tránh lặp lại re-render không cần thiết
+    useEffect(() => {
+        if (JSON.stringify(initialOrders) !== JSON.stringify(orders)) {
+            setOrders(initialOrders);
+        }
+    }, [initialOrders, orders]); // Chạy lại khi `initialOrders` thay đổi
+
+    // Kiểm tra kết quả khi orders thay đổi
+    useEffect(() => {
+        console.log(orders); // In ra state mỗi khi nó thay đổi
+    }, [orders]);
+
+    const [selectedOrder, setSelectedOrder] = useState(null);  // Lưu trữ đơn hàng đã chọn
     const [searchParams, setSearchParams] = useState({
         keyword: "",
         status: "",
@@ -48,22 +69,26 @@ const OrderManagement = () => {
     });
 
     // Hàm lọc danh sách đơn hàng
-    const filterOrders = (updatedParams) => {
+    const filterOrders = useCallback((updatedParams) => {
         const filteredOrders = initialOrders.filter((order) => {
+            // Kiểm tra tìm kiếm theo tên khách hàng
             const matchesKeyword =
                 order.customerName.toLowerCase().includes(updatedParams.keyword.toLowerCase());
 
+            // Kiểm tra theo trạng thái
             const matchesStatus =
                 !updatedParams.status || order.status === updatedParams.status;
 
+            // Kiểm tra ngày
             const matchesDate =
-                !updatedParams.date || order.date === updatedParams.date.format("YYYY-MM-DD");
+                !updatedParams.date ||
+                (updatedParams.date && order.date === updatedParams.date.format("YYYY-MM-DD"));
 
             return matchesKeyword && matchesStatus && matchesDate;
         });
 
         setOrders(filteredOrders);
-    };
+    }, [initialOrders]); // Chỉ phụ thuộc vào initialOrders để tối ưu hóa
 
     // Hàm xử lý khi nhấn nút tìm kiếm
     const handleSearch = () => {
@@ -74,15 +99,15 @@ const OrderManagement = () => {
     const handleStatusChange = (e) => {
         const newStatus = e.target.value;
         const updatedParams = { ...searchParams, status: newStatus };
-        setSearchParams(updatedParams);
-        filterOrders(updatedParams);
+        setSearchParams(updatedParams); // Cập nhật trạng thái tìm kiếm
+        filterOrders(updatedParams);  // Gọi lại hàm lọc
     };
 
     // Hàm xử lý khi thay đổi ngày
     const handleDateChange = (newDate) => {
         const updatedParams = { ...searchParams, date: newDate };
-        setSearchParams(updatedParams);
-        filterOrders(updatedParams);
+        setSearchParams(updatedParams); // Cập nhật ngày tìm kiếm
+        filterOrders(updatedParams);  // Gọi lại hàm lọc
     };
 
     // Hàm xử lý khi thay đổi trạng thái đơn hàng
@@ -90,9 +115,12 @@ const OrderManagement = () => {
         const updatedOrders = orders.map((order) =>
             order.id === orderId ? { ...order, status: newStatus } : order
         );
-        setOrders(updatedOrders);
 
-        // Gửi thông báo đến khách hàng
+        // Chỉ cập nhật khi orders thực sự thay đổi
+        if (JSON.stringify(updatedOrders) !== JSON.stringify(orders)) {
+            setOrders(updatedOrders);
+        }
+
         const order = orders.find((order) => order.id === orderId);
         sendNotification(order.customerName, newStatus);
     };
@@ -145,9 +173,10 @@ const OrderManagement = () => {
                                 label="Trạng thái"
                             >
                                 <MenuItem value="">Tất cả</MenuItem>
-                                <MenuItem value="Đang xử lý">Đang xử lý</MenuItem>
-                                <MenuItem value="Đã giao">Đã giao</MenuItem>
-                                <MenuItem value="Hủy">Hủy</MenuItem>
+                                <MenuItem value="processing">Đang xử lý</MenuItem>
+                                <MenuItem value="shipping">Đang giao</MenuItem>
+                                <MenuItem value="delivered">Đã giao</MenuItem>
+                                <MenuItem value="cancelled">Hủy</MenuItem>
                             </Select>
                         </FormControl>
 

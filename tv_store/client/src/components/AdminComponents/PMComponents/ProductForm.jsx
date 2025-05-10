@@ -13,25 +13,28 @@ import {
     MenuItem,
     InputLabel,
 } from "@mui/material";
-import * as XLSX from "xlsx"; // Import thư viện xử lý file Excel
+import * as XLSX from "xlsx";
 
 const ProductForm = ({ onSubmit, editingProduct, setEditingProduct, existingBrands }) => {
     const [formData, setFormData] = useState({
+        id: editingProduct?.id || '', // Ensuring a string ID
         name: "",
         image: "",
         price: 0,
-        quantity: 0,
-        status: "Đang bán",
-        brand: "", // Thương hiệu
+        inventory: 0,
+        sale: 0,
+        thuongHieu: "",
     });
 
-    const [isCustomBrand, setIsCustomBrand] = useState(false); // Kiểm tra xem thương hiệu có phải nhập mới không
+    const [isCustomBrand, setIsCustomBrand] = useState(false);
 
-    // Cập nhật dữ liệu khi chỉnh sửa sản phẩm
     useEffect(() => {
         if (editingProduct) {
-            setFormData(editingProduct);
-            setIsCustomBrand(!existingBrands.includes(editingProduct.brand)); // Nếu brand không nằm trong danh sách thì chuyển sang nhập mới
+            setFormData({
+                ...editingProduct,
+                thuongHieu: editingProduct.thuongHieu || editingProduct.brand || "",
+            });
+            setIsCustomBrand(!existingBrands.includes(editingProduct.thuongHieu || editingProduct.brand));
         }
     }, [editingProduct, existingBrands]);
 
@@ -42,9 +45,18 @@ const ProductForm = ({ onSubmit, editingProduct, setEditingProduct, existingBran
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(formData);
-        setFormData({ name: "", image: "", price: 0, quantity: 0, status: "Đang bán", brand: "" });
-        setIsCustomBrand(false); // Reset trạng thái nhập mới thương hiệu
+        const data = {
+            id: formData.id,
+            name: formData.name,
+            price: formData.price,
+            inventory: parseInt(formData.inventory),  // Chuyển đổi inventory thành số
+            sale: formData.sale,
+            thuongHieu: formData.thuongHieu,
+        };
+        console.log("Submitted data:", data);
+        onSubmit(data);
+        setFormData({ name: "", image: "", price: 0, inventory: 0, sale: 0, thuongHieu: "" });
+        setIsCustomBrand(false);
     };
 
     const handleFileUpload = (e) => {
@@ -61,13 +73,12 @@ const ProductForm = ({ onSubmit, editingProduct, setEditingProduct, existingBran
                 const sheet = workbook.Sheets[sheetName];
                 const parsedProducts = XLSX.utils.sheet_to_json(sheet);
 
-                // Gọi hàm `onSubmit` cho từng sản phẩm từ file Excel
                 parsedProducts.forEach((product) => {
-                    if (product.name && product.price && product.quantity && product.brand) {
+                    if (product.name && product.price && product.inventory && product.thuongHieu) {
                         onSubmit({
                             ...product,
-                            id: Date.now() + Math.random(), // Sinh ID ngẫu nhiên cho từng sản phẩm
-                            status: product.status || "Đang bán", // Mặc định trạng thái nếu thiếu
+                            id: '',  // Empty ID for new products
+                            status: product.status || "Đang bán",
                         });
                     }
                 });
@@ -85,18 +96,9 @@ const ProductForm = ({ onSubmit, editingProduct, setEditingProduct, existingBran
             onClose={() => setEditingProduct(null)}
             maxWidth="sm"
             fullWidth
-            sx={{
-                "& .MuiDialog-paper": {
-                    borderRadius: 8, // Bo góc modal
-                },
-            }}
-            BackdropProps={{
-                style: {
-                    backgroundColor: "rgba(0, 0, 0, 0.5)", // Nền mờ phía sau Modal
-                },
-            }}
+            sx={{ "& .MuiDialog-paper": { borderRadius: 8 } }}
+            BackdropProps={{ style: { backgroundColor: "rgba(0, 0, 0, 0.5)" } }}
         >
-            {/* Header - Tiêu đề */}
             <DialogTitle
                 sx={{
                     backgroundColor: "#f5f5f5",
@@ -108,15 +110,8 @@ const ProductForm = ({ onSubmit, editingProduct, setEditingProduct, existingBran
                 {editingProduct ? "Cập nhật sản phẩm" : "Thêm sản phẩm"}
             </DialogTitle>
 
-            {/* Nội dung - Form */}
-            <DialogContent
-                sx={{
-                    padding: "24px",
-                    paddingTop: "10px",
-                }}
-            >
+            <DialogContent sx={{ padding: "24px", paddingTop: "10px" }}>
                 <Box display="grid" gridTemplateColumns="1fr 1fr" gap={2}>
-                    {/* Tên sản phẩm */}
                     <TextField
                         label="Tên sản phẩm"
                         name="name"
@@ -126,7 +121,6 @@ const ProductForm = ({ onSubmit, editingProduct, setEditingProduct, existingBran
                         required
                     />
 
-                    {/* URL hình ảnh */}
                     <TextField
                         label="URL hình ảnh"
                         name="image"
@@ -136,7 +130,6 @@ const ProductForm = ({ onSubmit, editingProduct, setEditingProduct, existingBran
                         required
                     />
 
-                    {/* Giá */}
                     <TextField
                         label="Giá"
                         name="price"
@@ -147,42 +140,36 @@ const ProductForm = ({ onSubmit, editingProduct, setEditingProduct, existingBran
                         required
                     />
 
-                    {/* Số lượng */}
                     <TextField
                         label="Số lượng"
-                        name="quantity"
+                        name="inventory"
                         type="number"
-                        value={formData.quantity}
+                        value={formData.inventory}
                         onChange={handleChange}
                         fullWidth
                         required
                     />
 
-                    {/* Trạng thái */}
-                    <FormControl fullWidth>
-                        <InputLabel>Trạng thái</InputLabel>
-                        <Select
-                            name="status"
-                            value={formData.status}
-                            onChange={handleChange}
-                            fullWidth
-                        >
-                            <MenuItem value="Đang bán">Đang bán</MenuItem>
-                            <MenuItem value="Hết hàng">Hết hàng</MenuItem>
-                        </Select>
-                    </FormControl>
+                    <TextField
+                        label="Giảm giá (%)"
+                        name="sale"
+                        type="number"
+                        value={formData.sale}
+                        onChange={handleChange}
+                        fullWidth
+                        required
+                    />
 
-                    {/* Thương hiệu */}
                     <FormControl fullWidth>
                         <InputLabel>Thương hiệu</InputLabel>
                         {!isCustomBrand ? (
                             <Select
-                                name="brand"
-                                value={formData.brand}
+                                name="thuongHieu"
+                                value={formData.thuongHieu}
                                 onChange={(e) => {
                                     if (e.target.value === "custom") {
                                         setIsCustomBrand(true);
-                                        setFormData({ ...formData, brand: "" });
+                                        setFormData({ ...formData, thuongHieu: "" });
                                     } else {
                                         handleChange(e);
                                     }
@@ -200,8 +187,8 @@ const ProductForm = ({ onSubmit, editingProduct, setEditingProduct, existingBran
                         ) : (
                             <TextField
                                 label="Thương hiệu mới"
-                                name="brand"
-                                value={formData.brand}
+                                name="thuongHieu"
+                                value={formData.thuongHieu}
                                 onChange={handleChange}
                                 fullWidth
                                 required
@@ -209,7 +196,6 @@ const ProductForm = ({ onSubmit, editingProduct, setEditingProduct, existingBran
                         )}
                     </FormControl>
 
-                    {/* Tải file Excel */}
                     <Box>
                         <Typography variant="body1" sx={{ fontWeight: "bold", marginBottom: 1 }}>
                             Thêm sản phẩm từ file Excel
@@ -231,7 +217,6 @@ const ProductForm = ({ onSubmit, editingProduct, setEditingProduct, existingBran
                 </Box>
             </DialogContent>
 
-            {/* Footer - Nút hành động */}
             <DialogActions
                 sx={{
                     padding: "16px",

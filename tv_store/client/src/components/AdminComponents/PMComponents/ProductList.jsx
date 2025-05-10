@@ -95,10 +95,10 @@ const ProductList = ({ products, onEdit, onDelete, onAddProduct }) => {
                                     "&:hover": { backgroundColor: "#f9f9f9" },
                                 }}
                             >
-                                <TableCell>{product.name}</TableCell>
+                                <TableCell>{product?.name}</TableCell>
                                 <TableCell>
                                     <img
-                                        src={product.image}
+                                        src={product?.img[0].img}
                                         alt={product.name}
                                         style={{
                                             width: "64px",
@@ -109,20 +109,24 @@ const ProductList = ({ products, onEdit, onDelete, onAddProduct }) => {
                                     />
                                 </TableCell>
                                 <TableCell>{product.price.toLocaleString()} VND</TableCell>
-                                <TableCell>{product.quantity}</TableCell>
-                                <TableCell>{product.brand}</TableCell>
+                                <TableCell>{product?.inventory}</TableCell>
+                                <TableCell>{product.thuongHieu}</TableCell>
                                 <TableCell>
                                     <Typography
                                         fontWeight="bold"
                                         color={
-                                            product.status === "Còn hàng"
+                                            product.inventory > 0
                                                 ? "green"
-                                                : product.status === "Hết hàng"
-                                                    ? "red"
-                                                    : "orange"
+                                                :
+                                                "red"
+
                                         }
                                     >
-                                        {product.status}
+                                        {product.inventory > 0
+                                            ? "Còng hàng"
+
+                                            : "Hết hàng"
+                                        }
                                     </Typography>
                                 </TableCell>
                                 <TableCell>

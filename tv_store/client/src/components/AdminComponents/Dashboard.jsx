@@ -5,56 +5,86 @@ import {
     Button,
     Paper,
 } from "@mui/material";
-import OrderTable from "./DBComponents/OrderTable";
+import OrderTable from "./DBComponents/OrderTable"; // Bảng hiển thị đơn hàng
 import BestSellingTable from "./DBComponents/BestSellingTable";
 import LowStockWarning from "./DBComponents/LowStockWarning";
 import Charts from "./DBComponents/Charts";
-
-// Dữ liệu đơn hàng
-const orders = [
-    { customerName: "Nguyễn Văn A", product: "Google Tivi LED Hisense 4K 43 inch", orderValue: 6490000, orderDate: "2025-05-01", status: "Đang xử lý" },
-    { customerName: "Trần Thị B", product: "Tivi Panasonic Full HD 75 inch A8H", orderValue: 7590000, orderDate: "2025-05-02", status: "Hoàn thành" },
-    { customerName: "Hoàng Minh C", product: "Tivi TCL 4K UHD 43 inch S5400A", orderValue: 8990000, orderDate: "2025-05-03", status: "Hủy bỏ" },
-    { customerName: "Lê Thị D", product: "Tivi Sony QLED 4K 50 inch P635", orderValue: 9990000, orderDate: "2025-05-04", status: "Hoàn thành" },
-    { customerName: "Phạm Văn E", product: "Tivi LG Full HD 55 inch C645", orderValue: 11590000, orderDate: "2025-05-05", status: "Đang xử lý" },
-];
-
-// Dữ liệu sản phẩm bán chạy
-const bestSellingProducts = [
-    { productName: "Google Tivi LED Hisense 4K 43 inch", sales: 120 },
-    { productName: "Tivi Panasonic Full HD 75 inch A8H", sales: 95 },
-    { productName: "Tivi TCL 4K UHD 43 inch S5400A", sales: 80 },
-    { productName: "Tivi Sony QLED 4K 50 inch P635", sales: 60 },
-];
-
-// Dữ liệu tồn kho thấp
-const lowStockProducts = [
-    { name: "Sản phẩm A", stock: 3 },
-    { name: "Sản phẩm B", stock: 10 },
-    { name: "Sản phẩm C", stock: 1 },
-    { name: "Sản phẩm D", stock: 6 },
-];
-
-// Dữ liệu doanh thu cho biểu đồ
-const revenueData = [
-    { date: "2025-05-03", revenue: 1200 },
-    { date: "2025-05-04", revenue: 1500 },
-    { date: "2025-05-05", revenue: 800 },
-    { date: "2025-05-06", revenue: 2200 },
-    { date: "2025-05-07", revenue: 1700 },
-    { date: "2025-05-08", revenue: 2500 },
-    { date: "2025-05-09", revenue: 2000 },
-];
-
-// Dữ liệu trạng thái đơn hàng cho biểu đồ
-const orderStatusData = [
-    { status: "Hoàn thành", value: 50 },
-    { status: "Đang xử lý", value: 30 },
-    { status: "Hủy", value: 20 },
-];
+import { useProduct } from "../../API/UseProvider"; // Lấy dữ liệu từ UserProvider
 
 const Dashboard = () => {
     const [activeFilter, setActiveFilter] = useState("orders"); // Trạng thái hiển thị filter
+    const { product, loading, accountList } = useProduct(); // Lấy dữ liệu từ UserProvider
+
+    if (loading) {
+        return <Typography>Đang tải dữ liệu...</Typography>;
+    }
+
+    // Lấy tất cả đơn hàng từ người dùng
+    const initialOrders = accountList?.flatMap(account =>
+        account?.order?.map(order => {
+            // Kiểm tra sự tồn tại của order.products
+            const total = order.products?.reduce((sum, item) => {
+                // Kiểm tra sự tồn tại của sản phẩm trong danh sách products
+                const productFound = product.find(p => p.id === item.idProduct);
+                if (productFound) {
+                    return sum + (productFound.price * item.quantity); // Tính tổng tiền
+                }
+                return sum;
+            }, 0) || 0; // Nếu không có sản phẩm thì tổng là 0
+
+            return {
+                id: order.id,
+                customerName: account.fullName,
+                items: order.items, // Nếu không sử dụng thì có thể bỏ đi
+                total: total,
+                status: order.status,
+                date: order.date,
+            };
+        }) || [] // Nếu không có order thì trả về mảng rỗng
+    );
+console.log(initialOrders);
+    // Nếu không có đơn hàng, tạo dữ liệu mẫu
+    const allOrders = initialOrders?.length > 0 ? initialOrders : [
+        {
+            id: 1,
+            customerName: "Nguyễn Văn A",
+            total: 2000000, // Giá trị đơn hàng mẫu
+            status: "Đang xử lý",
+            date: "10/05/2025", // Ngày mẫu
+        },
+        {
+            id: 2,
+            customerName: "Trần Thị B",
+            total: 1500000, // Giá trị đơn hàng mẫu
+            status: "Hoàn thành",
+            date: "09/05/2025", // Ngày mẫu
+        },
+        {
+            id: 3,
+            customerName: "Lê Văn C",
+            total: 3000000, // Giá trị đơn hàng mẫu
+            status: "Hủy",
+            date: "08/05/2025", // Ngày mẫu
+        },
+    ];
+
+    // Dữ liệu sản phẩm bán chạy
+    const bestSellingProducts = product
+        .filter((p) => p.sold) // Chỉ lấy sản phẩm có lượt bán
+        .sort((a, b) => b.sold - a.sold) // Sắp xếp theo số lượng bán giảm dần
+        .slice(0, 5) // Lấy 5 sản phẩm đầu tiên
+        .map((p) => ({
+            productName: p.name, // Sử dụng trực tiếp trường "name"
+            sales: p.sold, // Số lượng đã bán
+        }));
+
+    // Dữ liệu cảnh báo tồn kho
+    const lowStockProducts = product
+        .filter((p) => p.inventory < 5) // Chỉ lấy sản phẩm có tồn kho thấp
+        .map((p) => ({
+            name: p.name, // Sử dụng trực tiếp trường "name"
+            stock: p.inventory, // Số lượng tồn kho
+        }));
 
     return (
         <Paper sx={{ p: 4, boxShadow: 3, backgroundColor: "#ffffff", borderRadius: 2, height: "100%", overflow: "hidden" }}>
@@ -76,7 +106,7 @@ const Dashboard = () => {
                     }}
                     onClick={() => setActiveFilter("orders")}
                 >
-                    Danh sách đơn hàng gần đây
+                    Danh sách đơn hàng
                 </Button>
                 <Button
                     variant={activeFilter === "products" ? "contained" : "outlined"}
@@ -121,10 +151,10 @@ const Dashboard = () => {
 
             {/* Hiển thị nội dung dựa trên filter */}
             <Box sx={{ height: "calc(100% - 64px)", overflowY: "auto" }}>
-                {activeFilter === "orders" && <OrderTable data={orders} />}
+                {activeFilter === "orders" && <OrderTable data={allOrders} />}
                 {activeFilter === "products" && <BestSellingTable data={bestSellingProducts} />}
                 {activeFilter === "lowStock" && <LowStockWarning products={lowStockProducts} />}
-                {activeFilter === "charts" && <Charts revenueData={revenueData} orderStatusData={orderStatusData} />}
+                {activeFilter === "charts" && <Charts />}
             </Box>
         </Paper>
     );

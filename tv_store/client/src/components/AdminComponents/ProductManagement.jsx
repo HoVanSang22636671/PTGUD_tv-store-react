@@ -11,7 +11,7 @@ import {
     Typography,
     Button,
 } from "@mui/material";
-
+import { useProduct } from "../../API/UseProvider"; // Import useProduct từ UseProvider.jsx
 const initialProducts = [
     {
         id: 1,
@@ -43,7 +43,9 @@ const initialProducts = [
 ];
 
 const ProductManagement = () => {
-    const [products, setProducts] = useState(initialProducts);
+    const { product, setProduct,addProduct } = useProduct();
+    // const [products, setProducts] = useState(product);
+
     const [selectedProduct, setSelectedProduct] = useState(null); // Quản lý sản phẩm được chọn (dùng cho sửa hoặc thêm mới)
     const [searchTerm, setSearchTerm] = useState("");
     const [filters, setFilters] = useState({
@@ -52,27 +54,17 @@ const ProductManagement = () => {
     });
 
     const handleSaveProduct = (product) => {
-        if (product.id) {
-            // Cập nhật sản phẩm (Sửa)
-            setProducts(
-                products.map((p) =>
-                    p.id === product.id ? { ...p, ...product } : p
-                )
-            );
-        } else {
-            // Thêm sản phẩm mới
-            setProducts([...products, { ...product, id: Date.now() }]);
-        }
+        addProduct(product); // Gọi hàm thêm sản phẩm từ useProduct
         setSelectedProduct(null); // Đóng Modal sau khi lưu
     };
 
     const handleDeleteProduct = (id) => {
-        setProducts(products.filter((product) => product.id !== id));
+        setProduct(product.filter((product) => product.id !== id));
     };
 
     const toggleStatus = (id) => {
-        setProducts(
-            products.map((product) =>
+        setProduct(
+            product.map((product) =>
                 product.id === id
                     ? {
                         ...product,
@@ -83,19 +75,20 @@ const ProductManagement = () => {
         );
     };
 
-    const filteredProducts = products.filter((product) => {
+    const filteredProducts = product.filter((product) => {
         const matchesSearchTerm = product.name
             .toLowerCase()
             .includes(searchTerm.toLowerCase());
 
-        const matchesFilters =
-            (filters.status === "" || product.status === filters.status) &&
-            (filters.brand === "" || product.brand === filters.brand);
+        const productStatus = product.inventory > 0 ? "Đang bán" : "Hết hàng";
 
+        const matchesFilters =
+            (filters.status === "" || productStatus === filters.status) &&
+            (filters.brand === "" || product.brand === filters.brand);
         return matchesSearchTerm && matchesFilters;
     });
 
-    const uniqueBrands = [...new Set(products.map((product) => product.brand))];
+    const uniqueBrands = [...new Set(product.map((product) => product.thuongHieu))];
 
     return (
         <div className="p-4 bg-white rounded-lg shadow-md">

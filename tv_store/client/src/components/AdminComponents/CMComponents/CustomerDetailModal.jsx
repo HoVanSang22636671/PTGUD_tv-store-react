@@ -16,33 +16,33 @@ import {
     Paper,
 } from "@mui/material";
 
-const CustomerDetailModal = ({ customer, onClose, onSave }) => {
+const CustomerDetailModal = ({ customer, onClose, onSave, products }) => {
     const [form, setForm] = useState(customer || {});
 
-    // Cập nhật thông tin form mỗi khi customer thay đổi
     useEffect(() => {
         setForm(customer || {});
     }, [customer]);
 
-    // Xử lý khi thay đổi thông tin trong form
     const handleFormChange = (e) => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
     };
 
-    // Hàm lưu thông tin chỉnh sửa
     const handleSave = () => {
-        onSave(form); // Gọi callback để lưu thông tin
-        onClose(); // Đóng modal
+        onSave(form);
+        onClose();
     };
 
     if (!customer) return null;
+
+    console.log("Customer:", customer);
+    console.log("Products:", products);
 
     return (
         <Dialog open={Boolean(customer)} onClose={onClose} maxWidth="md" fullWidth>
             <DialogTitle>Thông tin chi tiết khách hàng</DialogTitle>
             <DialogContent>
-                {/* Thông tin khách hàng */}
+                {/* Thông tin cá nhân */}
                 <Typography variant="h6" gutterBottom>
                     Thông tin cá nhân
                 </Typography>
@@ -94,14 +94,34 @@ const CustomerDetailModal = ({ customer, onClose, onSave }) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {customer.orders.map((order) => (
-                                <TableRow key={order.id}>
-                                    <TableCell>{order.id}</TableCell>
-                                    <TableCell>{order.date}</TableCell>
-                                    <TableCell>{order.total.toLocaleString()} VND</TableCell>
-                                    <TableCell>{order.status}</TableCell>
-                                </TableRow>
-                            ))}
+                            {(customer.order || []).map((order) => {
+                                const total = (order.products || []).reduce((sum, item) => {
+                                    const product = products.find((p) => String(p.id) === String(item.idProduct));
+                                    console.log("Item:", item);
+                                    console.log("Matched Product:", product);
+
+                                    if (product) {
+                                        return sum + (product.price || 0) * item.quantity;
+                                    }
+                                    return sum;
+                                }, 0);
+
+                                // Xử lý màu sắc trạng thái
+                                const statusColor = order.status === "delivered" ? "green" : "black";
+
+                                return (
+                                    <TableRow key={order.id}>
+                                        <TableCell>{order.id}</TableCell>
+                                        <TableCell>
+                                            {order.date ? new Date(order.date).toLocaleDateString() : "—"}
+                                        </TableCell>
+                                        <TableCell>{total.toLocaleString()} VND</TableCell>
+                                        <TableCell style={{ color: statusColor }}>
+                                            {order.status || "—"}
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            })}
                         </TableBody>
                     </Table>
                 </TableContainer>

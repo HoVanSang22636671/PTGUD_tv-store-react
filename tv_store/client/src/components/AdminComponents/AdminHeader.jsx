@@ -71,7 +71,7 @@ function AdminHeader({ isSidebarOpen, toggleSidebar }) {
               Quản lý tài khoản
             </Link>
             <Link
-              to="/logout"
+              to="/login"
               className="block px-4 py-2 text-sm text-gray-600 hover:bg-gray-100"
             >
               Đăng xuất
